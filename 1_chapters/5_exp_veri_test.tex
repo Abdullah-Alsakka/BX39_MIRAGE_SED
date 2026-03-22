@@ -1,0 +1,441 @@
+\chapter{EXPERIMENT VERIFICATION AND TESTING}
+
+\section{Verification Matrix}
+
+\begin{longtable}{L{0.7cm}L{5cm}L{1.5cm}L{2cm}L{2.5cm}L{2cm}}
+\caption{Verification Matrix}
+\label{tab:verification_matrix} \\
+
+\toprule
+\textbf{ID} & \textbf{Requirement text} & \textbf{Method} & \textbf{Reference} & \textbf{Status} & \textbf{Verification Result} \\
+\midrule
+\endfirsthead
+
+\multicolumn{6}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}}\\
+\toprule
+\textbf{ID} & \textbf{Requirement text} & \textbf{Method} & \textbf{Reference} & \textbf{Status} & \textbf{Verification Result} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+F.1. & The experiment shall measure the atmospheric CH\textsubscript{4}, CO\textsubscript{2} and H\textsubscript{2}O concentrations of ambient air simultaneously with an off-the-shelf \gls{ndir} sensor. & R, T & Test 3, Test 13 & To be done (June) & Pending \\
+F.2. & The measurement chamber shall be pressurised with ambient air. & R, T & Test 2 & To be done (June) & Pending \\
+F.3. & The air in the measurement chamber shall be exchanged. & R,T & Test 2, Test 3 & To be done (earliest test in June) & Pending \\
+F.4. & The experiment shall measure pressure inside of the measurement chamber. & R,T & Test 2, Test 7 & To be done (earliest test in June) & Pending \\
+F.5. & The experiment shall measure the temperature inside of the measurement chamber. & R,T & Test 3, Test 8  & To be done (earliest test in June) & Pending \\
+F.6. & The experiment shall stabilize the temperature inside the measurement chamber. & A,T & Test 5, Test 8 & To be done (earliest test in June) & Pending \\
+F.7. & The experiment shall measure the humidity inside of the measurement chamber. & R,T & Test 3, Test 8 & To be done (earliest test in June) & Pending \\
+F.8 & The experiment shall prevent the condensation of water inside the measurement chamber. & R, T & Test 8 & To be done (July) & Pending \\
+F.9. & The experiment should measure ambient temperature outside. & R,T & Test 8, Test 13 & To be done (earliest in July) & Pending \\
+F.10. & The experiment should measure ambient pressure outside. & R,T &  Test 7, Test 13 & To be done (earliest in July) & Pending \\
+F.11. & The experiment should measure ambient humidity outside. & R,T &  Test 8, Test 13 & To be done (earliest in July) & Pending \\
+F.12. & The experiment shall send data via E-Link. & T & Test 6 & To be done (June) & Pending \\
+F.13. & The experiment shall receive data via E-Link. & T & Test 6 & To be done (June) & Pending \\
+P.1.1 & The \gls{ndir} sensor shall measure the concentration of methane with a range of 0.4 to 3.0 ppm. & R, T & Test 3, Test 13 & To be done (June) & Pending \\
+P.1.2 & The \gls{ndir} sensor shall measure the concentration of methane with an uncertainty of 0.5 ppm or less. & R, T & Test 3, Test 13 & To be done (June) & Pending\\
+P.2.1 & The \gls{ndir} sensor shall measure the concentration of carbondioxide with a range of 200 to 500 ppm. & R, T & Test 3, Test 13  & To be done (June) & Pending \\
+P.2.2 & The \gls{ndir} sensor shall measure the concentration of carbondioxide with an uncertainty of 5 ppm or less. & R, T & Test 3, Test 13 & To be done (June) & Pending\\
+P.3.1 & The \gls{ndir} sensor shall measure the concentration of water with a range of 1 to 30,000 ppm. & R, T & Test 3, Test 13  & To be done (June) & Pending \\
+P.3.2 & The \gls{ndir} sensor shall measure the concentration of water with an uncertainty of 5 ppm or less. & R, T & Test 3, Test 13  & To be done (June) & Pending \\
+P.4.1 & The pressure inside of the measurement chamber shall stay within a range of 2.5 and 3.2 bar.  & T & Test 2, Test 7 & To be done (earliest test in June) & Pending \\
+P.4.2 & The pressure inside of the measurement chamber should stay within a range of 2.8 and 3 bar. & T & Test 2, Test 7 & To be done (earliest test in June) & Pending \\
+P.5 & The pressurisation system shall have an air throughput of at least 1 l/min. & R, T & Test 2 & To be done (earliest test in June) & Pending \\
+P.6.1 & The experiment shall measure the pressure inside of the measurement chamber in a range of 0.3 to 4 bar. & R, T & Test 2, Test 7 & To be done (June) & Pending \\
+P.6.2 & The experiment shall measure the pressure inside of the measurement chamber with a maximum uncertainty of 0.02 bar. & R, T & Test 2, Test 7 & To be done (June) & Pending \\
+P.7 & The temperature of the air inside of the measurement chamber shall stay within a range of 15 and 40\degree C while active. & A, T & Test 5, Test 8 & To be done (June)& Pending\\
+P.8 & The temperature of the air inside of the measurement chamber should stay within a range of 19 and 24\degree C while active. & A, T & Test 5, Test 8 & To be done (June)& Pending \\
+P.9.1 & The experiment shall measure the temperature inside of the measurement chamber in a range of -40 to +85 \degree C.  & R, T & Test 5, Test 8 & To be done (earliest test in June) & Pending \\
+P.9.2 & The experiment shall measure the temperature inside of the measurement chamber with a maximum uncertainty of 1.5\degree C. & R, T & Test 5, Test 8 & To be done (earliest test in June) & Pending \\
+P.10 & The experiment shall keep the humidity inside of the measurement chamber below 90\% r.H. & T & Test 8 & To be done (earliest test in July) & Pending \\
+P.11.1 & The experiment shall measure the humidity inside of the measurement chamber in a range of 0 to 100\% r.H. & R, T & Test 3, Test 8 & To be done (earliest test in June) & Pending \\
+P.11.2 & The experiment shall measure the humidity inside of the measurement chamber with a maximum uncertainty of 3\% r.H. & R, T & Test 3, Test 8 & To be done (earliest test in June) & Pending \\
+
+P.12 & The experiment should measure the temperature, pressure and humidity inside of the measurement chamber at a rate over 10 Hz. & R, T & Test 8, Test 9 & To be done (earliest test in July) & Pending \\
+P.13.1 & The experiment should measure the ambient pressure outside in a range of 20 to 1100 mbar. & R, T & Test 13 & To be done (August) & Pending \\
+P.13.2 & The experiment should measure the ambient pressure outside with a maximum uncertainty of 20 mbar. & R, T & Test 13 & To be done (August) & Pending  \\
+P.14.1 & The experiment should measure the ambient temperature outside in a range of -70 to +60 \degree C. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.14.2 & The experiment should measure the ambient temperature outside with a maximum uncertainty of 1.5\degree C. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.15.1 & The experiment should measure the ambient humidity outside in a range of 0 to 100\% r.H. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.15.2 & The experiment should measure the ambient humidity outside with a maximum uncertainty of 3\% r.H. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.16 & The experiment should measure the ambient temperature, pressure and humidity outside at a rate over 10 Hz. & R, T & Test 13, Test 9 & To be done (earliest test in July) & Pending \\
+P.17 & The experiment should receive data via E-Link with an uplink rate under 10 kbps. & R, T & Test 12, Test 14 & To be done (July) & Pending \\
+P.18 & The experiment shall send the obtained data with the E-Link with a downlink rate under 100 kbps. & R, T & Test 12, Test 14 & To be done (July)& Pending \\
+
+D.1.1 & The experiment shall operate in the temperature profile of the BEXUS vehicle flight and launch. & A, T & Test 8 & To be done (July) & Pending \\
+D.1.2 & The temperature in the electronic compartment shall stay within a range of -25 and 85°C. & A, T & Test 8 & To be done (July) & Pending\\
+D.1.3 & The temperature in the electronic compartment should stay within a range of -15 and 60°C.& A, T & Test 8 & To be done (July) & Pending\\
+D.2.1 & The experiment shall operate in the pressure profile of the BEXUS vehicle flight and launch. & A, T & Test 1, Test 2, Test 4, Test 7 & Test 1 completed successfully  & Pending \\
+D.2.2 & The measurement chamber shall withstand a pressure difference of up to 4 bar.  & A, T & Test 7 & To be done (July) & Pending \\
+D.3 & The experiment shall operate in the vibration profile of the BEXUS vehicle flight and launch. & T & Test 10 & To be done (July) & Pending \\
+D.4 & The experiment shall operate in the shock profile of the BEXUS vehicle flight and launch. & T & Test 11 & To be done (July) & Pending \\
+D.5 & The experiment power connector shall be an Amphenol PT02E8-4P, Code A. & R & & & \\
+D.6 & The experiment data connector shall be an Amphenol RJF21B connector.  & R & & & \\
+D.7 & The experiment shall not disturb or harm the launch vehicle.  & R, A &  &  & Pending \\
+D.8 & Only the measurement chamber containing the \gls{ndir} sensor core and an additional pressure sensor shall be pressurised. & I, R & & & \\
+D.9 & The experiment shall consume less than 150 Wh during the flight. & T, A & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.10 & The experiment shall operate under 28.8\,V.  & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.11.1 & The experiment shall have no currents exceeding 2.4 A. & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.11.2 & The experiment should have no currents exceeding 1.4 A.  & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.12 & The experiment should stay within a size limit of 15x20x20 cm\textsuperscript{3}. & T & Test 9 & To be done (July) & Pending  \\
+D.13 & The experiment shall stay within a weight limit of 5 kg. & A,T & Test 9 & To be done (July) & Pending \\
+D.14 & The air sample to be measured shall not be changed in its composition by the experiment, the vehicle or other experiments. & R, T & Test 13 & To be done (August) & Pending \\
+
+D.15 & The experiment shall have access to fresh air from outside. & R, I & & & \\
+D.16 & The data storage shall be able to store at least 2GB. & R & & & \\
+D.17 & The data storage shall be protected from water due to condensation or during landing. & R & & & \\
+D.18 & The \gls{ndir} sensor should still function after recovery post flight. & T & Test 9, Test 10 & To be done (earliest test in July) & Pending \\
+D.19 & The budget for all components except the K96 sensor should stay below 2000\texteuro.  & R & & & \\
+O.1 & The experiment shall be able to conduct measurements autonomously in case connection with the ground segment is lost. & T & Test 12, Test 14 & To be done (earliest test in July) & Pending \\
+O.2 & The experiment shall accept a request for radio silence at any time while on the launch pad.  & T & Test 12, Test 14 & To be done (earliest test in July) & Pending \\
+O.3 & The experiment shall store all data on board and continuously send data to ground via E-Link.  & T & Test 12 & To be done (July) & Pending \\
+O.4 & The experiment shall automatically register and respond to high r.H. inside the chamber in order to lower the humidity. & T & Test 8, Test 13 & To be done (earliest test in July) & Pending \\
+
+\end{longtable}
+
+\section{Verification Plan}
+
+%\begin{table}[htbp]
+%\centering
+%\caption{Controlled functionality testing and calibration of K96 sensor %only}
+%\label{tab:test1}
+%\begin{tabular}{L{5cm}L{10cm}}
+%\toprule
+%Test number & 1 \\
+%Test type & Sensor functionality \\
+%Test facility & Uppsala University \\
+%Tested item & K96 sensor \\
+%Model & Prototype Model \\
+%Procedure, Test level and duration & Performance test, compare sensor %readings to known composition of gases tested with varying humidity %levels for measurement times of 20, 50 and 100s. \\
+%Test campaign duration & 2 days \\
+%Test campaign date & March \\
+%Test completed & No \\
+%Requirements verified & \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+\begin{table}[H]
+\centering
+\caption{Pressure test light bulb}
+\label{tab:test_pressure_light_bulb}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 1 \\
+Test type & Pressure test \\
+Test facility & Uppsala University \\
+Tested item & Light bulb of K96 sensor \\
+Model & Prototype model \\
+Procedure, Test level and duration & First part: Put Light bulb into vacuum chamber and drop pressure slowly to 10 mbar. \\
+& Second part: Put light bulb into airtight container and increase pressure slowly until at least 4 bar are reached or until the light bulb bursts. \\
+Test campaign duration & 2 days \\
+Test campaign date & March \\
+Test completed & Partially \\
+Requirements verified & High pressure test sucessfully conducted\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Test of pressurisation system}
+\label{tab:test_pressurisation_system}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 2 \\
+Test type & Pressure test \\
+Test facility & Uppsala University, Vacuum chamber \\
+Tested item & Measurement chamber without K96\\
+Model & Prototype model \\
+Procedure, Test level and duration & Slowly lower pressure from 1 bar to 10 mbar and observe stability of pressure inside of the box. Simulate balloon ascent in duration and rate of pressure decline.  \\
+Test campaign duration & 1 day \\
+Test campaign date & June \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Measurement chamber functionality}
+\label{tab:test3}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 3 \\
+Test type & Sensor functionality \\
+Test facility & ICOS, Norunda \\
+Tested item & Measurement Chamber \\
+Model & Prototype Model \\
+Procedure, Test level and duration & Put measurement chamber close to atmospheric sensing facilities at the location and cross reference collected data. Compare ambient sensor readings with measurements done by ICOS as well. \\
+Test campaign duration & 2 days (setup and long term data collection) \\
+Test campaign date & June \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Vacuum test of the electronic compartment}
+\label{tab:test4}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 4 \\
+Test type & Pressure test \\
+Test facility & Uppsala University, Vacuum chamber \\
+Tested item & Electronic compartment \\
+Model & Prototype model \\
+Procedure, Test level and duration & Slowly lower pressure from 1 bar to 10 mbar and observe stability of circuit and temperature inside and outside of box. Simulate balloon ascent in duration and rate of pressure decline. Keep at 10 mbar for 2 hours at least. \\
+Test campaign duration & 1 day \\
+Test campaign date & June \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Thermal control test}
+\label{tab:test_thermal}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 5 \\
+Test type & Thermal \\
+Test facility & Thermal chamber and vacuum chamber \\
+Tested item & Measurement chamber without K96 sensor \\
+Model & Prototype model \\
+Procedure, Test level and duration & In Thermal chamber: maintain room temperature of air in measurement chamber while decreasing temperature down to -40°C by autonomous current regulation. \\
+& In Vacuum chamber: maintain room temperature of air in measurement chamber while decreasing pressure down to 10\,mbar by autonomous current regulation.  \\
+Test campaign duration & 2 days \\
+Test campaign date & June \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[H]
+\centering
+\caption{Static loads test}
+\label{tab:test_static_loads}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 6 \\
+Test type & Mechanical test \\
+Test facility & Uppsala University \\
+Tested item & Main structure of experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Mounting of experiment should simulate the gondola connection. Then the experiment is loaded with 10 to 30 times the experiment's own weight. \\
+Test campaign duration & 1 day \\
+Test campaign date & June (latest July) \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[H]
+\centering
+\caption{Vacuum test of whole experiment}
+\label{tab:vacuum_test}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 7  \\
+Test type & Pressure test \\
+Test facility & Uppsala University, Vacuum chamber \\
+Tested item & Whole experiment \\
+Model & Protoflight model \\
+Procedure, Test level and duration & Slowly lower pressure from 1 bar to 10 mbar and observe stability of circuit and temperature inside and outside of box. Simulate ascent in duration and rate of pressure decline. Keep at 10 mbar for at least 15 minutes. Pressurise measurement chamber during the whole time. \\
+Test campaign duration & 2 days (setup and execution) \\
+Test campaign date & July \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Temperature and humidity test of whole experiment}
+\label{tab:test_temperature_humidity}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 8 \\
+Test type & Thermal and humidity \\
+Test facility & \gls{irf}, Thermal Chamber \\
+Tested item & Whole experiment \\
+Model & Proto flight model \\
+Procedure, Test level and duration & Vary temperature and test functionality, 20 minutes at temperature steps of 5\degree C between -40\degree C and 10\degree C. Vary humidity between 5 and 100\% r.H. at each temperature step. \\
+Test campaign duration & 3 days (1 day build-up, 2 day testing and packing) \\
+Test campaign date & July \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Weight and dimensions test}
+\label{tab:weight_test}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 9 \\
+Test type & Mechanical \\
+Test facility & Uppsala University \\
+Tested item & Whole experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Put the experiment on a scale. Take a measurement tape and make sure that the outside dimensions are as psecified in the design. \\
+Test campaign duration & 10 minutes \\
+Test campaign date & July \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Vibration test}
+\label{tab:test_vibration}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 10 \\
+Test type & Mechanical test \\
+Test facility & Outside \\
+Tested item & Whole experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Mount experiment in the back of a car and drive through rough terrain, inspect condition of experiment afterwards and test full functionality of experiment. \\
+Test campaign duration & 2 days \\
+Test campaign date & July \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Schock test}
+\label{tab:test_shock}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 11 \\
+Test type & Mechanical \\
+Test facility & Uppsala University \\
+Tested item & Whole experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Drop experiment from 1 to 3 meters onto a padded surface and check visually and for full functionality afterwards. \\
+Test campaign duration & 1 day \\
+Test campaign date & July \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Software testing E-Link}
+\label{tab:test6}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 12 \\
+Test type & Software test \\
+Test facility & Uppsala University \\
+Tested item & E-link, EGSE and software, measurement chamber \\
+Model & Whole experiment \\
+Procedure, Test level and duration & Send and receive data via E-link, test manual control of pumps, thermal control and measurement time \\
+Test campaign duration & 1 day \\
+Test campaign date & July \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Functionality test with reference measurement}
+\label{tab:test13}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 13 \\
+Test type & Full referenced functionality test \\
+Test facility & ICOS, Norunda \\
+Tested item & Whole Experiment \\
+Model & Flight Model \\
+Procedure, Test level and duration & Put measurement chamber close to atmospheric sensing facilities at the location and cross reference collected data. Compare ambient sensor readings with measurements done by ICOS as well. \\
+Test campaign duration & 2 days (setup and long term data collection) \\
+Test campaign date & August \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Bench test}
+\label{tab:test_bench}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 14 \\
+Test type & Long term test \\
+Test facility & Uppsala University \\
+Tested item & Whole experiment \\
+Model & Flight Model \\
+Procedure, Test level and duration & Assemble as for flight and run through simulated countdown of about 2 hours. Run experiment for 6 hours simulating ascent, float and descent. Simulate E-link dropouts as well. Consider recovery time as well for at least 24 hours. \\
+Test campaign duration & 2 days \\
+Test campaign date & August \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% % ... Additional test tables would follow similarly ...
+
+% \section{Verification Results}
+% Test will be conducted later on and the results will be listed here in later versions of the SED.
+% %
+% %\begin{table}[htbp]
+% %\centering
+% %\caption{Example of a test result overview}
+% %\label{tab:test_result}
+% %\begin{tabular}{L{5cm}L{10cm}}
+% %\toprule
+% %\textbf{Verification number} & \\
+% %\textbf{Type of test} & \\
+% %\textbf{Facility} & \\
+% %\textbf{Verified item} & \\
+% %\textbf{Verification description} & \\
+% %\textbf{Expected results} & \\
+% %\textbf{Obtained Results} & \\
+% %\textbf{Conclusions} & \\
+% %\bottomrule
+% %\end{tabular}
+% %\end{table}
+% %

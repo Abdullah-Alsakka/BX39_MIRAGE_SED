@@ -1,0 +1,39 @@
+# LaTeX Auxiliary files
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ind
+*.lof
+*.lot
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+*.bcf
+*.run.xml
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.xdv
+*.dvi
+
+# VS Code / TeX tools common output folders
+output/
+!output/**/*.pdf
+diff/output/
+!diff/output/**/*.pdf
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Ensure PDFs are NOT ignored
+!*.pdf

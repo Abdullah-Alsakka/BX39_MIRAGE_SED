@@ -1,0 +1,67 @@
+\chapter{DATA ANALYSIS AND RESULTS}
+\label{sec:data_analysis_results}
+
+\section{Data Analysis Plan}
+
+The focus of attention for \gls{mirage} is to demonstrate the applicability of the \gls{ndir} sensor for low-cost and low-complexity methane measurements in the stratosphere.
+Since the biggest trade-off is resolution in this endeavour, the uncertainty of the measurement will be assessed with great care.
+A lot of this will be done before the flight by carefully calibrating the sensor in the temperature and pressure range of the measurement chamber for different methane concentrations and humidity levels.
+If possible, a machine learning algorithm will be trained to reduce the impact of noise on the measurements, similar to \cite{gia_accurate_2025}. This is an important prerequisite for the quality of the data collected during the flight.
+
+To further demonstrate the reliability of the measurement data, the focus of post-flight data analysis is on comparison of the vertical methane profile from ascent and descent with other sources of methane data.
+For this it is intended to use:
+
+\begin{enumerate}
+    \item Radiative transfer models (like RTTOV)
+    \item Chemistry and Transport models (like MOCAGE)
+    \item Satellite data
+    \item In-situ measurement data from other groups
+\end{enumerate}
+
+\gls{rtm} like RTTOV can provide reference concentration profiles of atmospheric gases like methane and have been compared to \gls{tdlas} measurements before.
+\gls{ctm} like MOCAGE assimilate satellite data into their calculations and give an additional gauge of what should be expected for the data collected by MIRAGE, although they have shown worse correspondence with in-situ measurements \cite{joly2020}.
+The use of satellite data in addition to their indirect use via \gls{ctm} needs to be assessed.
+This and the familiarisation with \gls{rtm} and \gls{ctm} will be part of a bachelor thesis project within \gls{mirage}, that is planned for several team members.
+
+In-situ measurements were conducted with \gls{tdlas} from ESRANGE in 2016 and provide a direct comparison with more expensive but also more accurate laser-based methods \cite{Khair2017}.
+The comparison is of course limited because of the different times at which measurements were done.
+It is still expected to get some interesting insights by including these sources into the data analysis.
+Another in-situ measurement campaign conducted over France with AirCore in 2018 compared their data to \gls{ftir} measurements \cite{RINGO}.
+%This is an interesting study for us as well, especially if ESRANGE can support us with LIDAR methane measurements.
+%Whether this is possible is not clear yet but will be asked for.
+
+%As a secondary goal we want to investigate, whether a correlation between %different landscapes and methane levels in the stratosphere can be drawn.
+%Depending on the quality of our data and number of data points we collected %during the floating phase of the flight, we will study fluctuations and %compare them with the GPS data collected by the balloon.
+%Since freshwater bodies, wetlands and industrial areas have higher methane %emissions than for example forests, we are interested whether methane %fluctuations in the stratosphere can be related to those different landscapes.
+%Machine learning might be employed to help recognising those fluctuations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Launch Campaign}
+
+This will be filled out in later versions of the \gls{sed}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+It is expected that less data points with a quality lower than other in-situ missions will be received by MIRAGE. However, if the calibration was done with the intended thoroughness, the results should be comparable and correspond well to \gls{rtm}. In that case, MIRAGE would have demonstrated that NDIR technology can measure methane levels in the stratosphere and hopefully inspire the further development and application of \gls{ndir} sensors for atmospheric monitoring.
+
+%There is a small chance that fluctuations of methane in the stratosphere can %be connected to the emissions at ground level even if very precise %measurement techniques are given. Especially, if we fly over different large %areas like wetlands or lakes and forests, we might be able to detect changes %in concentrations. Even if this goal fails, we will have collected methane %concentration data with higher accuracy at about 25-30 km height due to the %longer measurement time.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Input to Campaign Report}
+
+This section will be filled after the Campaign.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lessons Learned}
+
+As a fresh and still growing team there were some lessons learned already. 
+\begin{enumerate}
+  \item It took too much time recruit new team members and key team members are still missing; for example in software design.
+  \item Wrong assumptions regarding the accuracy of the K96 sensor were made early one. This should have been prevented by asking more questions earlier on and closer communication with our contacts from Senseair AB.
+  \item Holidays and more generous time estimates need to be taken into consideration to prevent finishing crucial project steps like the \gls{sed} under pressure, which can lead to worse quality.
+  \item It it important to keep track of progress and check in with each sub team or team members working on specific tasks to prevent delays.
+\end{enumerate}
+Of course there are many more lessons of more practical nature. Everyone knows a little more about pumps and their limitations now, everyone learned something about methane sensing and many more things like that. However, the biggest lesson is probably that the documentation for such a project takes a lot of time and thought but also makes you aware of many aspects that can be easily overlooked.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

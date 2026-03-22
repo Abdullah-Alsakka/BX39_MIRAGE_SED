@@ -1,0 +1,203 @@
+%Document ID (used in footer, title page, PDF metadata)
+\newcommand{\DocumentID}{BX39\_MIRAGE\_SED\_v1-1\_15Mar26}
+
+%Language and encoding
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}     % Add this line for biblatex/babel compatibility
+\usepackage{lmodern} %modern language package, includes for example €
+
+%Tables
+\usepackage{array}        % Must be loaded first
+
+% --- Polyfill for colortbl (v1.0k) / older array mismatch ---
+\makeatletter
+\providecommand{\insert@pcolumn}{\insert@column}
+\ExplSyntaxOn
+\cs_if_exist:NF \tbl_gdecr_row_count:
+  { \cs_new_protected:Npn \tbl_gdecr_row_count: { } }
+\ExplSyntaxOff
+\makeatother
+% ------------------------------------------------------------
+
+\usepackage[table]{xcolor} 
+\usepackage{colortbl}     
+\usepackage{longtable}      
+\usepackage{rotating}  
+% Define colors for change record
+\definecolor{lightyellow}{HTML}{FFFFE0}
+% Define colors for the risk table
+\definecolor{mediumorange}{RGB}{255,200,0} % medium
+\definecolor{lowyellow}{RGB}{255,255,150}  % low
+\definecolor{verylowgreen}{RGB}{180,255,180} % very low
+% \makeatletter
+% % Fallback for older LaTeX releases that don't define tagging sockets.
+% \providecommand\UseTaggingSocket[2][]{}
+% % Fallback for older colortbl versions missing internal color hook.
+% \providecommand\CT@do@color{}
+% \makeatother 
+\usepackage[normalem]{ulem}
+\usepackage{silence}
+\WarningFilter{caption}{Unknown document class}
+\WarningFilter{latex}{Unused global option(s):}
+\WarningFilter{siunitx}{Detected the "physics" package}
+\WarningFilter{latex}{float specifier changed to}
+\WarningFilter{latex}{Float too large for page by}
+
+% Reduce non-critical box warnings in diagnostics
+\hfuzz=\maxdimen
+\hbadness=10000
+\vfuzz=\maxdimen
+\vbadness=10000
+\sloppy
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{enumitem} %for modifying itemize and such
+
+% Dealing with math
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage[version=4]{mhchem} %allows chemical formulas
+\usepackage{siunitx} %For SI units
+%For QoL stuff like \qc, \dv etc
+
+%For PDFs
+\usepackage{pdfpages}
+
+%For images
+\usepackage{graphicx}
+\usepackage{tikz} %enables images to 'float' on top of the document, used in titlepage
+\usepackage{float} %enables [H] to prevent weird image placement
+\usepackage{placeins} % enables \FloatBarrier
+\usepackage{subcaption}
+\usepackage[
+  format=plain,
+  labelsep=endash,
+  justification=justified,
+  singlelinecheck=true,
+  width=0.75\textwidth,
+  font=footnotesize, % This is ugly, but specified, so I will not change it :( 
+  labelfont=bf
+]{caption}
+
+%For links and table colors
+\definecolor{riskgreen}{RGB}{198,239,206}   % very low / acceptable
+\definecolor{riskyellow}{RGB}{255,235,156}  % low
+\definecolor{riskorange}{RGB}{255,178,102}  % medium
+\definecolor{riskred}{RGB}{255,128,128}     % high / unacceptable
+
+%\definecolor{webbrown}{rgb}{.6,0,0} 
+%defines the color for links
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  pdftitle={SED - Student Experiment Documentation},
+  pdfsubject={Student Experiment Documentation},
+  pdfauthor={MARA},
+  pdfkeywords={},
+}
+
+%for useful accronym, type \ac{ACR} to use, acronyms only show if called upon
+% Added 'toc' option here if you want it in the Table of Contents, 
+% otherwise remove it to silence the "Unused global option" warning if it was passed globally.
+\usepackage[acronym]{glossaries} 
+\makeglossaries
+%don't let glossaries create its own heading
+\renewcommand*{\glossarysection}[2][]{}
+
+% Compact glossary style (reduces vertical space between entries)
+\newglossarystyle{compactacronyms}{%
+  \setglossarystyle{list}%
+  \renewenvironment{theglossary}%
+    {\begin{description}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]}%
+    {\end{description}}%
+}
+
+%references
+\usepackage[
+  backend=biber,
+  style=ieee,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+
+%Listings
+\usepackage{listings}
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  numbers=left,
+  frame=single,
+  breaklines=true
+}
+
+%Page styling
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\chead{- \pagemark\ -}
+%footer
+\cfoot{\DocumentID}
+\pagestyle{scrheadings}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+% Changed 'S' to 'Y' to avoid conflict with siunitx's 'S' column type
+\newcolumntype{Y}{>{\hsize=0.6\hsize\raggedright\arraybackslash}X} 
+\setlength{\footskip}{30mm}
+
+
+%Limit table of contents to chapters + sections {1} ({2} for subsections which is default)
+\setcounter{tocdepth}{3}
+
+% Changes name from 'contents' to 'table of contents'
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{TABLE OF CONTENTS}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Custom Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%the following commands generate the same command as \ref{}, but with an added word in front.
+\newcommand{\fref}[1]{Figure~\ref{#1}}
+\newcommand{\tref}[1]{Table~\ref{#1}}
+\newcommand{\cref}[1]{Chapter~\ref{#1}}
+\newcommand{\sref}[1]{Section~\ref{#1}}
+\newcommand{\aref}[1]{Appendix~\ref{#1}}
+
+%the following command adds the functionality to easily highlight sth in the desired color. Use it like \hlc[color]{text}
+\newcommand{\hlc}[2][yellow]{{\sethlcolor{#1}\hl{#2}}}
+
+\newcommand{\dos}{\textcolor{red}}
+
+%the following command implements roman numerals
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+
+%the following command reworks how \eqref{} works, by generating output like Eq. 1., instead of just (1).
+\renewcommand{\eqref}[1]{Eq.~\textup{\ref{#1}}}
+
+%this command should increase spacing between rows in tables
+\renewcommand{\arraystretch}{1.6}
+
+\newcommand{\degree}{\ensuremath{^\circ}} % Manually define \degree
+\newcommand{\micro}{\textmu}
+
+\let\qty\relax
+\newcommand{\qty}[1]{\left( #1 \right)}
+\newcommand{\qc}{\quad}
+
+% the following adds a new column type identical to p{}, but left aligned
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} 
+
+
+\endinput

@@ -1,0 +1,106 @@
+% !TEX root = ./main.tex
+\documentclass[
+  a4paper,
+  11pt,
+  openany,
+  parskip,
+  toc=totoc,
+  listof=totoc,
+  bibliography=totoc
+]{scrreprt}
+
+\input{setup/preamble}
+\begin{document}
+\input{setup/titlepage}
+
+%Document adapted from Team GaGa and Project SunbYte
+%Written by MARA
+
+
+
+%load all acronyms
+\input{acronyms}
+
+%title and changerecord
+\thispagestyle{empty}
+\newpage
+
+\input{setup/changerecord}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%table of contents
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+\cleardoublepage
+\newpage
+
+\cleardoublepage
+\newpage
+
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%main text
+\input{1_chapters/0_preface}
+\newpage
+
+\input{1_chapters/01_abstract}
+\newpage
+
+\input{1_chapters/1_introduction}
+\newpage
+
+\input{1_chapters/2_experiment_req_constr}
+\newpage
+
+\input{1_chapters/3_project_planning}
+\newpage
+
+\input{1_chapters/4_experiment_desc}
+\newpage
+
+\input{1_chapters/5_exp_veri_test}
+\newpage
+
+\input{1_chapters/6_launch_campaign_prep}
+\newpage
+
+\input{1_chapters/7_data_analysis_results}
+\newpage
+
+\input{1_chapters/8_abbreviations_references}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%appendix
+\appendix
+
+\include{2_appendix/a_experiment_reviews}
+\newpage
+
+\include{2_appendix/b_outreach}
+\newpage
+
+\include{2_appendix/c_add_tech_info}
+\newpage
+
+\include{2_appendix/d_checklists}
+\newpage
+
+\include{2_appendix/e_planning}
+\newpage
+
+\include{2_appendix/f_Material Safety Data Sheets}
+\newpage 
+
+\include{2_appendix/g_thermal_background}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

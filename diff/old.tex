@@ -1,0 +1,2056 @@
+% !TEX root = ./main.tex
+\documentclass[12pt,a4paper]{report}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% Description %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This Latex file is the main file of the project. This means that it %%
+%% should be the one that is compiled. It is defining the document-    %%
+%% class, loads the packages from packages.tex, loads the custom       %%
+%% commands from commands.tex, defines the title page and loads        %%
+%% chapters from the chapter folder into the document. In the end it   %%
+%% is listing the references and loading any appendices necessary.     %%
+%%                                                                     %%
+%%                          IMPORTANT                                  %%
+%% If you want to add content to a chapter, add it to the individual   %%
+%% chapter files, not the main.tex file. This way, everything stays    %%
+%% organized.                                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages should be loaded via the package.tex
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage[table]{xcolor}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{multirow}
+\usepackage{acronym} % for acronyms
+\usepackage[nottoc,numbib]{tocbibind} % for the Bibliography to appear in the table of contents
+\usepackage[export]{adjustbox} % to allow for a simple keyword like center, left, right in the \includegraphics[options]{} statement
+\usepackage{tabularx} % to add the tabularx environment in which columns with the X specifier can be used to let text automaticall wrap inside cells
+\usepackage{booktabs} % improves table design
+\usepackage{float} % to be able to use the H flag to keep floats from floating away
+\usepackage{ltablex} % to use longtable and tabularx together
+\keepXColumns   % required for X columns across pages
+\usepackage{soul} % for text highlighting
+\usepackage{makecell} % for merged cells in tables
+
+% the following is to add footers.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % clear header and footer
+\fancyfoot[L]{BX3839\_MIRAGE\_SED\_v1-0\_14Jan26.pdf}
+\fancyfoot[R]{\thepage}
+
+\geometry{a4paper, margin=1in}
+
+% Fix for MiKTeX package mismatch with colortbl and array
+\makeatletter
+\providecommand{\insert@pcolumn}{\insert@column}
+\makeatother
+\ExplSyntaxOn
+\cs_if_exist:NF \tag_mc_end: { \cs_new_eq:NN \tag_mc_end: \relax }
+\cs_if_exist:NF \tbl_gdecr_row_count: { \cs_new_eq:NN \tbl_gdecr_row_count: \relax }
+\ExplSyntaxOff
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define colors for change record
+\definecolor{lightyellow}{HTML}{FFFFE0}
+% Define colors for the risk table
+\definecolor{mediumorange}{RGB}{255,200,0} % medium
+\definecolor{lowyellow}{RGB}{255,255,150}  % low
+\definecolor{verylowgreen}{RGB}{180,255,180} % very low
+
+% the following adds a new column type identical to p{}, but left aligned
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom commands should be loaded via the commands.tex
+
+% Custom commands
+\newcommand{\degree}{\ensuremath{^\circ}}
+\newcommand{\micro}{\textmu}
+
+
+
+%the following command reworks how \eqref{} works, by generating output like Eq. 1., instead of just (1).
+\renewcommand{\eqref}[1]{Eq.~\textup{\ref{#1}}}
+
+%this command should increase spacing between rows in tables
+\renewcommand{\arraystretch}{1.6}
+
+%the following command makes sure that acronyms are not written in full for the first time in captions.
+\makeatletter
+\let\org@caption\@caption % Save original \@caption command
+\renewcommand{\@caption}{\let\AC@hyperlink\AC@starred\org@caption} % Patch \@caption to use starred \ac
+\makeatother
+
+%the following command implements roman numerals
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+
+%the following commands generate the same command as \ref{}, but with an added word in front.
+\newcommand{\fref}[1]{Figure~\ref{#1}}
+\newcommand{\tref}[1]{Table~\ref{#1}}
+\newcommand{\cref}[1]{Chapter~\ref{#1}}
+\newcommand{\sref}[1]{Section~\ref{#1}}
+\newcommand{\aref}[1]{Appendix~\ref{#1}}
+
+%the following command adds the functionality to easily highlight sth in the desired color. Use it like \hlc[color]{text}
+\newcommand{\hlc}[2][yellow]{{\sethlcolor{#1}\hl{#2}}}
+
+\newcommand{\dos}{\textcolor{red}}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+    %\centering
+    \vspace*{1cm}
+    
+    \includegraphics[width=4cm,right]{Graphics/Logos/RexusBexus.jpg}
+    
+    {\Huge\bfseries SED\par}
+    {\Large Student Experiment Documentation\par}
+    
+    \vspace{1cm}
+    
+    Document ID:  BX3839\_MIRAGE\_SED\_v1-0\_14Jan2026
+    
+    \vspace{0.5cm}
+    
+    {\large\bfseries Mission: BEXUS\par}
+    
+    {\Large\bfseries Team Name: MIRAGE\par}
+    
+    \vspace{0.5cm}
+
+    {\large Experiment Title: Methane Infrared Absorption Gas Experiment\par}
+    
+    \vspace{1cm}
+    
+    \begin{tabular}{lll}
+        \textbf{Team} & \textbf{Name} & \textbf{University} \\
+        \hline
+        Student Team Leader: & Abdullah Alsakka & Uppsala University \\
+        Team Members: & Jonathan Remmert & Uppsala University \\
+        & Anna Tschesche & Uppsala University \\
+        & Oliver Bolin & Uppsala University\\
+        & Max Steen & Uppsala University \\
+        & Olle Hallberg & Uppsala University \\
+        & Molly Sundell & Uppsala University \\
+        & Leo Adolphus Wattin & Uppsala University \\
+        & Antoni Marciniewski & Uppsala University \\
+    \end{tabular}
+    
+    \vspace{2cm}
+    
+    \begin{tabular}{llll}
+        Version: & Issue Date: & Document Type: & Valid from: \\
+        \textbf{1.0} & \textbf{14 January 2026} & \textbf{SED} & \textbf{14 October 2024} 
+    \end{tabular}
+    
+    \vfill
+    \vspace{1cm}
+    
+    Issued by: Jonathan Remmert, Anna Tschesche, Oliver Bolin, Max Steen, Olle Hallberg, Molly Sundell, Leo Adolphus Wattin, Antoni Marciniewski, Abdullah Alsakka \\    %\textbf{Name of the person/s who issued the document}
+    
+    \vspace{1cm}
+    
+    Approved by: Assoc. Prof. Uwe Zimmermann\\    %\textbf{Name of the person/s who approved the document}\par
+
+    \vspace{1cm}    
+
+
+
+\end{titlepage}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Change Record %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Change Record}
+\markboth{Change Record}{Change Record}
+\addcontentsline{toc}{chapter}{Change Record}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccp{5cm}p{5cm}}
+\toprule
+\textbf{Version} & \textbf{Date} & \textbf{Changed chapters} & \textbf{Remarks} \\
+\midrule
+0 & 2024-Oct-14 & New Version & Blank Book 2024 \\
+\rowcolor{lightyellow}
+1 & 2026-Jan-19 & all & PDR \\
+2 & & & CDR \\
+3 & & & IPR \\
+4 & & & EAR, Pre-Campaign \\
+5 & & & Final report \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Keywords:} BEXUS, SED - Student Experiment Documentation, Methane, NDIR
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of Figures
+\listoffigures
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of Tables
+\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% Preface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Preface}
+\markboth{Preface}{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+The REXUS/BEXUS programme is realised under a bilateral Agency Agreement between the German Aerospace Center (DLR) and the Swedish National Space Agency (SNSA). The Swedish share of the payload has been made available to students from other European countries through a collaboration with the European Space Agency (ESA). EuroLaunch, a cooperation between the Swedish Space Corporation (SSC) and the Mobile Rocket Base (MORABA) of DLR, is responsible for the campaign management and operations of the launch vehicles. Experts from DLR, SSC, ZARM and ESA provide technical support to the student teams throughout the project. REXUS and BEXUS are launched from SSC, Esrange Space Center in northern Sweden.
+
+\ac{mirage} is an experiment developed by a team of students from the Uppsala Universitet in Sweden. Its aim is to demonstrate low-cost methane sensing capabilities using stratospheric balloons. \ac{mirage} is scheduled to fly aboard BEXUS as part of cycle 17 of the Swedish-German programme REXUS/BEXUS.
+
+This document contains all relevant available information regarding \ac{mirage}; including the experiment's objectives and requirements, a breakdown of the experimental module's design, design verification procedures, a timeline and pre-launch campaign activities. Technical documents that pertain to the design are also included for reference, as appendix sections.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Abstract}
+\markboth{Abstract}{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Methane InfraRed Absorption Gas Experiment (MIRAGE) aims to measure stratospheric methane concentrations using an off-the-shelf Non-Dispersive InfraRed (NDIR) sensor. Current measurement techniques rely on laser-based setups, requiring fine adjustment while having a high cost. While these systems provide high resolution, they prevent frequent and cost-effective measurements. MIRAGE will demonstrate that NDIR sensors can fill the niche of low-cost measurements with reasonable resolution.
+
+This is done by pressurizing temperature-controlled ambient air before feeding it into the optical chamber of the NDIR sensor. With this setup it is expected to achieve an absolute concentration accuracy of $\mathrm{\Delta}c \leq 0.1$ ppm.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Introduction}
+
+\section{Scientific/Technical Background}
+
+Gases in the stratosphere play a pivotal role in climate modelling due to their prolonged lifetime. Especially methane sources have been shown to play a big role in climate modelling \cite{stocker2013, saunois2017, nisbet2019, turner2019}, and the need of accurate measurements was reflected on in the National Research Council Decadal Survey for Earth Science \cite{national2019} and the summary report by the Carbon Climate Workshop in 2018 \cite{sellers2018}.
+
+The concentration of atmospheric methane ranges from around 2 ppm to 0.7 ppm at 0 km and 30 km altitude, respectively. Because of the small concentrations, accurate optically complex systems like \ac{tdlas} \cite{joly2020} or \ac{ftir} \cite{runge2023} are widely employed. \ac{tdlas} systems send a laser beam of varying frequency close to the excitation energy of the target molecule through a gas sample and calculate the target molecule's concentration based on the measured absorption via the Beer-Lambert law. \ac{ftir} works by sending a light beam containing multiple frequencies into the gas sample and recording the total absorption. The frequencies are then changed and the process repeated. This is often done via a Michelsen interferometer. Both techniques enable great accuracy but require high precision in the complex optical setups, meaning that those systems are expensive and inaccessible.
+
+During recent years, \ac{ndir} sensors have advanced as a cost-effective and simple alternative to laser-based devices commonly employed for methane sensing. NDIR spectroscopy works by passing a spectrum of \ac{ir} light through a gas sample where each gas absorbs the light at a unique wavelength. An optical filter selects the wavelengths of the gas of interest. The intensity of the transmitted light at the relevant wavelength can then be measured, and thus the change in intensity is known. The concentration c of the gas can then be calculated using the Beer-Lambert law
+
+\begin{equation}
+c = \log_{10}\left( \frac{I_{0}}{I} \right) \times {(\varepsilon l)}^{- 1},
+\end{equation}
+
+where $\varepsilon$ is the molar absorption coefficient, specific to the gas species, $l$ is the path length between light source and detector and $I_{0}$ and $I$ are the initial intensity of light and the intensity at the detector. $I_{0}$ is determined either before the measurement or simultaneously using a second detector. A schematic is provided in Figure \ref{fig:ndir_principle}. Due to the simple setup, the overall cost of NDIR detectors is quite small with a range of tens to a few 100s of Euros.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{Graphics/Figures/NDIR schematic.png}
+\caption{Schematic of the non-dispersive infrared (NDIR) measurement principle. Source: \cite{gaynullin2025}}
+\label{fig:ndir_principle}
+\end{figure}
+
+Since the pressure $p$ decreases exponentially with altitude, the concentration
+
+\begin{equation}
+c = \frac{n}{V}
+\end{equation}
+
+connected to the pressure by the ideal gas law
+
+\begin{equation}
+pV = nRT
+\end{equation}
+
+with the volume $V$, the ideal gas constant $R$ and the temperature $T$, decreases with about the same rate as the pressure. At the same time the relative molar fraction of methane molecules compared to other molecules in the air is decreasing, which means that there are very little methane molecules at the altitudes we can reach. This needs to be considered when working with a sensor offering lower resolution.
+
+\section{Mission Statement}
+
+As explained in Section 1.1 methane measurements are of great importance for climate modelling. However, systems with which methane measurements are taken, are oftentimes expensive and complex in setup. Therefore, our mission is to demonstrate a low-cost, low-complexity solution for measuring methane concentrations in the upper stratosphere. By using the novel K96 non-dispersive infrared (NDIR) sensor developed by Senseair (a Swedish company, specialised in state-of-the-art gas sensors) \cite{wastine2022} we will use off-the-shelf technology to provide an alternative to laser-based approaches.
+
+\section{Experiment Objectives}
+
+\begin{table}[H]
+\centering
+\caption{Experimental Objectives}
+\label{tab:objectives}
+\begin{tabularx}{0.9\textwidth}{lX}
+\toprule
+\textbf{Priority} & \textbf{Description} \\
+\midrule
+Technical - Primary & Measure methane with an absolute concentration error of $\mathrm{\Delta}c \leq 0.1$ ppm in the stratosphere. \\
+Technical - Primary & Stay within a budget of material (BoM) of 1000 €. \\
+Scientific - Secondary & Validate recorded measurements via chemical transport models. \\
+Scientific - Secondary & Search for fluctuations in recorded methane concentrations, possibly linked to emission regions. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Experiment Concept}
+
+The Non-Dispersive Infra-Red (NDIR) sensor detects light absorption due to the number of absorbing particles in the optical cavity within a narrow wavelength range. As mentioned in Section 1.1, this number is related to the concentration of the contributing gas species and their pressures and temperature. Thus, it is possible to increase the concentration of a gas species by increasing the pressure of the gas while maintaining the same relative composition and molar fractions of the sample.
+
+Therefore, we use an NDIR sensor fed with pressurized ambient air under temperature-controlled conditions. The measurement resolution of the sensor is 0.1 ppm at ground level, i.e. at 1 bar. Because the uncertainty we aim for is less than 0.1 ppm, we need to pressurize the ambient air to 2 to 5 bar. Thus, we aim to use a pump to continuously pump ambient air into a pressurized chamber, in which the sensor is located. Air can leave the pressurized chamber through an electrical valve. This method of active air release can restrict the flow rate dynamically, adjusting to the pressure measured internally.
+
+As the detector output can drift with temperature, we need to stabilize the temperature via a thermal control system. Additionally, we need information about the ambient pressure and temperature, to inform the thermal control system and the flow rate of the pumps. As water vapor is a major factor in the uncertainty of the sensor, we also need to monitor the inside and ideally outside humidity. These measurements can then be used to engage mitigation methods like stopping of the pumps and raising of the internal temperature to prevent condensation. Once the ambient humidity sensor is reporting safe levels, the internal temperature is to be set to normal operating conditions, and the pumps commence a full flushing cycle. This means that the pumps operate with the maximum flow rate for 2 minutes. Afterwards, the internal humidity levels are measured. If they are too high, another flushing cycle commences up to a total of 3 cycles, after which normal operations start again.
+
+Processing of the different sensor outputs and engaging of appropriate actions will be done via a \ac{mcu} like an Arduino Nano.
+
+A block diagram showcasing the different functional/physical experiment blocks is provided below in Figure \ref{fig:block_diagram}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{Graphics/Figures/Components block diagram.png}
+\caption{Block diagram with different physical or functional components of the experiment.}
+\label{fig:block_diagram}
+\end{figure}
+
+\section{Team Details}
+
+The team of \ac{mirage} is still in the process of recruiting team members, especially for the bachelor thesis projects. All team members are studying at Uppsala University.
+
+\subsection{Contact Point}
+
+Team leader phone number: +46 76 456 08 02\\
+Email: abdullah.alsakka.5356@student.uu.se\\
+Team leader address: Studentvägen 18, Uppsala SE75234
+
+\subsection{Team Members}
+
+\begin{itemize}
+    \item \textbf{Name:} Abdullah Alsakka \\
+    \textbf{Education (Year):} Masters in Astronomy and Space Physics (2\textsuperscript{nd} year) \\
+    \textbf{Role:} Team Leader and Science team
+
+    \item \textbf{Name:} Jonathan Remmert \\
+    \textbf{Education (Year):} Masters in Astronomy and Space Physics (2\textsuperscript{nd} year) \\
+    \textbf{Role:} Science team
+    
+    \item \textbf{Name:} Oliver Bolin \\
+    \textbf{Education (Year):} Electrical Engineering (2\textsuperscript{nd} year/ 5 year program) \\
+    \textbf{Role:} Electrical Team
+    
+    \item \textbf{Name:} Max Steen \\
+    \textbf{Education (Year):} Electrical Engineering (2\textsuperscript{nd} year/ 5 year program) \\
+    \textbf{Role:} Electrical Team
+
+    \item \textbf{Name:} Anna Tschesche \\
+    \textbf{Education (Year):} Master in Material Science (2\textsuperscript{nd} year) \\
+    \textbf{Role:} Science Team
+
+    \item \textbf{Name:} Olle Hallberg \\
+    \textbf{Education (Year):} Engineering Physics (3\textsuperscript{rd} year/ 5 year program) \\
+    \textbf{Role:} Science Team
+
+    \item \textbf{Name:} Molly Sundell \\
+    \textbf{Education (Year):} Material Engineering (3\textsuperscript{rd} year/ 5 year program) \\
+    \textbf{Role:} Outreach Team
+
+    \item \textbf{Name:} Antoni Marciniewski \\
+    \textbf{Education (Year):} Mechanical Engineering (1\textsuperscript{st} year) \\
+    \textbf{Role:} Mechanical Team
+
+    \item \textbf{Name:} Leo Adolphus Wattin \\
+    \textbf{Education (Year):} Mechanical Engineering (2\textsuperscript{nd} year) \\
+    \textbf{Role:} Mechanical Team
+\end{itemize}
+
+
+\chapter{Experiment Requirements and Constraints}
+
+\section{Functional Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Functional Requirements} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endhead
+\bottomrule
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\hline
+F.1. & The experiment shall measure the atmospheric methane, CO2 and H2O concentrations of ambient air simultaneously with an off-the-shelf \ac{ndir} sensor. \\
+\hline
+F.2. & The measurement chamber shall be pressurised with ambient air. \\
+\hline
+F.3. & The air in the measurement chamber shall be exchanged continuously. \\
+\hline
+F.4. & The experiment shall measure pressure inside of the measurement chamber. \\
+\hline
+F.5. & The experiment shall measure the temperature inside of the measurement chamber. \\
+\hline
+F.6 & The experiment shall stabilize the temperature inside the measurement chamber. \\
+\hline
+F.7 & The experiment shall measure the humidity inside of the measurement chamber. \\
+\hline
+F.8 & The experiment shall prevent the condensation of water inside the measurement chamber. \\
+\hline
+F.9 & The experiment should change between measurement times based on the flight phase of the balloon. \\
+\hline
+F.10 & The experiment should measure ambient temperature outside. \\
+\hline
+F.11 & The experiment should measure ambient pressure outside. \\
+\hline
+F.12 & The experiment should measure ambient humidity outside. \\
+\hline
+F.13 & The experiment shall send data via E-Link. \\
+\hline
+F.14 & The experiment should receive data via E-Link. \\
+\hline
+\end{longtable}
+
+\section{Performance Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Performance Requirements} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endhead
+\bottomrule
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\hline
+P.1.1 & The \ac{ndir} sensor shall measure the concentration of methane with a range of 0.4 to 3.0 ppm. \\
+\hline
+P.1.2. & The \ac{ndir} sensor shall measure the concentration of methane with an uncertainty of 0.1 ppm or less. \\
+\hline
+P.2.1 & The \ac{ndir} sensor shall measure the concentration of CO\textsubscript{2} with a range of 200 to 500 ppm. \\
+\hline
+P.2.2 & The \ac{ndir} sensor shall measure the concentration of CO\textsubscript{2} with an uncertainty of 1ppm or less. \\
+\hline
+P.3.1 & The \ac{ndir} sensor shall measure the concentration of H\textsubscript{2}O with a range of 1 to 30,000ppm. \\
+\hline
+P.3.2 & The \ac{ndir} sensor shall measure the concentration of H\textsubscript{2}O with an uncertainty of 1ppm or less at all altitudes. \\
+\hline
+P.4 & The pressure inside the measurement chamber during methane measurements shall be at least 2 bar during measurements. \\
+\hline
+P.5.1 & The air inside of the measurement chamber shall be exchanged continuously. \\
+\hline
+P.5.2 & The air should be sufficiently (97\%) exchanged within at least one minute. \\
+\hline
+P.6.1 & The experiment shall measure the pressure inside the measurement chamber in a range of 0.3 to 5.1 bar. \\
+\hline
+P.6.2 & The experiment shall measure the pressure inside the measurement chamber with a maximum uncertainty of 0.02 mbar. \\
+\hline
+P.7.1 & The experiment shall measure the temperature inside the measurement chamber in a range of -40 to +60 \degree C. \\
+\hline
+P.7.2 & The experiment shall measure the temperature inside the measurement chamber with a maximum uncertainty of 1.5\degree C. \\
+\hline
+P.8.1 & The experiment shall measure the humidity inside the measurement chamber in a range of 0 to 100\% r.H. \\
+\hline
+P.8.2 & The experiment shall measure the humidity inside the measurement chamber with a maximum uncertainty of 3\% r.H. \\
+\hline
+P.9 & The temperature of the air inside the measurement chamber shall stay within a range of 0 and 40\degree C. \\
+\hline
+P.10 & The experiment should keep the temperature of the air inside the measurement chamber within a range of 19 and 23\degree C. \\
+\hline
+P.11 & The experiment shall keep the humidity inside of the measurement chamber below 90\% r.H. \\
+\hline
+P.12 & The experiment should measure the temperature, pressure and humidity inside of the measurement chamber at a rate of 10Hz. \\
+\hline
+P.13.1 & The \ac{ndir} sensor shall have a measurement time for the CH4, CO2 and H2O concentrations of 20s during ascent and descent. \\
+\hline
+P.13.2 & The \ac{ndir} sensor shall have a measurement time for the CH4, CO2 and H2O concentrations of 50s during the floating phase. \\
+\hline
+P.14.1 & The experiment should measure the ambient pressure outside in a range of 20 to 1100 mbar. \\
+\hline
+P.14.2 & The experiment should measure the ambient pressure outside with a maximum uncertainty of 0.05 mbar. \\
+\hline
+P.15.1 & The experiment should measure the ambient temperature outside in a range of -100 to +60 \degree C. \\
+\hline
+P.15.2 & The experiment should measure the ambient temperature outside with a maximum uncertainty of 1.5\degree C. \\
+\hline
+P.16.1 & The experiment should measure the ambient humidity outside in a range of 0 to 100 r.H. \\
+\hline
+P.16.2 & The experiment should measure the humidity outside the sensor box with a maximum uncertainty of 3\% r.H. \\
+\hline
+P.17 & The experiment should measure the ambient temperature, pressure and humidity outside at a rate of 10Hz. \\
+\hline
+P.18 & The experiment should receive data via E-Link with an uplink rate of 10kbps. \\
+\hline
+P.19 & The experiment shall send the obtained data with the E-Link with a downlink rate of 100 kbps. \\
+\hline
+\end{longtable}
+
+\section{Design Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Design Requirements} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endhead
+\bottomrule
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\hline
+D.1 & The experiment shall operate in the temperature profile of the BEXUS vehicle flight and launch. \\
+\hline
+D.2.1 & The experiment shall operate in the pressure profile of the BEXUS vehicle flight and launch. \\
+\hline
+D.2.2 & The measurement chamber shall withstand a pressure difference of up to 5.5 bar. \\
+\hline
+D.3 & The experiment shall operate in the vibration profile of the BEXUS vehicle flight and launch. \\
+\hline
+D.4 & The experiment power connector shall be an Amphenol PT02E8-4P, Code A. \\
+\hline
+D.5 & The experiment shall not disturb or harm the launch vehicle. \\
+\hline
+D.6 & The \ac{ndir} sensor shall be separate from the other electronics in the measurement chamber, which will be flushed and pressurised before each measurement. \\
+\hline
+D.7 & The experiment shall consume less than 150 Wh during the flight. \\
+\hline
+D.8 & The experiment shall have no currents exceeding 1.4 A at any time during the flight. \\
+\hline
+D.9 & The experiment should stay within a size limit of 12x12x5 cm\textsuperscript{3}. \\
+\hline
+D.10 & The experiment should not exceed a mass of 2 kg. \\
+\hline
+D.11 & The air sample to be measured shall not be changed in its composition by the experiment, the vehicle or other experiments. \\
+\hline
+D.12 & The experiment shall have access to fresh air from outside. \\
+\hline
+D.13 & The data storage shall be protected from water due to condensation or during landing. \\
+\hline
+D.14 & The \ac{ndir} sensor should still function after recovery post flight. \\
+\hline
+D.15 & The budget for all components except the K96 sensor should stay below 1000\texteuro. \\
+\hline
+\end{longtable}
+
+\section{Operational Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Operational Requirements} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endhead
+\bottomrule
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\hline
+O.1 & The experiment shall be able to conduct measurements autonomously in case connection with the ground segment is lost. \\
+\hline
+O.2 & The experiment shall accept a request for radio silence at any time while on the launch pad. \\
+\hline
+O.3 & The experiment should switch automatically to a longer or shorter measurement time depending on the change in altitude. \\
+\hline
+O.4 & The experiment shall respond to manual changes of measurement time from the ground. \\
+\hline
+O.5 & The experiment shall store all data on board and continuously send condensed data sets to ground via E-Link. \\
+\hline
+O.6 & The experiment shall automatically register and respond to high r.H. inside the chamber in order to lower the humidity. \\
+\hline
+\end{longtable}
+
+\section{Constraints}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Constraints} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\toprule
+\textbf{ID} & \textbf{Requirement text} \\
+\endhead
+\bottomrule
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\hline
+C.1 & The thermal chamber at the \ac{irf} goes only down to -40\degree C. \\
+\hline
+\end{longtable}
+
+\chapter{Project Planning}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{Graphics/Figures/wbs_manegerial.png}
+  \caption{Work breakdown structure for the manegerial tasks}
+  \label{fig:wbs1}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{Graphics/Figures/wbs_science.png}
+  \caption{Work breakdown structure for the science tasks}
+  \label{fig:wbs2}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{Graphics/Figures/wbs_electrical.png}
+  \caption{Work breakdown structure for the electrical tasks}
+  \label{fig:wbs3}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{Graphics/Figures/wbs_mechanical.png}
+  \caption{Work breakdown structure for the mechanical tasks}
+  \label{fig:wbs4}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{Graphics/Figures/wbs_software.png}
+  \caption{Work breakdown structure for the software tasks}
+  \label{fig:wbs5}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{Graphics/Figures/wbs_outreach.png}
+  \caption{Work breakdown structure for the outreach tasks}
+  \label{fig:wbs6}
+\end{figure}
+
+\section{Work Breakdown Structure (WBS)}
+
+In figures \ref{fig:wbs1}, \ref{fig:wbs2}, \ref{fig:wbs3}, \ref{fig:wbs4}, \ref{fig:wbs5} and \ref{fig:wbs6} the \ac{wbs} of the project is presented with work packages seperated under each responsible subteams.
+
+\section{Schedule}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{Graphics/Figures/gantt_chart.jpg}
+  \caption{Gannt Chart}
+  \label{fig:gannt}
+ \end{figure}
+
+The Gannt chart in \fref{fig:gannt} shows the general schedule of the project. Due to several dates being uncertain yet, it was approximated accross a longer period. The color coding represents the responsible subteam.
+
+\section{Resources}
+
+\ac{mirage} is a project conducted by the RiseUpp association, which is under the umbrella of Astronomisk Ungdom. The RiseUpp association has a dedicated outreach team working on finding sponsors. Currently \ac{mirage} is the only project RiseUpp is working on, therefore a majority of this budget will go to \ac{mirage}.
+
+As part of Astronomisk Ungdom, RiseUpp get annually 2000 SEK and 20 SEK per member. RiseUpp aims to be an association at Uppsala university that gathers all students interested in space, hosts events such as lunch lectures, and participate in programmes like Rexus Bexus.
+
+The \ac{mirage} project will consist mostly of students working on their thesis, therefore Uppsala university provides 1000 SEK per student. In addition, through our supervisor, Uwe Zimmermann, we have access to a laboratory with the necessary tools and a vacuum chamber for testing. Uppsala university also hosts the Swedish Institute for Space Physics (Institutet för Rymdfysik), which has a thermal chamber that we will be using for testing.
+
+RiseUpp has an agreement with the Swedish company, SenseAir, in which SenseAir has provided the K96 sensor and will provide extra gas sensors if needed.
+
+\subsection{Workforce}
+
+The workforce consists of voluntary and thesis students. Voluntary students spend around 10 hours a week and will be the main workforce until March, they do this voluntarily and will be the core team members. Thesis students will be recruited to begin working on the project from March, they will work in project groups under the supervision of our supervisor, Associate Professor Uwe Zimmermann, and will get credited for the work. The thesis will be 15 credits, and the students are expected to work full-time on the project.
+
+In addition to the \ac{mirage} workforce, there is the RiseUpp board which will ensure the consistency of the team and assemble a team for the next Rexus Bexus cycles.
+
+\subsection{Budget}
+
+The estimated total budget of the experiment \textit{parts} only with a 10\% buffer is 9500 SEK ($\approx$ 900 EUR). However, the K96 sensor, which we got sponsored, is not commercially available and was estimated to be 5000 SEK. Additional managerial costs like outreach and travel expenses lead to a sum of approximately 90000 SEK ($\approx$ 8500 EUR).
+
+\begin{longtable}{p{3cm}p{1.7cm}p{2cm}p{1.5cm}p{5cm}}
+\caption{Budget Breakdown}
+\label{tab:budget}\\
+\toprule
+\textbf{Cost Name} & \textbf{Quantity} & \textbf{Category} &
+\textbf{Unit Price (SEK)} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}}\\
+\toprule
+\textbf{Cost Name} & \textbf{Quantity} & \textbf{Category} &
+\textbf{Unit Price (SEK)} & \textbf{Description} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+Aluminum Block & 1 & Mechanical & 200 & For enclosure \\
+Plexy Glass & 1 & Mechanical & 90 & For lid \\
+Screws & 8 & Mechanical & 1 & \\
+High Precision Valve & 1 & Mechanical & 1000 & \\
+Cables & 20 & Electrical & 0.2 & \\
+MS5607 Pressure Sensor & 1 & Electrical & 81.75 & \\
+Temperature Sensor & 1 & Electrical & 93.74 & \\
+SHT3x-DIS Humidity Sensor & 1 & Electrical & 103.01 & \\
+Arduino Ethernet Shield & 1 & Electrical & 369 & \\
+Arduino Mega & 1 & Electrical & 579 & \\
+Voltage Regulators & 3 & Electrical & 60 & \\
+SD Card & 1 & Electrical & 119 & 32 GB \\
+\ac{pcb} & 1 & Electrical & 200 & \\
+Pump & 1 & Electrical & 500 & \\
+Thermal System & 1 & Electrical & 271.3 & \\
+Capacitor & 3 & Electrical & 1 & \\
+K96 & 1 & Electrical & 5000 & Non-commercial, estimate of value \\
+Travel Expenses & 5 & Managerial & 3000 & For the launch campaign, counting only additional nonsponsored students \\
+Accommodation & 5 & Managerial & 10000 & For the launch campaign, counting only additional nonsponsored students \\
+Team Building & 15 & Managerial & 500 & \\
+Team Jersey & 10 & Managerial & 100 & \\
+\end{longtable}
+
+
+%
+%\begin{table}[H]
+%\centering
+%\caption{Budget Breakdown}
+%\label{tab:budget}
+%\begin{tabularx}{\textwidth}{p{3cm}p{1.7cm}p{2cm}p{1cm}X}
+%\toprule
+%\textbf{Cost Name} & \textbf{Quantity} & \textbf{Category} & \textbf{Unit Price (SEK)} & \textbf{Description} \\
+%\midrule
+%Aluminum Block & 1 & Mechanical & 200 & For enclosure \\
+%Plexy Glass & 1 & Mechanical & 90 & For lid \\
+%Screws & 8 & Mechanical & 1 & \\
+%High Precision Valve & 1 & Mechanical & 1000 & \\
+%Cables & 20 & Electrical & 0.2 & \\
+%MS5607 Pressure Sensor & 1 & Electrical & 81.75 & \\
+%Temperature Sensor & 1 & Electrical & 93.74 & \\
+%SHT3x-DIS Humidity Sensor & 1 & Electrical & 103.01 & \\
+%Arduino Ethernet Shield & 1 & Electrical & 369 & \\
+%Arduino Mega & 1 & Electrical & 579 & \\
+%Voltage Regulators & 3 & Electrical & 60 & \\
+%SD Card & 1 & Electrical & 119 & 32 GB \\
+%\ac{pcb} & 1 & Electrical & 200 & \\
+%Pump & 1 & Electrical & 500 & \\
+%Thermal System & 1 & Electrical & 271.3 & \\
+%Capacitor & 3 & Electrical & 1 & \\
+%K96 & 1 & Electrical & 5000 & Non-commercial, estimate of value \\
+%Travel Expenses & 5 & Managerial & 3000 & For the launch campaign, counting only additional nonsponsored students \\
+%Accomodation & 5 & Managerial & 10000 & For the launch campaign, counting only additional nonsponsored students \\
+%Team Building & 15 & Managerial & 500 & \\
+%Team Jersey & 10 & Managerial & 100 & \\
+%\bottomrule
+%\end{tabularx}
+%\end{table}
+
+\subsection{External Support}
+
+\ac{mirage} is endorsed and adviced by the Uppsala university department of meteorology. In addition, \ac{mirage} is in the process of becoming an associated association to the student union for science and engineering at Uppsala university (UTN). This will open up the doors to apply for research grants provided by the UTN. Astronomisk Ungdom has a research grant pool of 100000 SEK which is available for associations under their umbrella, which will be applied to.
+
+We are in talks with Uppsala University Innovation and the development office at the university about financial and outreach support. They will connect us with companies that work in the field and help us with social events organized by RiseUpp.
+
+\section{Outreach Approach}
+
+The \ac{mirage} Rexus Bexus team will contact local news agencies, such as Uppsala Nya Tidning, Techna (student university magazine) and appear on Student radio (local independent radiostation). The team also aims to apear on Uppsala University website. 
+The RiseUpp association is under the Astronomisk Ungdom association and a website will be ran under their domain.
+A project documentary movie will follow the Rexus/Bexus team as they work on the project and will document the flight.
+
+\begin{table}[H]
+\centering
+\caption{Team social media links}
+\label{tab:social_media}
+\begin{tabular}{llll}
+\toprule
+\textbf{Team} & \textbf{Instagram} & \textbf{LinkedIn} & \textbf{Website} \\
+\midrule
+Mirage & \href{https://www.instagram.com/riseupp_uu/?igsh=MXhsM3lsZmMyMjh4ZA\%3D\%3D#}{\text{Riseupp\_uu}} & \href{https://www.linkedin.com/company/riseupp-uu/posts/?feedView=all}{riseupp-uu}& Coming soon   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Risk Register}
+
+\textbf{Risk ID}
+
+TC -- technical/implementation
+
+MS -- mission (operational performance)
+
+SF -- safety
+
+VE -- vehicle
+
+PE -- personnel
+
+EN -- environmental
+
+OR -- organisational
+
+DS -- data related
+
+\textbf{Probability (P)}
+
+A. Minimum -- Almost impossible to occur
+
+B. Low -- Small chance to occur
+
+C. Medium -- Reasonable chance to occur
+
+D. High -- Quite likely to occur
+
+E. Maximum -- Certain to occur, maybe more than once
+
+\textbf{Severity (S)}
+
+1. Negligible -- Minimal or no impact
+
+2. Significant -- Leads to reduced experiment performance
+
+3. Major -- Leads to failure of subsystem or loss of flight data
+
+4. Critical -- Leads to experiment failure or creates minor health hazards
+
+5. Catastrophic -- Leads to termination of the REXUS and/or BEXUS programme, damage to the vehicle or injury to personnel
+
+The rankings for probability (P) and severity (S) are combined to assess the overall risk classification, ranging from very low to very high and being coloured green, yellow, orange or red according to the \ac{sed} guidelines.
+
+\begin{longtable}{L{1.5cm}L{3cm}L{1cm}L{1cm}L{2cm}L{6cm}}
+\caption{Risk Register}
+\label{tab:risk_register}\\
+
+\toprule
+\textbf{ID} & \textbf{Risk \& consequence} & \textbf{P} & \textbf{S} &
+\textbf{P x S} & \textbf{Prevention and/or Mitigation Action} \\
+\midrule
+\endfirsthead
+
+\multicolumn{6}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}}\\
+\toprule
+\textbf{ID} & \textbf{Risk \& consequence} & \textbf{P} & \textbf{S} &
+\textbf{P x S} & \textbf{Prevention and/or Mitigation Action} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\rowcolor{mediumorange} TC10 & Pump failure & C & 4 & medium & have multiple pumps in setup, choose appropriate components \\
+\rowcolor{mediumorange} MS10 & Over frozen gas inlet or outlet & C & 4 & medium & Large enough radius, heating element at inlet and warm air to appropriate temperature \\
+\rowcolor{lowyellow} DS10 & Loss of data & B & 4 & low & Send part of data to ground regularly \\
+\rowcolor{mediumorange} TC20 & Over/Underheating of electronics & C & 4 & medium & More heating/cooling measures depending on test results \\
+\rowcolor{lowyellow} TC30 & Failure of thermal control & C & 3 & low & Testing and simulations, more heating or cooling depending on results \\
+\rowcolor{lowyellow} PE10 & Drop out of Team member & C & 2 & low & Good communication between team members about workload and availability; additional recruiting to reduce workload; selection for team members with sufficient time resources during application \\
+\rowcolor{mediumorange} OR10 & Lack of funding & B & 5 & medium & Contacting of companies in progress \\
+\rowcolor{lowyellow} MS20 & \ac{mcu} failure & B & 4 & low & Test under pressure and temperature conditions while on ground, use watchdog timer and consider redundant systems\\
+\rowcolor{lowyellow} MS30 & Automatic switching of measurement times fails & C & 2 & low & Add manual option via E-Link as backup \\
+\rowcolor{verylowgreen} MS40 & Experiment doesn't respond to manual commands from ground & C & 1 & Very low & No action \\
+\rowcolor{verylowgreen} MS50 & Loss of communication with ground stations & C & 1 & Very low & No action \\
+\rowcolor{lowyellow} TC40 & Outside sensors not working due to low temperatures & C & 2 & low & Choose and test appropriate components \\
+\rowcolor{mediumorange} TC50 & Condensation of water inside the measurement chamber & C & 4 & medium & Test flushing cycle or find other solutions \\
+\rowcolor{mediumorange} TC60 & Contamination due to materials of the balloon, gondola, and experiment setup & C & 4 & medium & Check materials used and outgasing potential\\
+\rowcolor{verylowgreen} DS20 & Data storage overflow & A & 4 & Very low & SD card should be chosen large enough with enough margin \\
+\rowcolor{lowyellow} MS60 & Software failure for thermal control & B & 3 & low & Option to restart software from ground \\
+\rowcolor{lowyellow} MS70 & Software failure for pressure control & B & 4 & low & Option to restart software from ground \\
+\end{longtable}
+%
+%\begin{landscape}
+%\begin{table}[H]
+%\centering
+%\caption{Risk Register}
+%\label{tab:risk_register}
+%\begin{tabular}{p{1.5cm}p{4cm}p{1cm}p{1cm}p{2cm}p{6cm}}
+%\toprule
+%\textbf{ID} & \textbf{Risk \& consequence} & \textbf{P} & \textbf{S} & \textbf{P x S} & \textbf{Prevention and/or Mitigation Action} \\
+%\midrule
+%TC10 & Pump failure & C & 4 & medium & have multiple pumps in setup, chose appropriate components \\
+%MS10 & Over frozen gas inlet or outlet & C & 4 & medium & Large enough radius, heat air to appropriate temperature \\
+%DS10 & Loss of data & B & 4 & low & Send part of data to ground regularly \\
+%TC20 & Over/Underheating of electronics & C & 4 & medium & More heating/cooling measures depending on test results \\
+%TC30 & Failure of thermal control & C & 3 & low & Planning and testing \\
+%PE10 & Drop out of Team member & C & 2 & low & Good communication between team members about workload and availability; additional recruiting to reduce workload; selection for team members with sufficient time resources during application \\
+%OR10 & Lack of funding & B & 5 & medium & Contact companies soon \\
+%MS20 & \ac{mcu} failure & B & 4 & low & Test under pressure and temperature conditions while on ground \\
+%MS30 & Automatic switching of measurement times fails & C & 2 & low & Add manual option as backup \\
+%MS40 & Experiment doesn't respond to manual commands from ground & C & 1 & Very low & No action \\
+%MS50 & Loss of communication with ground stations & C & 1 & Very low & No action \\
+%TC40 & Outside sensors not working due to low temperatures & C & 2 & low & Chose and test appropriate components \\
+%TC50 & Condensation of water inside the \ac{ndir} sensor box. & C & 4 & medium & Add water removal system to design \\
+%DS20 & Data storage overflow & A & 4 & Very low & SD card should be chosen large enough with enough margin \\
+%MS60 & Software failure for thermal control & B & 3 & low & Option to restart software from ground \\
+%MS70 & Software failure for pressure control & B & 4 & low & Option to restart software from ground \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+%\end{landscape}
+%
+
+\chapter{Experiment Description}
+
+\section{Experiment Setup}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Graphics/Figures/Mirage Block schematic.png}
+    \caption{Experimental Setup}
+    \label{fig:experimental_setup}
+    
+\end{figure}
+
+The experiment will feature a NDIR sensor (K96), a pressurization system, a thermal system, ambient environment sensors and a processing unit. 
+The pressurization system will include a pumping mechanism in order to increase the pressure and the amount of particles we can measure. The gas will be heated up and pumped into the measurement chamber with the K96 sensor inside together with temperature, pressure and humidity sensors. The gas will be exchanged continously to exchange the sample while maintaining the pressure of at least 2 bar. 
+The K96 Sensor will communicate with the processing unit and the processing unit sends the measured digital data for storage to the SDHC card.
+The pressure sensor,temperature sensor and humidity sensor communicate with the processing unit via digital interfaces (such as $I^2C$) to ensure that the pump and thermal control system are running with the right parameters to maintain room temperature conditions and a stable pressure between 2 and 5 bar. Unique addresses are used to identify each sensor's signal, allowing the processing unit to collect and organize data from all ambient sensors efficiently.
+
+\section{Experiment Interfaces}
+
+
+\subsection{Mechanical}
+The experiment is mounted to the ESCARGO aluminium frame composed of 45 $\times$ 45~mm Bosch-type T-slot profiles used by the BEXUS gondola.
+
+The experiment is housed in a rigid aluminium enclosure and is fixed to a structural aluminium base plate using vertical M6 bolts. The base plate forms the primary load-bearing interface of the experiment and ensures a rigid connection between the experiment enclosure and the gondola mounting structure.
+
+The aluminium base plate is attached to the ESCARGO frame via horizontal M6 bolts engaging M6 T-nuts (or T-bolts) inserted into the ESCARGO T-slots. The horizontal bolt orientation allows direct fastening to the ESCARGO profiles without any modification of the gondola structure. Washers are used under all bolt heads to ensure proper load distribution.
+
+A total of four independent mounting points are used between the base plate and the ESCARGO frame, providing redundancy and ensuring that the experiment remains securely attached in the event of a single fastener failure.
+
+No modifications to the ESCARGO frame are required. A schematic diagram of the mechanical interface between the experiment, the aluminium base plate, and the ESCARGO frame is provided.
+
+\begin{table}[h]
+\centering
+\caption{Mechanical interface fasteners and mounting hardware}
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Item} & \textbf{Quantity} & \textbf{Specification} \\
+\hline
+Bolts (experiment $\rightarrow$ base plate) & 4 & M6, steel \\
+Bolts (base plate $\rightarrow$ ESCARGO) & 4 & M6, steel \\
+T-nuts / T-bolts & 4 & \makecell[l]{M6, compatible with 45 $\times$ 45~mm \\ ESCARGO T-slots} \\
+Washers & 8 & M6 \\
+Base plate & 1 & Aluminium, structural \\
+\hline
+\end{tabular}
+\end{table}
+
+No special tools or non-standard interfaces are required. All mounting interfaces comply with the standard ESCARGO mechanical interface.
+
+
+\subsection{Electrical}
+
+Since the Bexus power supply is 28.8V we will use two LM2596HVS step-down voltage regulators on our power distribution board. We will use 8V for our Arduino, pressurization system and K96 sensor, and 3.3V for the ambient sensors. Our estimated current draw from the power distribution board without the thermal system is 1.15A, which is well below the max current of 3A for the step-down voltage regulators. Regarding our current draw from the Bexus power unit, we estimate 0.35A. The thermal system is still not worked out and is therefore not in the calculations. Distributed single point ground will be implemented.
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Graphics/Figures/Skarmbild.png}
+    \caption{Electrical Schematic}
+    \label{fig:electrical_schematic}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\caption{REXUS connector pin out usage}
+\label{tab:rexus_pinout}
+\begin{tabular}{llp{8cm}}
+\toprule
+\textbf{Pin No.} & \textbf{Name} & \textbf{Use} \\
+\midrule
+1 & +28 V & Experiment Power \\
+2 & Charging (28 V/1 A) & Not connected -- not used \\
+3 & SODS & Not connected -- not used \\
+4 & SOE & Used \\
+5 & LO & Used \\
+6 & EXP out+ & Downlink (non-inverted) \\
+7 & EXP out- & Downlink (inverted) \\
+8 & 28 V Ground & Ground \\
+9 & +28 V & Experiment Power \\
+10 & n.c. & Not connected \\
+11 & n.c. & Not connected \\
+12 & Charging Return & Not connected -- not used \\
+13 & EXP in + & Uplink (non-inverted) \\
+14 & EXP in - & Uplink (inverted) \\
+15 & 28 V Ground & Ground \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+
+\subsection{Thermal}
+
+The thermal properties of our experiment will be partially controlled by heating/cooling elements. The specifics remain to be determined once the thermal behaviour of the electronic components can be modelled or tested. Where necessary, we will insulate the whole experiment to avoid an impact of the extreme temperatures, which can go down to -80\degree C, on the electronics and pumps. This will be also done by rubber bumpers to avoid cooling from the gondola, therefore also mitigating heat transfer to the gondola.
+
+The thermal impact on the vehicle should be minimal, but this will be further tested when we have all components. The air inlet and outlet for the air samples to be measured will be directed away from the vehicle and should not heat or cool the vehicle either.
+
+\section{Experiment Components}
+
+\begin{table}[H]
+\centering
+\caption{Experiment summary table}
+\label{tab:experiment_summary}
+\begin{tabular}{L{6cm}L{6cm}}
+\toprule
+Experiment mass (in kg): & $\sim$1.45 \\
+Experiment dimensions (in m): & 0.10x0.10x0.05\\
+Experiment expected \ac{cog} position: & Distance from geometric centre: x=4mm y=23mm z=22mm \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Electrical components}
+\label{tab:electrical_components}
+\begin{tabular}{p{4cm}p{4cm}ll}
+\hline
+\textbf{Component} & \textbf{Dimensions (mm)} & \textbf{Mass (g)} & \textbf{Status} \\
+\hline
+Arduino Mega & 54x102x15 & 37 & Preliminary\\
+MS5607 pressure sensor & 3.0x5.0x0.96 & $<5$ & Preliminary\\
+K96 & 42.26x33.9x26.04 & 300 & Delivered \\
+DS18B20 temperature sensor & 4.0x3.3x4.7 & 0.2 & Preliminary \\
+SHT3X-DIS & 2.5x2.5x0.9 & 0.715 & Preliminary \\
+LM2596HVS-ADJ Stepdown DC/DC regulator & 10.1x9.0x4.5 & 1.59 & Premliminary \\
+\ac{pcb} & 40x30x1.6 & 3.6 & Developing phase \\
+Pump & 43x21x14 & 300 & Preliminary \\
+Thermal system & TBD & TBD & Preliminary \\
+Electric valve & TBD & TBD & Preliminary \\
+\hline
+Total & & 648.105 & \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Mechanical Design}
+
+
+The mechanical design of the experiment consists of an external protective aluminium housing with dimensions of 100x100x50 mm and a wall thickness of 2 mm, as well as an internal pressurised chamber with dimensions of 38x33x45 mm and a wall thickness of 15 mm containing the K96 sensor, as shown in \fref{fig:CAD}. The total mass of the mechanical structure, excluding internal components, is approximately 800 g.
+
+The internal pressurised chamber operates at pressures of up to 5 bar, while the external ambient pressure at float altitude can be as low as approximately 10 mbar, resulting in a maximum pressure differential of approximately 5 bar which is accounted for in the structural design.
+
+The outer housing has one detachable wall fastened with four M2x10 screws, allowing access during integration and testing. The housing includes openings for air inlet and outlet for the pressurisation system, as well as internal mounting provisions for electrical components.
+
+The internal pressurised chamber containing the K96 sensor includes dedicated interfaces for air inlet, air outlet aligned with the openings in the external housing, and electrical feedthroughs. One wall of the chamber is detachable and fastened with four M2x10 screws to allow sensor installation and servicing.
+
+The pressurisation system is based on a pump used to increase the internal chamber pressure and an electronically controlled valve used to enable controlled flushing of the chamber.
+
+
+
+\section{Electronics Design}
+
+\subsection{Processing core unit}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Graphics/Figures/Arduino MEGA Rev3.png}
+    \caption{Arduino Mega Rev3 WiFi}
+    \label{fig:component_arduino}
+\end{figure}
+
+An Arduino mega will be used for preliminary testing and is to be replaced by a processing \ac{pcb} once assembly starts. The Arduino mega is equipped with an ethernet shield, enabling it to communicate with EGSE and save measurement data to an SD-card. The Arduino needs a power input between 7-12V which will be converted from the 28.8V from the SAFT batteries provided by Bexus through a DC/DC stepdown regulator.
+
+\subsection{Power Distribution Unit}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Graphics/Figures/Stepdown DCDC.png}
+    \caption{LM2596HVS-ADJ step-down DC/DC regulator}
+    \label{fig:component_LM2596HVS-ADJ_DC/DC_regulator}
+\end{figure}
+
+Power distribution is handled by multiple LM2596HVS-ADJ step-down DC/DC regulators. These regulators support input voltages up to 57 V and provide adjustable output voltages in the range of 1.2--37 V. The SAFT battery supplies a nominal voltage of 28.8 V, which is regulated down to the required system voltages of 3.3 V and 8 V.
+
+\subsection{K96 Sensor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Graphics/Figures/K96 Sensor.png}
+    \caption{K96 Sensor. Taken from \cite{wastine2022}}
+    \label{fig:component_K96_sensor}
+\end{figure}
+
+The K96 sensor is a \ac{ndir} gas sensor capable of measuring methane, carbon dioxide, and water vapor. It operates from a 6.0--8.5 V VBB supply and a 2.4--3.6 V IOVCC/RxD logic supply over a temperature range of $-40\degree$C to +85\degree C, with a maximum peak current of 300 mA. The sensor also provides local temperature, pressure, and humidity measurements via an integrated BME280 sensor.
+
+\subsection{Pump}
+The pressurization system will include an electrically driven pump used to increase the pressure inside the measurement chamber. The pump will be powered from the experiment power distribution system and controlled by the processing unit.
+
+At the current design stage, the specific pump model has not yet been selected. Candidate solutions include compact diaphragm- or piston-based pumps capable of operating at low inlet pressures and generating the required pressure differential for chamber pressurization. Final selection will be based on electrical power consumption, achievable pressure ratio, mass, and compatibility with low-temperature operation.
+
+The pump will be operated in combination with an electronically controlled outlet valve to enable controlled air exchange of the measurement chamber. Detailed electrical characteristics and control parameters will be defined during the detailed design phase following component selection and testing.
+
+\subsection{Ambient Pressure Sensor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Graphics/Figures/MS5607 Pressure Sensor.jpg}
+    \caption{MS5607 Pressure Sensor}
+    \label{fig:component_MS5607_pressure}
+\end{figure}
+
+The ambient pressure sensor MS5607 is a barometric sensor that provides a highly linear and precise 24-bit pressure and temperature value. It has I2C and SPI interface up to 20MHz and has can measure between 10-1200mbar with an accuracy of $\pm$1.5mbar. The operating temperature range is $-40$ to 85\degree C and the supply voltage is between 1.8 and 3.6V
+
+\subsection{Ambient Temperature Sensor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Graphics/Figures/Temperature Sensor.png}
+    \caption{DS18B20 Temperature Sensor}
+    \label{fig:component_DS18B20_temperature}
+\end{figure}
+
+The temperature sensor DS18B20 is a transistor that operates in the temperature range of $-40$ to 85\degree C with a 0.5\degree C accuracy through a 9- or 12-bit line. It has an operating voltage between 3.0 to 5.5V and an active current of 1.5mA.
+
+\subsection{Humidity Sensor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Graphics/Figures/Humidity Sensor.png}
+    \caption{SHT3X-DIS Humidity Sensor}
+    \label{fig:component_SHT3X-DIS_humidity}
+\end{figure}
+
+The ambient humidity sensor is a SHT3X-DIS with an operating range of $-40$ to 125\degree C. The accuracy of the sensor is 1.5\% RH down to 0\degree C, which in our case could be a problem when we measure at lower temperatures. This needs to be tested or an alternative must be found. The operating voltage is 2.15V to 5.5V with typical current draw of 1.7\micro A.
+
+\subsection{MicroSD Card}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Graphics/Figures/MicroSD card.png}
+    \caption{SDHC Memory Card}
+    \label{fig:component_SDHC}
+\end{figure}
+
+To store measurement data, a SanDisk SDSDQAB-008G microSD card will be connected to the processing core unit. It operates at a voltage range of 2.7--3.6 V and supports an operating temperature range of $-25\degree$ C to +85\degree C.
+
+\section{Thermal Design}
+
+The temperature conditions in the stratosphere are quite extreme with temperatures reaching as low as -80\degree C at the altitudes of about 30 km we could reach. At the same time the air pressure can drop as low as 10 mbar, which also implies that convective heat transfer is very weak and most heat can be dissipated by radiative transfer only. This can lead to overheating of the electrical components if the heat from dissipated power accumulates. Therefore, it is essential to know how much power is dissipated and to take additional cooling measures in case that radiative cooling is insufficient.
+
+\begin{table}[H]
+\centering
+\caption{Component Temperature and Power Ratings}
+\label{tab:component_specs}
+\begin{tabular}{p{4cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}}
+\toprule
+\textbf{Component} &
+\multicolumn{2}{c}{\makecell[c]{Operating T (°C)}} &
+\multicolumn{2}{c}{\makecell[c]{Survivable T (°C)}} &
+\multicolumn{2}{c}{\makecell[c]{Power Dissipated (W)}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+& Min & Max & Min & Max & Mean & Max \\
+\midrule
+Pump &  &  &  &  &  &    \\
+Valve &  &  &  &  &  &    \\
+Arduino Mega & -40 & 85 &  &  &  &  1.95  \\
+Switching Regulator & -40 & 125 &  &  &  & 39   \\
+SD Card & -25 & 85 &  &  &  &    \\
+K96 sensor (\ac{ndir}) & 0 & 40 & -40 & 85 &  & 2.447   \\
+BME sensor & -40 & 85 &  &  &  & 0.001   \\
+MS5607 (P) & -40 & 85 &  &  &  & 0.00004   \\
+DS18B20 (T) & -55 & 125 &  &  &  &    \\
+SHT3X-DIS (RH) & -40 & 125 &  &  &  &    \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The experiment can be thermally divided into three parts. The coldest part are the ambient sensors on the outside of the experiment box. They are and should be completely exposed and therefore are required to withstand temperatures as low as -80\degree C. This poses a challenge since most commercially available components are made for ground level conditions and manufacturers usually draw the line at -40\degree C for the temperature conditions. If we should get access to a thermal chamber, we can test the reliability of those sensors ourselves at lower temperatures. Since we haven't found sensors with operating ranges going down as low as -80\degree C we might have to resort to this attempt. Those sensors are not central to our experiment. The second part is the electronics compartment, which will likely be not actively heated. The bigger issue for this part might be overheating instead and a careful thermal analysis during the design process will be required to decide on mitigation steps if the temperature ranges of the components are exceeded at the upper or possibly still lower bounds. Later, in the integration process, further tests will follow to verify the functionality of that part at high altitudes.
+
+The last part is the measurement chamber of which the temperature needs to be more carefully regulated to ensure that the K96 \ac{ndir} sensor, which is central to our experiment, functions properly. Temperature fluctuations can also lead to output drift and therefore we need to keep the temperature in a narrow range. At the same time, pumps, valves or inlet and outlet tube openings could freeze over if the humidity level is high. Since we might fly through clouds with very high humidity levels it is essential that the relative humidity doesn't get too high. By increasing the temperature of the air, condensation can be mitigated and freezing of pumps, valves and tubes should be prevented as well. Further tests will be conducted in later stages of experiment integration.
+
+Insulation will play another essential role in the thermal design. The whole experiment should be as much thermally separated from the rest of the vehicle as possible. On one hand, this avoids further cooling of the experiment and on the other it avoids impacting other experiment or the vehicle. The measurement chamber should be well insulated as well to not (further) heat up the electronics compartment and to avoid condensation of water on the walls of the chamber.
+
+\section{Power System}
+The \ac{mirage} team expects to rely exclusively on the 28.8V SAFT MP176065 which is provided by the gondola.
+
+The experiment estimates 0.35A from Bexus power unit for all the component excluding the thermal system, which is yet to be decided. The peak current draw from our power distribution board is estimated to be 1.15 A and is calculated with max current draw of each components. The Arduino mega has a max current of 200 mA which is much higher tham what is expected during the experiment. The K96 sensor has a max current of 300 mA but the expected average is much lower depending on the time per measurement, the time for flushing and pressurization. The pump is expected to be supplied with a maximum of 500 mA and the average current will depend on the time per measurement. The SDHC card has an average current of 20 mA and a maximum of 150 mA.
+
+\begin{table}[H]
+\centering
+\caption{Max current consumption}
+\label{tab:current_consumption}
+\begin{tabular}{ll}
+\toprule
+\textbf{Components} & \textbf{Max Current Draw} \\
+\midrule
+Arduino Mega & 200mA \\
+K96 & 300mA \\
+MS5607 (pressure sensor) & 1.4 mA \\
+DS18B20 (temperature sensor) & 1.5 mA \\
+SHT3X-DIS (humidity sensor) & 1.7 \micro A \\
+Pump & 500 mA \\
+Thermal System & TBD \\
+SDHC & 150 mA \\
+\midrule
+Total & 1152 mA \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Power consumption from the power distribution board and the Bexus power unit}
+\label{tab:power_consumption}
+\begin{tabular}{lllll}
+\toprule
+\textbf{Component} & \textbf{Number of parts} & \textbf{Max current} & \text{Voltage} & \textbf{Power} \\
+\midrule
+Arduino Mega & 1 & 200 mA & 8 V & 1.6 W \\
+K96 & 1 & 300 mA & 8 V & 2.4 W \\
+MS5607 & 1 & 1.4 mA & 3.3 V & 4.6 mW \\
+DS18B20 & 1 & 1.5 mA & 3.3 V & 4.95 mW \\
+Thermal System & TBD &TBD &TBD & TBD \\
+SDHC & 1 & 150 mA & 3.3 V & 0.495 W \\
+\midrule
+Total & & 1152mA & & 8.505W \\
+Total Bexus Power & & 0.35A & 28.8V & 10.08W \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Software Design}
+
+The on-board software is responsible for collecting data from the K96 sensor core and store it on the on-board SD card. It is also responsible for handling communication from and to ground, as well as the control of the internal pumping and thermal systems.
+
+The settings of those systems depend on the readings of the internal and external pressure and temperature sensors. Additionally, correct flight phases need to be engaged. This is done based on longer term changes in the recorded ambient pressure or via a command from the ground, with the command taking priority. A information flow and process flow block diagram are provided in Figure \ref{fig:info_flow} and Figure \ref{fig:process_flow}.
+
+To guarantee operations multiple \ac{mcu} will be included in the experiment with one being active while the other serving as a watchdog and can overtake operations if needed.
+
+All transmissions are saved to the on-board storage with timestamps. Similarly, all saved data is saved with timestamps, too. A table detailing the expected data sizes of data to be stored is given in Table \ref{tab:data_rates}. This estimates around 3 kbps of stored data for a total duration of around 6 hours, giving a total storage requirement of 64.8 Mbit. Ideally the whole data is sent down in regular intervals once it is recorded. Based on the sampling rates in Table \ref{tab:data_rates}, an interval of every 30 seconds seems reasonable. Thus, every 30 seconds, 91.5 kbit need to be transmit, ideally within 10 seconds to provide room for sending checksums and possibly duplicates. Therefore, we estimate a normal data rate of 9.15 kbps. Assuming a maximum connection dropout duration of 10 minutes, this would likewise imply a build-up of data of 1.8 Mbit. Transferring it over the next 5 minutes gives a data rate of 60 kbps. With compression it is probable that only half the rates stated need to be transmitted, but a higher data rate could be used to send duplicates or checksums for error mitigation.
+
+The K96 sensor core requires a UART interface and relies on the Modbus protocol. The communication protocol will be UDP.
+
+\begin{table}[H]
+\centering
+\caption{Sampling rates, sampling sizes, and data rates of data products to be stored}
+\label{tab:data_rates}
+\begin{tabular}{p{7cm}p{2cm}p{2cm}p{2cm}}
+\toprule
+\textbf{Component} & \textbf{Sampling rate [Hz]} & \textbf{Sampling size [bit]} & \textbf{Data rate [bps]} \\
+\midrule
+K96 concentration readings & 0.05 & 192 & 9.6 \\
+K96 housekeeping data & 1 & 96 & 96 \\
+Internal pressure sensor & 10 & 32 & 320 \\
+Internal temperature sensor & 10 & 32 & 320 \\
+Internal humidity sensor & 10 & 32 & 320 \\
+Ambient pressure sensor & 10 & 32 & 320 \\
+Ambient temperature sensor & 10 & 32 & 320 \\
+Ambient humidity sensor & 10 & 32 & 320 \\
+General housekeeping data (current for e.g. pumps, data from thermal system, ...) & 1 & 384 & 384 \\
+\midrule
+Total & & & 3049.6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\textwidth]{Graphics/Figures/Software information flow diagram.png}
+\caption{Information flow diagram}
+\label{fig:info_flow}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Graphics/Figures/Software Process Flow Diagram.png}
+\caption{Process flow diagram}
+\label{fig:process_flow}
+\end{figure}
+
+\section{Ground Support Equipment}
+The data will be primarily saved onboard; however for redundancy and system check, the team will use the E-link. ESRANGE is equiped with a LIDAR device, which could be used in order to measure the vertical methane concentration for later validation.
+
+%\section{Changes from Former Flight (for Re-Flights only)}
+
+
+\chapter{Experiment Verification and Testing}
+
+\section{Verification Matrix}
+
+\begin{longtable}{L{0.7cm}L{5cm}L{1.5cm}L{2cm}L{2.5cm}L{2cm}}
+\caption{Verification Matrix}
+\label{tab:verification_matrix} \\
+
+\toprule
+\textbf{ID} & \textbf{Requirement text} & \textbf{Method} & \textbf{Reference} & \textbf{Status} & \textbf{Verification Result} \\
+\midrule
+\endfirsthead
+
+\multicolumn{6}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}}\\
+\toprule
+\textbf{ID} & \textbf{Requirement text} & \textbf{Method} & \textbf{Reference} & \textbf{Status} & \textbf{Verification Result} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+F.1. & The experiment shall measure the atmospheric methane, CO2 and H2O concentrations of ambient air simultaneously with an off-the-shelf \ac{ndir} sensor. & T, R & Test 1, Test 2 & To be done (earliest test in March) & Pending \\
+F.2. & The measurement chamber shall be pressurised with ambient air. & T, I & Test 2, Test 3, Test 5 & To be done (earliest test in April) & Pending \\
+F.3. & The air in the measurement chamber shall be exchanged continuously. & T, I & Test 2, Test 3, Test 5 & To be done (earliest test in April) & Pending \\
+F.4. & The experiment shall measure pressure inside of the measurement chamber. & T & Test 2, Test 3, Test 5 & To be done (earliest test in April) & Pending \\
+F.5. & The experiment shall measure the temperature inside of the measurement chamber. & T & Test 2, Test 3, Test 5 & To be done (earliest test in April) & Pending \\
+F.6. & The experiment shall stabilize the temperature inside the measurement chamber. & T, A & Test 2, Test 3, Test 5, Test 13 & To be done (earliest test in April) & Pending \\
+F.7. & The experiment shall measure the humidity inside of the measurement chamber. & T & Test 2, Test 3, Test 5 & To be done (earliest test in April) & Pending \\
+F.8 & The experiment shall prevent the condensation of water inside the measurement chamber. & A, T & Test 2, Test 3 & To be done (earliest in April) & Pending \\
+F.8. & The experiment should change between measurement times based on the flight phase of the balloon. & T & Test 5 & To be done (May) & Pending \\
+F.9. & The experiment should measure ambient temperature outside. & T, R & Test 2, Test 3 & To be done (earliest in April) & Pending \\
+F.10. & The experiment should measure ambient pressure outside. & T, R & Test 2, Test 3 & To be done (earliest in April) & Pending \\
+F.11. & The experiment should measure ambient humidity outside. & T, R & Test 2, Test 3 & To be done (earliest in April) & Pending \\
+F.12. & The experiment shall send data via E-Link. & T & Test 6 & To be done (May) & Pending \\
+F.13. & The experiment should receive data via E-Link. & T & Test 6 & To be done (May) & Pending \\
+P.1.1 & The \ac{ndir} sensor shall measure the concentration of methane with a range of 0.4 to 3.0 ppm. & T, R & Test 1 & To be done (March) & Pending \\
+P.1.2. & The \ac{ndir} sensor shall measure the concentration of methane with an uncertainty of 0.1 ppm or less. & A, R & & & \\
+P.2.1 & The \ac{ndir} sensor shall measure the concentration of CO\textsubscript{2} with a range of 200 to 500 ppm. & T, R & Test 1 & To be done (March) & Pending \\
+P.2.2 & The \ac{ndir} sensor shall measure the concentration of CO\textsubscript{2} with an uncertainty of 1ppm or less. & A, R & & & \\
+P.3.1 & The \ac{ndir} sensor shall measure the concentration of H\textsubscript{2}O with a range of 1 to 30,000ppm. & T, R & Test 1 & To be done (March) & Pending \\
+P.3.2 & The \ac{ndir} sensor shall measure the concentration of H\textsubscript{2}O with an uncertainty of 1ppm or less at all altitudes. & A, R & & & \\
+P.4 & The pressure inside the measurement chamber during methane measurements shall be at a stable pressure of 2-5 bar during measurements. & T & Test 2, Test 5, Test 12 & To be done (earliest test in April) & Pending \\
+P.5 & The air inside of the measurement chamber shall be exchanged within 2 minutes before each measurement. & T, A, R & Test 2, Test 5 & To be done (earliest test in April) & Pending \\
+P.6.1 & The experiment shall measure the pressure inside the measurement chamber in a range of 300 to 1100 mbar. & T & Test 5 & To be done (May) & Pending \\
+P.6.2 & The experiment shall measure the pressure inside the measurement chamber with a maximum uncertainty of 0.02 mbar. & R & & & \\
+P.7.1 & The experiment shall measure the temperature inside the measurement chamber in a range of -40 to +85 \degree C. & R & & & \\
+P.7.2 & The experiment shall measure the temperature inside the measurement chamber with a maximum uncertainty of 1.5\degree C. & R & & & \\
+P.8.1 & The experiment shall measure the humidity inside the measurement chamber in a range of 0 to 100\% r.H. & T, R & Test 1, Test 2, Test 3 & To be done (earliest test in March) & Pending \\
+P.8.2 & The experiment shall measure the humidity inside the measurement chamber with a maximum uncertainty of 3\% r.H. & R & & & \\
+P.9 & The temperature of the air inside the measurement chamber shall stay within a range of -40 and 60\degree C. & A, R, T & Test 3, Test 5 & To be done (earliest test in May) & Pending \\
+P.10 & The experiment should keep the temperature of the air inside the measurement chamber within a range of 20 and 23\degree C. & T, A & Test 3, Test 5 & To be done (earliest test in May) & Pending \\
+P.11 & The experiment shall keep the humidity inside of the measurement chamber below 90\% r.H. & T, A & Test 3 & To be done (May) & Pending \\
+P.11 & The experiment should measure the temperature, pressure and humidity inside of the measurement chamber at a rate of 1Hz. & T & Test 2, Test 3, Test 5, Test 6 & To be done (earliest test in April) & Pending \\
+P.12.1 & The \ac{ndir} sensor shall have a measurement time for the CH4, CO2 and H2O concentrations of 20s during ascent and descent. & T & Test 2, Test 5 & To be done (earliest test in April) & Pending \\
+P.12.2 & The \ac{ndir} sensor shall have a measurement time for the CH4, CO2 and H2O concentrations of 50s during the floating phase. & T & Test 2, Test 5 & To be done (earliest test in April) & Pending \\
+P.13.1 & The experiment should measure the ambient pressure outside in a range of 20 to 1100 mbar. & T, R & Test 5 & To be done (May) & Pending \\
+P.13.2 & The experiment should measure the ambient pressure outside with a maximum uncertainty of 0.05 mbar. & R & & & \\
+P.14.1 & The experiment should measure the ambient temperature outside in a range of -80 to +60 \degree C. & T, R & Test 2, Test 3 & To be done (earliest test in April) & Pending \\
+P.14.2 & The experiment should measure the ambient temperature outside with a maximum uncertainty of 1.5\degree C. & R & & & \\
+P.15.1 & The experiment should measure the ambient humidity outside in a range of 0 to 100 r.H. & R & & & \\
+P.15.2 & The experiment should measure the humidity outside the sensor box with a maximum uncertainty of 3\% r.H. & R & & & \\
+P.16 & The experiment should measure the ambient temperature, pressure and humidity outside at a rate of 1Hz. & T & Test 2, Test 6 & To be done (earliest test in April) & Pending \\
+P.17 & The experiment should receive data via E-Link with an uplink rate of 10kbps. & T & Test 6 & To be done (May) & Pending \\
+P.18 & The experiment shall send the obtained data with the E-Link with a downlink rate of 100 kbps. & T & Test 6 & To be done (May) & Pending \\
+D.1 & The experiment shall operate in the temperature profile of the BEXUS vehicle flight and launch. & T, A, R & Test 3 & To be done (May) & Pending \\
+D.2 & The experiment shall operate in the pressure profile of the BEXUS vehicle flight and launch. & T, A, R & Test 4, Test 5, Test 12 & To be done (earliest test in April) & Pending \\
+D.3 & The experiment shall operate in the vibration profile of the BEXUS vehicle flight and launch. & T & Test 7 & To be done (July) & Pending \\
+D.4 & The experiment power connector shall be an Amphenol PT02E8-4P, Code A. & I & & & \\
+D.5 & The experiment shall not disturb or harm the launch vehicle. & A, T & Test 8, Test 10, Test 7 & To be done (earliest test in May) & Pending \\
+D.6 & The \ac{ndir} sensor shall be separate from the other electronics in the measurement chamber of which the air will be exchanged continuously. & I & & & \\
+D.7 & The measurement chamber shall withstand the pressure difference between inside and outside over an extended period. & T, A & Test 5, Test 9, Test 12 & To be done (earliest test in May) & Pending \\
+D.8 & The experiment shall consume less than 150 Wh during the flight. & T & Test 5, Test 9 & To be done (earliest test in May) & Pending \\
+D.9 & The experiment shall have no currents exceeding 1.4 A at any time during the flight. & T & Test 5, Test 9 & To be done (earliest test in May) & Pending \\
+D.10 & The experiment should stay within a size limit of 20x20x20 cm\textsuperscript{3}. & I & & & \\
+D.11 & The experiment should not exceed a mass of 2 kg. & T & Test 11 & & \\
+D.12 & The air sample to be measured shall not be changed in its composition by the experiment, the vehicle or other experiments. & T & Test 2 & To be done (April) & Pending \\
+D.13 & The experiment shall have access to fresh air from outside. & I & & & \\
+D.14 & The data storage shall be protected from water due to condensation or during landing. & R & & & \\
+D.15 & The \ac{ndir} sensor should still function after recovery post flight. & T & Test 9, Test 10 & To be done (earliest test in June) & Pending \\
+D.16 & The budget for all components except the K96 sensor should stay below 500\texteuro. & R & & & \\
+O.1 & The experiment shall be able to conduct measurements autonomously in case connection with the ground segment is lost. & T & Test 2, Test 5, Test 9 & To be done (earliest test in April) & Pending \\
+O.2 & The experiment shall accept a request for radio silence at any time while on the launch pad. & T & Test 6, Test 9 & To be done (earliest test in May) & Pending \\
+O.3 & The experiment should switch automatically to a longer or shorter measurement time depending on the change in altitude. & T & Test 5 & To be done (May) & Pending \\
+O.4 & The experiment shall respond to manual changes of measurement time from the ground. & T & Test 6, Test 9 & To be done (earliest test in May) & Pending \\
+O.5 & The experiment shall store all data on board and continuously send condensed data sets to ground via E-Link. & T & Test 6, Test 9 & To be done (earliest test in May) & Pending \\
+O.6 & The experiment shall automatically commence a full flushing cycle in the case of high r.H. inside the chamber. & T & Test 3 & To be done (May) & Pending\\
+\end{longtable}
+
+\section{Verification Plan}
+
+\begin{table}[h]
+\centering
+\caption{Controlled functionality testing and calibration of K96 sensor only}
+\label{tab:test1}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 1 \\
+Test type & Sensor functionality \\
+Test facility & Uppsala University \\
+Tested item & K96 sensor \\
+Model & Prototype Model \\
+Procedure, Test level and duration & Performance test, compare sensor readings to known composition of gases tested with varying humidity levels for measurement times of 20, 50 and 100s. \\
+Test campaign duration & 2 days \\
+Test campaign date & March \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Measurement chamber functionality}
+\label{tab:test2}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 2 \\
+Test type & Thermal, pressure, sensor functionality \\
+Test facility & ICOS, Norunda \\
+Tested item & Measurement Chamber \\
+Model & Prototype Model \\
+Procedure, Test level and duration & Place measurement chamber close to atmospheric sensing facilities at the location and cross reference data by K96 collected without pressurisation and with flushing and pressurisation by pumps over longer time. Conduct with and without thermal control. Compare ambient sensor readings with measurement done by ICOS as well. \\
+Test campaign duration & 4 days (1 day measurement chamber without pressurisation and thermal control, 1 day with pressurisation, 1 day with thermal control, 1 day full system test) \\
+Test campaign date & April \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Temperature testing}
+\label{tab:test3}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 3 \\
+Test type & Thermal \\
+Test facility & \ac{irf}, Thermal Chamber \\
+Tested item & Whole experiment \\
+Model & Proto flight model \\
+Procedure, Test level and duration & Vary temperature and test functionality, 20 minutes at temperature steps of 5\degree C between -40\degree C and 10\degree C \\
+Test campaign duration & 2 days (1 day build-up, 1 day testing and packing) \\
+Test campaign date & May \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Vacuum test of the electronic compartment}
+\label{tab:test2}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 4 \\
+Test type & Pressure test \\
+Test facility & Uppsala University, Vacuum chamber \\
+Tested item & Electronic compartment \\
+Model & Prototype model \\
+Procedure, Test level and duration & Slowly lower pressure from 1 bar to 10 mbar and observe stability of circuit and temperature inside and outside of box. Simulate ascent in duration and rate of pressure decline. Keep at 10 mbar for 2 hours at least. \\
+Test campaign duration & 1 day \\
+Test campaign date & April \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Vacuum test of whole experiment}
+\label{tab:vacuum_test}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 5 \\
+Test type & Pressure test \\
+Test facility & Uppsala University, Vacuum chamber \\
+Tested item & Whole experiment \\
+Model & Protoflight model \\
+Procedure, Test level and duration & Slowly lower pressure from 1 bar to 1 mbar and observe stability of circuit and temperature inside and outside of box. Simulate ascent in duration and rate of pressure decline. Keep at 1 mbar for at least 15 minutes. Perform cyclic pressurisation of measurement chamber during the whole time with measurement time corresponding to pressure level. \\
+Test campaign duration & 2 days (setup and execution) \\
+Test campaign date & May \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Software testing E-Link}
+\label{tab:test6}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 6 \\
+Test type & Software test \\
+Test facility & Uppsala University \\
+Tested item & E-link, EGSE and software, measurement chamber \\
+Model & Prototype model \\
+Procedure, Test level and duration & Send and receive data via E-link, test manual control of pumps, thermal control and measurement time \\
+Test campaign duration & 1 day \\
+Test campaign date & May \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Vibration test}
+\label{tab:test_vibration}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 7 \\
+Test type & Mechanical test \\
+Test facility & Outside \\
+Tested item & Whole experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Mount experiment in the back of a car and drive through rough terrain, inspect condition of experiment afterwards and test full functionality of experiment. \\
+Test campaign duration & 2 days \\
+Test campaign date & July \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Static loads test}
+\label{tab:test_static_loads}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 8 \\
+Test type & Mechanical test \\
+Test facility & Uppsala University \\
+Tested item & Main structure of experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Mounting of experiment should simulate the gondola connection. Then the experiment is loaded with 10 to 30 times the experiment's own weight. \\
+Test campaign duration & 1 day \\
+Test campaign date & May (latest July) \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Bench test}
+\label{tab:test_bench}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 9 \\
+Test type & Long term test \\
+Test facility & Uppsala University \\
+Tested item & Whole experiment \\
+Model & Flight Model \\
+Procedure, Test level and duration & Assemble as for flight and run through simulated countdown of about 2 hours. Run experiment for 6 hours simulating ascent, float and descent. Simulate E-link dropouts as well. Consider recovery time as well for at least 24 hours. \\
+Test campaign duration & 2 days \\
+Test campaign date & August \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Schock test}
+\label{tab:test2}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 10 \\
+Test type & Mechanical \\
+Test facility & Uppsala University \\
+Tested item & Whole experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Drop experiment from 1 to 3 meters onto a padded surface and check visually and for full functionality afterwards. \\
+Test campaign duration & 1 day \\
+Test campaign date & June \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Weight test}
+\label{tab:weight_test}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 11 \\
+Test type & Mechanical \\
+Test facility & Uppsala University \\
+Tested item & Whole experiment \\
+Model & Qualification model \\
+Procedure, Test level and duration & Put the experiment on a scale. \\
+Test campaign duration & 5 minutes \\
+Test campaign date & June \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Pressure test light bulb}
+\label{tab:test_pressure_light_bulb}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 12 \\
+Test type & Pressure test \\
+Test facility & Uppsala University \\
+Tested item & Light bulb of K96 sensor \\
+Model & Prototype model \\
+Procedure, Test level and duration & First part: Put Light bulb into vacuum chamber and drop pressure slowly to 1 mbar. \\
+& Second part: Put light bulb into airtight container and increase pressure slowly until the pump limit or until the light bulb bursts. \\
+Test campaign duration & 2 days \\
+Test campaign date & March \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Thermal control test}
+\label{tab:test_thermal}
+\begin{tabular}{L{5cm}L{10cm}}
+\toprule
+Test number & 13 \\
+Test type & Thermal \\
+Test facility & Thermal chamber and vacuum chamber \\
+Tested item & Measurement chamber without K96 sensor \\
+Model & Prototype model \\
+Procedure, Test level and duration & In Thermal chamber: maintain room temperature of air in measurement chamber while decreasing temperature down to -40°C by autonomous current regulation. \\
+& In Vacuum chamber: maintain room temperature of air in measurement chamber while decreasing pressure down to 5\,mbar by autonomous current regulation. Draw air from outside and put outlet also to outside of the vacuum chamber. \\
+Test campaign duration & 2 days \\
+Test campaign date & June \\
+Test completed & No \\
+Requirements verified & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ... Additional test tables would follow similarly ...
+
+\section{Verification Results}
+Test will be conducted later on and the results will be listed here in later versions of the SED.
+%
+%\begin{table}[h]
+%\centering
+%\caption{Example of a test result overview}
+%\label{tab:test_result}
+%\begin{tabular}{L{5cm}L{10cm}}
+%\toprule
+%\textbf{Verification number} & \\
+%\textbf{Type of test} & \\
+%\textbf{Facility} & \\
+%\textbf{Verified item} & \\
+%\textbf{Verification description} & \\
+%\textbf{Expected results} & \\
+%\textbf{Obtained Results} & \\
+%\textbf{Conclusions} & \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+%
+
+\chapter{Launch Campaign Preparation}
+
+\section{Input for the Campaign / Flight Requirement Plans}
+
+\subsection{Dimensions and Mass}
+
+\begin{table}[h]
+\centering
+\caption{Experiment Mass and Volume}
+\label{tab:mass_volume}
+\begin{tabular}{L{6cm}L{6cm}}
+\toprule
+Experiment mass (in kg): & $\sim$1.45\\
+Experiment footprint area (for BEXUS) (in $m^2$): & 0.01\\
+Experiment volume (in $m^3$): & 0.0005\\
+Experiment expected \ac{cog} position: & Distance from geometric centre: x=4mm y=23mm z=22mm \\
+\bottomrule
+\end{tabular}
+\end{table}
+\clearpage 
+
+\subsection{Ground and Flight Safety Risks}
+
+\begin{table}[h]
+\centering
+\caption{Ground and flight safety risks}
+\label{tab:safety_risks}
+\begin{tabular}{p{4cm} p{5cm} p{4cm}}
+\toprule
+\textbf{Risk} & \textbf{Key Characteristics} & \textbf{Mitigation} \\
+\midrule
+Use of a pressurised vessel with up to 5 bar difference beween outside and inside. & Material: Aluminium & Make appropriate simulations and test thoroughly before flight. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+It's possible that our thermal control system will pose a safety risk by reaching above 60°C. We will verify until the next version (before CDR) whether we need mitigation methods.
+
+\clearpage
+
+\subsection{Electrical Interfaces}
+
+\begin{table}[h]
+\centering
+\caption{Electrical interfaces applicable to BEXUS}
+\label{tab:electrical_interfaces_bexus}
+\begin{tabular}{p{10cm} p{5cm}}
+\toprule
+\multicolumn{2}{l}{\textbf{BEXUS Electrical Interfaces}} \\
+\midrule
+E-Link Interface: E-Link required? Yes/No & Yes\\
+Number of E-Link interfaces: & 1 \\
+Number of required IP addresses: & 2 (one for the experiment and one for the ground station)\\
+Data rate -- downlink (max. and average): & 100 Kbit/s \\
+Data rate -- uplink (max. and average): & 10 Kbit/s \\
+Interface type (RS-232, Ethernet): & Ethernet \\
+\midrule
+Power system: Gondola power required? Yes/No & Yes\\
+Peak power and current consumption: & 10.08W and 0.35A \\
+Average power and current consumption: & 8.64W and 0.3A \\
+Total power and current consumption after lift-off & 60.48Wh and 2.1Ah \\
+\midrule
+Power system: Experiment includes batteries? Yes/No & No\\
+Type of batteries: & \\
+Number of batteries (and S x P): & \\
+Capacity (1 battery): & Ah \\
+Voltage (1 battery): & V \\
+\bottomrule
+\end{tabular}
+\end{table}
+\clearpage
+
+\subsection{Launch Site Requirements}
+This is a very preliminary assessment and might change in later versions of the SED.
+\begin{table}[h]
+\centering
+\caption{Launch Site Requirements}
+\label{tab:launch_site_req}
+\begin{tabular}{lll}
+\toprule
+\textbf{Category} & \textbf{Item} & \textbf{Amount} \\
+\midrule
+Workstation&Table & 3 \\
+ &Chair & 10 \\
+ &Power Supply 0-30V & 3\\
+ &Power Extension Cord & 2 \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+\clearpage
+
+\subsection{Flight Requirements}
+
+\begin{table}[h]
+\centering
+\caption{Flight Requirements applicable to BEXUS}
+\label{tab:flight_req_bexus}
+\begin{tabular}{p{5cm} p{10cm}}
+\toprule
+\textbf{Optimal altitude} & $>$25km\\
+\textbf{Preferred path} & ascent \\
+\textbf{Minimum float time} & 2 hours\\
+\textbf{Ground track length} & $>$200km\\
+\textbf{Light/dark condition} & no preference but should be uniform suring flight\\
+\bottomrule
+\end{tabular}
+\end{table}
+\clearpage
+
+\subsection{Accommodation Requirements}
+The experiment needs access to fresh air and the gas in- and outlets should not be covered by the canvas and they should be directed away from the vehicle and other experiments to minimize interference. 
+
+\section{Preparation and Test Activities at Esrange}
+This will be filled out in later versions of the SED.
+
+
+%\begin{table}[h]
+%\centering
+%\caption{List of planned activities}
+%\label{tab:planned_activities}
+%\begin{tabular}{lllll}
+%\toprule
+%\textbf{Time/Day} & \textbf{Main Task} & \textbf{Description} & \textbf{Responsible} & \textbf{Duration [h:m]} \\
+%\midrule
+%& & & & \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+\clearpage
+
+\section{Timeline for Countdown and Flight}
+This will be filled out in later versions of the SED.
+
+%\begin{table}[h]
+%\centering
+%\caption{Example of timeline of the experiment events}
+%\label{tab:timeline}
+%\begin{tabular}{lll}
+%\toprule
+%\textbf{Time [s]} & \textbf{EVENT} & \textbf{Function} \\
+%\midrule
+%T - .. s & POWER ON & \\
+%& & \\
+%& & \\
+%& & \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+\clearpage
+
+\section{Post-Flight Activities}
+This will be filled out in later versions of the SED.
+
+%Celebrate!
+
+\chapter{Data Analysis And Results}
+
+\section{Data Analysis Plan}
+
+The focus of attention for \ac{mirage} is to demonstrate the applicability of the \ac{ndir} sensor for low-cost and low-complexity methane measurements in the stratosphere. Since the biggest trade-off is resolution in this endeavour, we will assess the uncertainty of our measurement with great care. A lot of this will be done before the flight by carefully calibrating the sensor in the temperature and pressure range we plan on setting in the measurement chamber for different methane concentrations and humidity levels. If possible, we will also train a machine learning algorithm in this process to reduce the impact of noise on our measurements.
+
+This is an important prerequisite for the quality of the data we can collect during the flight.
+
+To further demonstrate the reliability of our measurement data, the focus of post-flight data analysis is on comparison of the vertical methane profile from ascent and descent with other sources of methane data. For this we want to use:
+
+\begin{enumerate}
+    \item Radiative transfer models (like RTTOV)
+    \item Chemistry and Transport models (like MOCAGE)
+    \item Satellite data
+    \item In-situ measurement data from other groups
+    \item In-situ measurement with LIDAR at ESRANGE
+\end{enumerate}
+
+\ac{rtm} like RTTOV can provide reference concentration profiles of atmospheric gases like methane and have been compared to \ac{tdlas} measurements before. \ac{ctm} like MOCAGE assimilate satellite data into their calculations and give an additional gauge of what we should expect for our data, although they have shown worse correspondence with in-situ measurements \cite{joly2020}. The use of satellite data in addition to their indirect use via \ac{ctm} needs to be assessed. This and the familiarisation with \ac{rtm} and \ac{ctm} will be part of a bachelor thesis project within \ac{mirage}, that is planned for several team members.
+
+In-situ measurements were conducted with \ac{tdlas} from ESRANGE in 2016 and provide a direct comparison with more expensive but also more accurate laser-based methods \cite{Khair2017}. The comparison is of course limited because of the different times at which measurements were done. We still expect to get some interesting insights by including these sources into our data analysis. Another in-situ measurement campaign conducted over France with AirCore in 2018 compared their data to \ac{ftir} measurements \cite{RINGO}. This is an interesting study for us as well, especially if ESRANGE can support us with LIDAR methane measurements. Whether this is possible is not clear yet but will be asked for.
+
+As a secondary goal we want to investigate, whether a correlation between different landscapes and methane levels in the stratosphere can be drawn. Depending on the quality of our data and number of data points we collected during the floating phase of the flight, we will study fluctuations and compare them with the GPS data collected by the balloon. Since freshwater bodies, wetlands and industrial areas have higher methane emissions than for example forests, we are interested whether methane fluctuations in the stratosphere can be related to those different landscapes. Machine learning might be employed to help recognising those fluctuations.
+
+\section{Launch Campaign}
+This will be filled out in later versions of the \ac{sed}.
+
+\section{Results}
+
+It is expected that we will receive less data points with a quality lower than other in-situ missions. However, if the calibration was done with the intended thoroughness, we expect that the results should be comparable and correspond well to \ac{rtm}. We expect to get good insights into current methane levels in the stratosphere and hope to inspire the further development and application of \ac{ndir} sensors for atmospheric monitoring.
+
+There is a small chance that fluctuations of methane in the stratosphere can be connected to the emissions at ground level even if very precise measurement techniques are given. Especially, if we fly over different large areas like wetlands or lakes and forests, we might be able to detect changes in concentrations. Even if this goal fails, we will have collected methane concentration data with higher accuracy at about 25-30 km height due to the longer measurement time.
+
+\section{Input to Campaign Report}
+This section will be filled after the Campaign.
+
+\section{Lessons Learned}
+As a fresh and still growing team there were some lessons we could take away so far. 
+\begin{enumerate}
+  \item We took too much time to recruit new team members and still miss key team members for example in software design.
+  \item We found out that we made wrong assumptions regarding the accuracy of the K96 sensor. This should have been prevented by asking more questions earlier on and closer communication with our contacts from Senseair.
+  \item We need to take holidays into consideration and make more generous time estimates to prevent finishing crucial project steps like the \ac{sed} under pressure, which can lead to worse quality.
+  \item We have to keep track of progress and check in with each sub team or team members working on specific tasks to prevent delays.
+\end{enumerate}
+Of course there are many more lessons of more practical nature. Everyone knows a little more about pumps and their limitations now, all of us learned something about methane sensing and many more things like that. However, the biggest lesson is probably that the documentation for such a project takes a lot of time and thought but also makes you aware of many aspects that can be easily overlooked.
+
+\chapter{Abbreviations}
+
+% When adjusting the acronyms, make sure to add them according to the template below 
+\begin{acronym}[LONGESTACRONYM]
+\acro{mirage}[MIRAGE]{Methane InfraRed Absorption Gas Experiment}
+\acro{wbs}[WBS]{Work Breakdown Structure}
+\acro{sed}[SED]{Student Experiment Document}
+\acro{tdlas}[TDLAS]{Tunable Diode Laser Absorption Spectroscopy}
+\acro{ftir}[FTIR]{Fourier Transform Infrared Spectroscopy}
+\acro{ndir}[NDIR]{non-dispersive infrared}
+\acro{ir}[IR]{infrared}
+\acro{mcu}[MCU]{microcontroller unit}
+\acro{irf}[IRF]{Institutet För Rymdfysik}
+\acro{cog}[COG]{centre of gravity}
+\acro{tbd}[TBD]{to be decided}
+\acro{pcb}[PCB]{printed circuit board}
+\acro{rtm}[RTMs]{radiative transfer models}
+\acro{ctm}[CTMs]{chemistry and transport models}
+\end{acronym}
+
+%AIT -- Assembly, Integration and Test
+%
+%ASAP -- as soon as possible
+%
+%BoM -- Budget of Material
+%
+%CDR -- Critical Design Review
+%
+%COG -- Centre of Gravity
+%
+%CRP -- Campaign Requirement Plan
+%
+%DLR -- Deutsches Zentrum für Luft- und Raumfahrt
+%
+%EAT -- Experiment Acceptance Test
+%
+%EAR -- Experiment Acceptance Review
+%
+%ECTS -- European Credit Transfer System
+%
+%EIT -- Electrical Interface Test
+%
+%EPM -- Esrange Project Manager
+%
+%ESA -- European Space Agency
+%
+%Esrange -- Esrange Space Center
+%
+%ESTEC -- European Space Research and Technology Centre, ESA (NL)
+%
+%ESW -- Experiment Selection Workshop
+%
+%FAR -- Flight Acceptance Review
+%
+%FST -- Flight Simulation Test
+%
+%FRP -- Flight Requirement Plan
+%
+%FRR -- Flight Readiness Review
+%
+%GSE -- Ground Support Equipment
+%
+%HK -- House Keeping
+%
+%H/W -- Hardware
+%
+%ICD -- Interface Control Document
+%
+%I/F -- Interface
+%
+%IPR -- Integration Progress Review
+%
+%LO -- Lift Off
+%
+%LT -- Local Time
+%
+%LOS -- Line of Sight
+%
+%Mbps -- Mega Bits per second
+%
+%MCU -- Microcontroller Unit
+%
+%MFH -- Mission Flight Handbook
+%
+%MORABA -- Mobile Raketen Basis (DLR, EuroLaunch)
+%
+%NDIR -- Non-Dispersive Infra-Red
+%
+%OP -- Oberpfaffenhofen, DLR Center
+%
+%PCB -- Printed Circuit Board (electronic card)
+%
+%PDR -- Preliminary Design Review
+%
+%PST -- Payload System Test
+%
+%RBF -- Remove Before Flight
+%
+%SED -- Student Experiment Documentation
+%
+%SNSA -- Swedish National Space Agency
+%
+%SODS -- Start Of Data Storage
+%
+%SOE -- Start Of Experiment
+%
+%SSC -- Swedish Space Corporation
+%
+%STW -- Student Training Week
+%
+%S/W -- Software
+%
+%T -- Time before and after launch noted with + or -
+%
+%TBC -- To be confirmed
+%
+%TBD -- To be determined
+%
+%WBS -- Work Breakdown Structure
+%
+%ZARM -- Zentrum für Angewandte Raumfahrttechnologie und Mikrogravitation
+
+\bibliographystyle{plain}
+\bibliography{ref}
+
+% Appendices
+\appendix
+
+\chapter{EXPERIMENT REVIEWS}
+
+\section{Preliminary Design Review -- PDR}
+
+\section{Critical Design Review -- CDR}
+
+\section{Integration Progress Review -- IPR}
+
+\section{Experiment Acceptance Review -- EAR}
+
+\chapter{OUTREACH AND MEDIA COVERAGE}
+\textbf{Website} \\
+Website Coming soon
+
+\textbf{Instagram:}
+\url{https://www.instagram.com/riseupp_uu/?igsh=MXhsM3lsZmMyMjh4ZA%3D%3D#}
+
+\textbf{LinkedIn:}
+\url{https://www.linkedin.com/company/riseupp-uu/posts/?feedView=all}
+
+
+\textbf{Logo:} \\
+The logo was designed in July 2025
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Graphics/Logos/RiseUpp_logo.png}
+    \caption{RiseUpp Logo}
+    \label{fig:riseupp_logo}
+\end{figure}
+
+The RiseUpp association is very soon an official member of Astronomisk Ungdom association and a website will be created under their domain.
+
+\ac{mirage} patches and merchandise, such as shirts, hoodies and caps will be designed in the future.
+
+\ac{mirage} aims to appear in local newsoutlets, such as Techna (student magazine), Uppsala Nya Tidning (local newspaper) and Student radio (local radiostation)
+
+The \ac{mirage} team will be creating a project movie documenting the progress of the project.
+\chapter{ADDITIONAL TECHNICAL INFORMATION}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[angle=90, width=0.60\textheight]{Graphics/Figures/Mirage.CADdrawing.v1.png}
+    \caption{Mechanical drawing of the experiment structure}
+    \label{fig:CAD}
+\end{figure}
+
+\chapter{CHECKLISTS}
+
+\end{document}

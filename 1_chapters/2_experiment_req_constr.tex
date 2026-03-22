@@ -1,0 +1,246 @@
+\chapter{EXPERIMENT REQUIREMENTS AND CONSTRAINTS}
+\label{sec:requirements}
+\section{Functional Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Functional Requirements} \\
+\hline 
+\textbf{ID} & \textbf{Requirement text} \\
+\hline 
+\endfirsthead
+\caption[]{Functional Requirements -- \textit{Continued from previous page}} \\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endhead
+\hline
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+F.1. & The experiment shall measure the atmospheric CH\textsubscript{4}, CO\textsubscript{2} and H\textsubscript{2}O concentrations of ambient air simultaneously with an off-the-shelf \gls{ndir} sensor. \\
+\hline
+F.2. & The measurement chamber shall be pressurised with ambient air. \\
+\hline
+F.3. & The air in the measurement chamber shall be exchanged. \\
+\hline
+F.4. & The experiment shall measure the pressure inside of the measurement chamber. \\
+\hline
+F.5. & The experiment shall measure the temperature inside of the measurement chamber. \\
+\hline
+F.6. & The experiment shall stabilize the temperature inside of the measurement chamber. \\
+\hline
+F.7. & The experiment shall measure the humidity inside of the measurement chamber. \\
+\hline
+F.8. & The experiment shall prevent the condensation of water inside of the measurement chamber. \\
+\hline
+%F.9. & The experiment should change between measurement times based on the flight phase of the balloon. \\
+%\hline
+F.9. & The experiment should measure ambient temperature outside. \\
+\hline
+F.10. & The experiment should measure ambient pressure outside. \\
+\hline
+F.11. & The experiment should measure ambient humidity outside. \\
+\hline
+F.12. & The experiment shall send data via E-Link. \\
+\hline
+F.13. & The experiment shall receive data via E-Link. \\
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Performance Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Performance Requirements}
+\label{tab:performance_req}\\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endfirsthead
+\caption[]{Performance Requirements -- \textit{Continued from previous page}} \\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endhead
+\hline
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+P.1.1 & The \gls{ndir} sensor shall measure the concentration of methane with a range of 0.4 to 3.0 ppm. \\
+\hline
+P.1.2 & The \gls{ndir} sensor shall measure the concentration of methane with an uncertainty of 0.5 ppm or less. \\
+\hline
+P.2.1 & The \gls{ndir} sensor shall measure the concentration of carbondioxide with a range of 200 to 500 ppm. \\
+\hline
+P.2.2 & The \gls{ndir} sensor shall measure the concentration of carbondioxide with an uncertainty of 5 ppm or less. \\
+\hline
+P.3.1 & The \gls{ndir} sensor shall measure the concentration of water with a range of 1 to 30,000 ppm. \\
+\hline
+P.3.2 & The \gls{ndir} sensor shall measure the concentration of water with an uncertainty of 5 ppm or less. \\
+\hline
+%P.4.1 & The \gls{ndir} sensor shall have a measurement time for the CH\textsubscript{4}, CO\textsubscript{2} and H\textsubscript{2}O concentrations of 20 s during ascent and descent. \\
+%\hline
+%P.4.2 & The \gls{ndir} sensor shall have a measurement time for the CH\textsubscript{4}, CO\textsubscript{2} and H\textsubscript{2}O concentrations of 50 s during the floating phase. \\
+%\hline
+P.4.1 & The pressure inside of the measurement chamber shall stay within a range of 2.5 and 3.2 bar. \\
+\hline
+P.4.2 & The pressure inside of the measurement chamber should stay within a range of 2.8 and 3 bar. \\
+\hline
+P.5 & The pressurisation system shall have an air throughput of at least 1 l/min.\\
+\hline
+P.6.1 & The experiment shall measure the pressure inside of the measurement chamber in a range of 0.3 to 4 bar. \\
+\hline
+P.6.2 & The experiment shall measure the pressure inside of the measurement chamber with a maximum uncertainty of 0.02 bar. \\
+\hline
+P.7 & The temperature of the air inside of the measurement chamber shall stay within a range of 15 and 40\degree C while active. \\
+\hline
+P.8 & The temperature of the air inside of the measurement chamber should stay within a range of 19 and 24\degree C while active. \\
+\hline
+P.9.1 & The experiment shall measure the temperature inside of the measurement chamber in a range of -40 to +85 \degree C. \\
+\hline
+P.9.2 & The experiment shall measure the temperature inside of the measurement chamber with a maximum uncertainty of 1.5\degree C. \\
+\hline
+P.10 & The experiment shall keep the humidity inside of the measurement chamber below 90\% r.H. \\
+\hline
+P.11.1 & The experiment shall measure the humidity inside of the measurement chamber in a range of 0 to 100\% r.H. \\
+\hline
+P.11.2 & The experiment shall measure the humidity inside of the measurement chamber with a maximum uncertainty of 3\% r.H. \\
+\hline
+P.12 & The experiment should measure the temperature, pressure and humidity inside of the measurement chamber at a rate over 10 Hz. \\
+\hline
+P.13.1 & The experiment should measure the ambient pressure outside in a range of 20 to 1100 mbar. \\
+\hline
+P.13.2 & The experiment should measure the ambient pressure outside with a maximum uncertainty of 20 mbar. \\
+\hline
+P.14.1 & The experiment should measure the ambient temperature outside in a range of -70 to +60 \degree C. \\
+\hline
+P.14.2 & The experiment should measure the ambient temperature outside with a maximum uncertainty of 1.5\degree C. \\
+\hline
+P.15.1 & The experiment should measure the ambient humidity outside in a range of 0 to 100\% r.H. \\
+\hline
+P.15.2 & The experiment should measure the ambient humidity outside with a maximum uncertainty of 3\% r.H. \\
+\hline
+P.16 & The experiment should measure the ambient temperature, pressure and humidity outside at a rate over 10 Hz. \\
+\hline
+P.17 & The experiment should receive data via E-Link with an uplink rate under 10 kbps. \\
+\hline
+P.18 & The experiment shall send the obtained data with the E-Link with a downlink rate under 100 kbps. \\
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Design Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Design Requirements} \\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endfirsthead
+\caption[]{Design Requirements -- \textit{Continued from previous page}} \\
+\label{tab:design_req}\\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endhead
+\hline
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+D.1.1 & The experiment shall operate in the temperature profile of the BEXUS vehicle flight and launch. \\
+\hline
+D.1.2 & The temperature in the electronic compartment shall stay within a range of -25 and 85°C.\\
+\hline
+D.1.3 & The temperature in the electronic compartment should stay within a range of -15 and 60°C.\\
+\hline
+D.2.1 & The experiment shall operate in the pressure profile of the BEXUS vehicle flight and launch. \\
+\hline
+D.2.2 & The measurement chamber shall withstand a pressure difference of up to 4 bar. \\
+\hline
+D.3 & The experiment shall operate in the vibration profile of the BEXUS vehicle flight and launch. \\
+\hline
+D.4 & The experiment shall operate in the shock profile of the BEXUS vehicle flight and launch. \\
+\hline
+D.5 & The experiment power connector shall be an Amphenol PT02E8-4P, Code A.\\
+\hline
+D.6 & The experiment data connector shall be an Amphenol RJF21B connector. \\
+\hline
+D.7 & The experiment shall not disturb or harm the launch vehicle. \\
+\hline
+D.8 & Only the measurement chamber containing the \gls{ndir} sensor core and an additional pressure sensor shall be pressurised.\\
+\hline
+D.9 & The experiment shall consume less than 150 Wh during the flight. \\
+\hline
+D.10 & The experiment shall operate under 28.8\,V. \\
+\hline
+D.11.1 & The experiment shall have no currents exceeding 2.4 A. \\
+\hline
+D.11.2 & The experiment should have no currents exceeding 1.4 A. \\
+\hline
+D.12 & The experiment should stay within a size limit of 15x20x20 cm\textsuperscript{3}. \\
+\hline
+D.13 & The experiment shall stay within a weight limit of 5 kg. \\
+\hline
+D.14 & The air sample to be measured shall not be changed in its composition by the experiment, the vehicle or other experiments. \\
+\hline
+D.15 & The experiment shall have access to fresh air from outside. \\
+\hline
+D.16 & The data storage shall be able to store at least 2GB. \\
+\hline
+D.17 & The data storage shall be protected from water due to condensation or during landing. \\
+\hline
+D.18 & The \gls{ndir} sensor should still function after recovery post flight. \\
+\hline
+D.19 & The budget for all components except the K96 sensor should stay below 2000\texteuro. \\
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Operational Requirements}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Operational Requirements} \\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endfirsthead
+\caption[]{Operational Requirements -- \textit{Continued from previous page}} \\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endhead
+\hline
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+O.1 & The experiment shall be able to conduct measurements autonomously in case connection with the ground segment is lost. \\
+\hline
+O.2 & The experiment shall accept a request for radio silence at any time while on the launch pad. \\
+\hline
+O.3 & The experiment shall store all data on board and continuously send data to ground via E-Link. \\
+\hline
+O.4 & The experiment shall automatically register and respond to high r.H. inside the chamber in order to lower the humidity. \\
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Constraints}
+
+\begin{longtable}{|p{2cm}|p{12cm}|}
+\caption{Constraints} \\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endfirsthead
+\caption[]{Constraints -- \textit{Continued from previous page}} \\
+\hline
+\textbf{ID} & \textbf{Requirement text} \\
+\hline
+\endhead
+\hline
+\multicolumn{2}{r}{\textit{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+C.1 & The thermal chamber at the \gls{irf} goes only down to -40\degree C. \\
+\end{longtable}
