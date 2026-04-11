@@ -32,11 +32,12 @@ F.5. & The experiment shall measure the temperature inside of the measurement ch
 F.6. & The experiment shall stabilize the temperature inside the measurement chamber. & A,T & Test 5, Test 8 & To be done (earliest test in June) & Pending \\
 F.7. & The experiment shall measure the humidity inside of the measurement chamber. & R,T & Test 3, Test 8 & To be done (earliest test in June) & Pending \\
 F.8 & The experiment shall prevent the condensation of water inside the measurement chamber. & R, T & Test 8 & To be done (July) & Pending \\
-F.9. & The experiment should measure ambient temperature outside. & R,T & Test 8, Test 13 & To be done (earliest in July) & Pending \\
-F.10. & The experiment should measure ambient pressure outside. & R,T &  Test 7, Test 13 & To be done (earliest in July) & Pending \\
-F.11. & The experiment should measure ambient humidity outside. & R,T &  Test 8, Test 13 & To be done (earliest in July) & Pending \\
-F.12. & The experiment shall send data via E-Link. & T & Test 6 & To be done (June) & Pending \\
-F.13. & The experiment shall receive data via E-Link. & T & Test 6 & To be done (June) & Pending \\
+F.9. & The experiment shall protect electronics from undercooling or overheating. & A, T & Test 8 & To be done (July) & Pending\\
+F.10. & The experiment should measure ambient temperature outside. & R,T & Test 8, Test 13 & To be done (earliest in July) & Pending \\
+F.11. & The experiment should measure ambient pressure outside. & R,T &  Test 7, Test 13 & To be done (earliest in July) & Pending \\
+F.12. & The experiment should measure ambient humidity outside. & R,T &  Test 8, Test 13 & To be done (earliest in July) & Pending \\
+F.13. & The experiment shall send data via E-Link. & T & Test 6 & To be done (June) & Pending \\
+F.14. & The experiment shall receive data via E-Link. & T & Test 6 & To be done (June) & Pending \\
 P.1.1 & The \gls{ndir} sensor shall measure the concentration of methane with a range of 0.4 to 3.0 ppm. & R, T & Test 3, Test 13 & To be done (June) & Pending \\
 P.1.2 & The \gls{ndir} sensor shall measure the concentration of methane with an uncertainty of 0.5 ppm or less. & R, T & Test 3, Test 13 & To be done (June) & Pending\\
 P.2.1 & The \gls{ndir} sensor shall measure the concentration of carbondioxide with a range of 200 to 500 ppm. & R, T & Test 3, Test 13  & To be done (June) & Pending \\
@@ -57,40 +58,42 @@ P.11.1 & The experiment shall measure the humidity inside of the measurement cha
 P.11.2 & The experiment shall measure the humidity inside of the measurement chamber with a maximum uncertainty of 3\% r.H. & R, T & Test 3, Test 8 & To be done (earliest test in June) & Pending \\
 
 P.12 & The experiment should measure the temperature, pressure and humidity inside of the measurement chamber at a rate over 10 Hz. & R, T & Test 8, Test 9 & To be done (earliest test in July) & Pending \\
-P.13.1 & The experiment should measure the ambient pressure outside in a range of 20 to 1100 mbar. & R, T & Test 13 & To be done (August) & Pending \\
-P.13.2 & The experiment should measure the ambient pressure outside with a maximum uncertainty of 20 mbar. & R, T & Test 13 & To be done (August) & Pending  \\
-P.14.1 & The experiment should measure the ambient temperature outside in a range of -70 to +60 \degree C. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
-P.14.2 & The experiment should measure the ambient temperature outside with a maximum uncertainty of 1.5\degree C. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
-P.15.1 & The experiment should measure the ambient humidity outside in a range of 0 to 100\% r.H. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
-P.15.2 & The experiment should measure the ambient humidity outside with a maximum uncertainty of 3\% r.H. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
-P.16 & The experiment should measure the ambient temperature, pressure and humidity outside at a rate over 10 Hz. & R, T & Test 13, Test 9 & To be done (earliest test in July) & Pending \\
-P.17 & The experiment should receive data via E-Link with an uplink rate under 10 kbps. & R, T & Test 12, Test 14 & To be done (July) & Pending \\
-P.18 & The experiment shall send the obtained data with the E-Link with a downlink rate under 100 kbps. & R, T & Test 12, Test 14 & To be done (July)& Pending \\
+P.13.1 & The temperature in the electronic compartment shall stay within a range
+of -25 and 85°C. & A,T & Test 8 & To be done (July) & Pending  \\
+P.13.2 & The temperature in the electronic compartment should stay within a range of -15 and 60°C. & A,T & Test 8 & To be done (July) & Pending\\
+P.14.1 & The experiment should measure the ambient pressure outside in a range of 20 to 1100 mbar. & R, T & Test 13 & To be done (August) & Pending \\
+P.14.2 & The experiment should measure the ambient pressure outside with a maximum uncertainty of 20 mbar. & R, T & Test 13 & To be done (August) & Pending  \\
+P.15.1 & The experiment should measure the ambient temperature outside in a range of -70 to +60 \degree C. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.15.2 & The experiment should measure the ambient temperature outside with a maximum uncertainty of 1.5\degree C. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.16.1 & The experiment should measure the ambient humidity outside in a range of 0 to 100\% r.H. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.16.2 & The experiment should measure the ambient humidity outside with a maximum uncertainty of 3\% r.H. & R, T & Test 13, Test 8 & To be done (earliest test in July) & Pending \\
+P.17 & The experiment should measure the ambient temperature, pressure and humidity outside at a rate over 10 Hz. & R, T & Test 13, Test 9 & To be done (earliest test in July) & Pending \\
+P.18.1 & The experiment shall operate in the shock profile of the BEXUS vehicle flight and launch.& T & Test 11 & To be done (July) & Pending  \\
+P.18.2 & The \gls{ndir} sensor should withstand the shocks of the landing. & T & Test 11 & To be done (July) & Pending \\
+P.19 & The data storage shall be able to store at least 2GB. & R, T& Test 14 & To be done (August) & Pending\\
+P.20 & The experiment should receive data via E-Link with an uplink rate under 10 kbps. & R, T & Test 12, Test 14 & To be done (July) & Pending \\
+P.21 & The experiment shall send the obtained data with the E-Link with a downlink rate under 100 kbps. & R, T & Test 12, Test 14 & To be done (July)& Pending \\
 
-D.1.1 & The experiment shall operate in the temperature profile of the BEXUS vehicle flight and launch. & A, T & Test 8 & To be done (July) & Pending \\
-D.1.2 & The temperature in the electronic compartment shall stay within a range of -25 and 85°C. & A, T & Test 8 & To be done (July) & Pending\\
-D.1.3 & The temperature in the electronic compartment should stay within a range of -15 and 60°C.& A, T & Test 8 & To be done (July) & Pending\\
+D.1 & The experiment shall operate in the temperature profile of the BEXUS vehicle flight and launch. & A, T & Test 8 & To be done (July) & Pending \\
 D.2.1 & The experiment shall operate in the pressure profile of the BEXUS vehicle flight and launch. & A, T & Test 1, Test 2, Test 4, Test 7 & Test 1 completed successfully  & Pending \\
 D.2.2 & The measurement chamber shall withstand a pressure difference of up to 4 bar.  & A, T & Test 7 & To be done (July) & Pending \\
 D.3 & The experiment shall operate in the vibration profile of the BEXUS vehicle flight and launch. & T & Test 10 & To be done (July) & Pending \\
-D.4 & The experiment shall operate in the shock profile of the BEXUS vehicle flight and launch. & T & Test 11 & To be done (July) & Pending \\
-D.5 & The experiment power connector shall be an Amphenol PT02E8-4P, Code A. & R & & & \\
-D.6 & The experiment data connector shall be an Amphenol RJF21B connector.  & R & & & \\
-D.7 & The experiment shall not disturb or harm the launch vehicle.  & R, A &  &  & Pending \\
-D.8 & Only the measurement chamber containing the \gls{ndir} sensor core and an additional pressure sensor shall be pressurised. & I, R & & & \\
-D.9 & The experiment shall consume less than 150 Wh during the flight. & T, A & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
-D.10 & The experiment shall operate under 28.8\,V.  & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
-D.11.1 & The experiment shall have no currents exceeding 2.4 A. & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
-D.11.2 & The experiment should have no currents exceeding 1.4 A.  & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
-D.12 & The experiment should stay within a size limit of 15x20x20 cm\textsuperscript{3}. & T & Test 9 & To be done (July) & Pending  \\
-D.13 & The experiment shall stay within a weight limit of 5 kg. & A,T & Test 9 & To be done (July) & Pending \\
-D.14 & The air sample to be measured shall not be changed in its composition by the experiment, the vehicle or other experiments. & R, T & Test 13 & To be done (August) & Pending \\
+D.4 & The experiment power connector shall be an Amphenol PT02E8-4P, Code A. & R & & & \\
+D.5 & The experiment data connector shall be an Amphenol RJF21B connector.  & R & & & \\
+D.6 & The experiment shall not disturb or harm the launch vehicle.  & R, A &  &  & Pending \\
+D.7 & The experiment shall consume less than 150 Wh during the flight. & T, A & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.8 & The experiment shall operate under 28.8\,V.  & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.9.1 & The experiment shall have no currents exceeding 2.4 A. & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.9.2 & The experiment should have no currents exceeding 1.4 A.  & R, T & Test 7, Test 8, Test 14 & To be done (earliest test in July) & Pending \\
+D.10 & The experiment should stay within a size limit of 15x20x20 cm\textsuperscript{3}. & T & Test 9 & To be done (July) & Pending  \\
+D.11 & The experiment shall stay within a weight limit of 5 kg. & A,T & Test 9 & To be done (July) & Pending \\
+D.12 & The materials of the experiment shall not outgas. & R, T & Test 13 & To be done (August) & Pending \\
 
-D.15 & The experiment shall have access to fresh air from outside. & R, I & & & \\
-D.16 & The data storage shall be able to store at least 2GB. & R & & & \\
-D.17 & The data storage shall be protected from water due to condensation or during landing. & R & & & \\
-D.18 & The \gls{ndir} sensor should still function after recovery post flight. & T & Test 9, Test 10 & To be done (earliest test in July) & Pending \\
-D.19 & The budget for all components except the K96 sensor should stay below 2000\texteuro.  & R & & & \\
+D.13 & The experiment shall have access to fresh air from outside. & R, I & & & \\
+D.14 & The data storage shall be protected from water due to condensation or during landing. & R & & & \\
+D.15 & The budget for all components except the K96 sensor should stay below 2000\texteuro.  & R & & & \\
+
+
 O.1 & The experiment shall be able to conduct measurements autonomously in case connection with the ground segment is lost. & T & Test 12, Test 14 & To be done (earliest test in July) & Pending \\
 O.2 & The experiment shall accept a request for radio silence at any time while on the launch pad.  & T & Test 12, Test 14 & To be done (earliest test in July) & Pending \\
 O.3 & The experiment shall store all data on board and continuously send data to ground via E-Link.  & T & Test 12 & To be done (July) & Pending \\
