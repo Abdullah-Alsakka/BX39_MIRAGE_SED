@@ -3,6 +3,23 @@
 
 \section{Data Analysis Plan}
 
+\subsubsection*{Motivation and scope}
+
+The primary output of the MIRAGE post-flight analysis is a quality-controlled vertical methane concentration profile with associated uncertainty bounds, expressed as a function of the altitude. Defining this output early in the design process ensures that the on-board data acquisition, storage format, and sensor operating modes are tailored to produce data that can be systematically processed into a scientifically useful result.\\
+Balloon-borne in-situ greenhouse gas profiling missions such as AMULSE \cite{Khair2017} have demonstrated that a well defined post flight data analysis pipeline, encompassing ingestion calibration correction, quality flagging and comparison against independent reference sources, is essential for extracting reliable concentration profiles from raw sensor data. The AMULSE experiment, which used \gls{tdlas}, employed a comparable processing chain to validate satellite retrieval products from IASI. While MIRAGE operates using a fundamentally different measurement method (\gls{ndir} instead of TDLAS), its overall pipeline architecture follows a similar logic: raw detector output must be corrected for environmental conditions, filtered for measurement artifacts, and validated against independent data before scientific conclusions can be drawn.\\
+The pipeline directly supports the experiment objectives defined in Table \tref{tab:objectives}. The primary technical objectives measuring CH4, CO2 and H2O concentration up to at least 20\,km altitude and demonstration of pressurization of air to 3\,bar up to that altitude, requires a systematic processing chain that converts raw multi sensor data into calibrated concentrations profiles with quantified uncertainties. The secondary scientific objectives, validation of the recorded measurement against chemical transport models, satellite data and previous in-situ measurements, and evaluation of uncertainty reduction trough machine-learning based calibration, require the processing of data in a meaningful way within the context of external factors and a framework for quantifying the measurement accuracy after applying the calibration model.
+
+\subsection*{Input Data products}
+The pipeline ingest all sensor data streams listed in Tabel 4.8. The primary data source is the onboard SD card, which stores time-stamped binary records from the K96 NDIR sensor, the ambient and internal MS5607 pressure sensor, the ambient and internal SHT45 humidity sensor, and general house keeping data including pump currents and thermal system state. The E-link UDP downlink serves as a redundancy channel and provides a secondary copy of the same data stream at a maximum rate of 100 kbit/s. (Something maybe about the GPS position)
+
+\subsection*{Processing stages}
+
+
+
+
+
+
+
 The focus of attention for \gls{mirage} is to demonstrate the applicability of the \gls{ndir} sensor for low-cost and low-complexity methane measurements in the stratosphere.
 Since the biggest trade-off is resolution in this endeavour, the uncertainty of the measurement will be assessed with great care.
 A lot of this will be done before the flight by carefully calibrating the sensor in the temperature and pressure range of the measurement chamber for different methane concentrations and humidity levels.
@@ -34,6 +51,9 @@ Another in-situ measurement campaign conducted over France with AirCore in 2018 
 %Depending on the quality of our data and number of data points we collected %during the floating phase of the flight, we will study fluctuations and %compare them with the GPS data collected by the balloon.
 %Since freshwater bodies, wetlands and industrial areas have higher methane %emissions than for example forests, we are interested whether methane %fluctuations in the stratosphere can be related to those different landscapes.
 %Machine learning might be employed to help recognising those fluctuations.
+
+\subsection{Calibration Plan}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Launch Campaign}
