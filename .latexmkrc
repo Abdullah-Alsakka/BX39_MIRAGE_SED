@@ -9,3 +9,12 @@ sub makeglossaries {
      if ($silent) { unshift @args, "-q"; }
      return system "makeglossaries", @args;
 }
+
+# for compilation with latexmk
+$pdflatex = 'pdflatex -shell-escape -interaction=nonstopmode %O %S';
+$recorder = 1;
+$pdf_mode = 1;
+$bibtex_use = 2; # Use bibtex/biber if necessary
+$biber = 'biber %O %S';
+$force_mode = 1;
+
