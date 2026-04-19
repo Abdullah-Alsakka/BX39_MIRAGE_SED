@@ -4,16 +4,30 @@
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{0_images/figures/Mirage Block schematic.png}
-    \caption{Experimental Setup}
+    \includegraphics[width=0.8\textwidth]{0_images/figures/System_Overview_Schematic.pdf}
+    \caption{MIRAGE Experimental Setup. Cicles indicate sensors. Sensors are named according to $\mathrm{type}_\mathrm{system\, ID}$, where type can be T: temperature, P: pressure, H: humidity, M: methane, C: carbon dioxide, W: water. The systems are colour coded with Pink components: Pressurization system, Blue components: General system/Main MCU, Brown components: Thermal system, Yellow components: K96, Green components: Ambient sensors, Red components: other.}
     \label{fig:experimental_setup}
-    
 \end{figure}
 
-The experiment will feature a NDIR sensor (K96), a pressurization system, a thermal system, ambient environment sensors and a processing unit. 
-The pressurization system will include a pumping mechanism in order to increase the pressure and the amount of particles that can be measured. The air will be heated up and pumped into the measurement chamber with the K96 sensor inside together with temperature, pressure and humidity sensors. The gas will be exchanged continously to exchange the sample while maintaining the pressure of 3 bar. 
-The K96 Sensor will communicate with the processing unit and the processing unit sends the measured digital data for storage to the SDHC card.
-The pressure sensor,temperature sensor and humidity sensor communicate with the processing unit via digital interfaces (such as $I^2C$) to ensure that the pump and thermal control system are running with the right parameters to maintain room temperature conditions and a stable pressure of 3 bar. Unique addresses are used to identify each sensor's signal, allowing the processing unit to collect and organize data from all ambient sensors efficiently.
+The experiment is built around the K96 \gls{ndir} sensor inside pressure chamber with continuously exchanging air (see \fref{fig:experimental_setup}).
+In order to pressurize the chamber, \gls{mirage} will have two vacuum pumps and one piston compressor.
+The first vacuum pump is taking ambient air and pressurizes it to around 0.5 bar.
+The second vacuum pump then pressurizes 0.5 bar to 1 bar and the compressor from 1 bar to 3 bar. 
+To monitor the settings of the pumps, temperature sensors mounted directly on the pumps, as well as temperature and pressure sensors between compression stages will be used.
+The outlet of the pressure chamber is controlled using a valve to open/close the airflow.
+Besides the sensors for the pressurization system, there are sensors for the thermal system and ambient sensors.\newline
+The active components of the thermal system (heaters and coolers) will be controlled via a slave thermal \gls{mcu}.
+Likewise, the pumps will be controlled via a slave pressure \gls{mcu}.
+The main \gls{mcu} will act as a master for the other \gls{mcu}s and run the main part of the software.
+Power will be provided via the connection to \gls{bexus} battery pack via a power connector and distributed to the system via a \gls{pdb}. 
+
+
+
+
+%The experiment will feature an \gls{ndir} sensor (K96), a pressurization system, a thermal system, ambient environment sensors and three processing units. 
+%The pressurization system will include a pumping mechanism in order to increase the pressure and the amount of particles that can be measured. The air will be heated up and pumped into the measurement chamber with the K96 sensor inside together with temperature, pressure and humidity sensors. The gas will be exchanged continously to exchange the sample while maintaining the pressure of 3 bar. 
+%The K96 Sensor will communicate with the processing unit and the processing unit sends the measured digital data for storage to the SDHC card.
+%The pressure sensor,temperature sensor and humidity sensor communicate with the processing unit via digital interfaces (such as $I^2C$) to ensure that the pump and thermal control system are running with the right parameters to maintain room temperature conditions and a stable pressure of 3 bar. Unique addresses are used to identify each sensor's signal, allowing the processing unit to collect and organize data from all ambient sensors efficiently.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experiment Interfaces}
@@ -23,7 +37,14 @@ The pressure sensor,temperature sensor and humidity sensor communicate with the 
 
 The \gls{mirage} enclosure is mechanically attached to the ESCARGO gondola structure via four mounting points located on its bottom plate. These four connection points interface with two parallel 45 $\times$ 45 mm Bosch aluminium T-slot profiles using M6 T-bolts, M6 rubber spacers, and M6 flange nuts. The parallel profiles are then mounted to the ESCARGO gondola structure using standard Rexroth M6 brackets, M6 T-bolts, and M6 flange nuts. This configuration facilitates installation without necessitating structural modifications to the ESCARGO frame, ensuring full compatibility with the standard mounting interface.
 
-To reduce vibration transmission, temperature transfer and accommodate minor alignment tolerances during installation, rubber spacers are installed between the enclosure and the mounting brackets.
+The mounting procedure for the enclosure is designed for simplicity and versatility. Due to the rectangular geometry of the assembly and the strategic placement of the internal insulation layer, mounting apertures can be integrated into the housing with high flexibility, without compromising the structural integrity of the chassis or the safety of internal components.
+This modularity allows the experiment to be mounted on any face in various configurations.
+While the current mounting scheme is illustrated in the provided documentation, the design remains adaptable to accommodate potential adjustments required by other experiments or spatial constraints.
+To ensure effective mechanical decoupling, an elastomeric damping material (rubber) will be utilized at the interface between the enclosure and the gondola structure.
+This isolation layer is intended to mitigate vibrational transmission, specifically addressing the sensitivity requirements and interference concerns raised by adjacent experimental payloads. 
+It is also significant to note that the nested rectangular architecture of the assembly permits the axial rotation of Layer 3 relative to the external enclosure.
+This modularity ensures that the spatial orientation of the primary system interfaces, specifically the Ethernet, power, and pneumatic inlet/outlet ports—can be adjusted to any face of the structure as required.
+This design feature provides substantial flexibility, allowing the system to be reconfigured for different mission requirements or spatial constraints without necessitating fundamental structural modifications.
 
 The mounting configuration provides a rigid mechanical interface between the experiment enclosure and the ESCARGO frame, ensuring structural redundancy and compliance with the standard ESCARGO mechanical interface requirements.
 
@@ -215,63 +236,138 @@ The selection of the TCA9548A was based on compatibility with the system, simpli
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mechanical Design}\label{mechanical_design}
 
-The mechanical design of the \gls{mirage} experiment focuses on a compact enclosure housing a pressurized measurement chamber, a multi-stage pump system, supporting electronics, and a heating system. \gls{mirage} is designed to fit within the ESCARGO gondola structure while maintaining structural integrity and ensuring safe operation under the environmental conditions expected during the mission.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing.png}
-    \caption{Technical drawing of the system as a whole.}
-    \label{fig:tech_drawing}
-    
-\end{figure}
+The mechanical design of the \gls{mirage} experiment focuses on a compact enclosure housing, placement of electrical components, pressurized measurement chamber, a multi-stage pump system, heating system, and the pressurization system.
+\gls{mirage} is designed to fit within the ESCARGO gondola structure requirements whilst maintaining structural integrity and ensuring safe operation for the experiment and other participants under the environmental conditions expected during the mission. 
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing.png}
+%    \caption{Technical drawing of the system as a whole.}
+%    \label{fig:tech_drawing}
+%    
+%\end{figure}
 
 \subsection{Experiment Enclosure}
 
-The experiment is housed in a \gls{cots} aluminium enclosure with external dimensions of $200\times 200\times 150$ mm and a wall thickness of expected 2 mm. The enclosure provides mechanical protection for all internal components and acts as the primary structural body of the experiment. A \gls{cots} enclosure was selected to reduce manufacturing complexity, minimize cost, and provide a robust structural housing with well-characterized mechanical properties.
-The enclosure is directly mounted to the ESCARGO frame as described in \sref{mechanical_interface}. Internally, the enclosure accommodates the pressure chamber, two diaphragm vacuum pumps, one piston compressor, a passive outflow hole, shutter valve, tubing, and electronic control hardware. The enclosure also includes two dedicated holes for air inlet and one for outlet, as well as electrical feedthroughs required for connecting to the BEXUS power and E-link system.
+The experimental enclosure is a composite structure consisting of three distinct functional layers.
+The exterior layer comprises a thin protective polymer shell, designed to provide mechanical reinforcement for the underlying insulation.
+The secondary layer serves as the primary thermal barrier, with a nominal thickness of 12.5 mm.
+The final, innermost layer consists of a COTS aluminium enclosure featuring a wall thickness of 2 mm.
+The overall envelope of the assembly is constrained to maximum external dimensions of 200x200x150 mm.\par
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_3.png}
-    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_5.png}
-    \caption{Technical drawings of experiment enclosure. Drawings are representative and the thickness of both “Main Body” and “Main Lid” will be reduced to 2mm by buying COTS parts.}
-    \label{fig:enclosure}
+The primary objective of the first layer is to safeguard the intermediate insulation from structural degradation.
+Due to the inherent mechanical vulnerability of the insulating material, this external cladding is necessary to prevent failure during handling and operation.
+However, it should be noted that the plastic shell is not the principal defence against high-energy impacts; instead, the responsibility for maintaining structural integrity and absorbing kinetic loads during impact resides with the third layer (aluminium housing).\par
+
+The second layer of the wall will be insulating material which aims to ensure the right temperature inside the experiment in order to avoid any possible temperature deviations and component failure. 
+The selection of the thermal insulation material is informed by material property charts that correlate mechanical strength with density, allowing for the identification of the most suitable candidate for the experimental requirements.
+Based on these comparative diagrams, polymeric foams were identified as the optimal material class, as they provide an ideal balance between required structural integrity and superior thermal insulation properties.
+The precise specification of the foam has not yet been finalized, as the dimensions of the insulation layer are functionally dependent on the final volume of the third layer (internal housing).
+An expansion of the third layer’s dimensions would necessitate a proportional reduction in insulation thickness; conversely, a reduction in the internal assembly's footprint would permit an increased volume for the thermal barrier.
+Despite these potential dimensional refinements, current material analysis confirms that polymeric foams will remain the baseline choice for the insulation architecture, see also \fref{fig:thermal conduct chart insulation}.\par 
+
+\begin{figure}
+  \centering 
+  \includegraphics[width=0.6\linewidth]{0_images/figures/insulation_selection_material.png}
+  \caption{Thermal conductivity - thermal resistivity chart to infer insulation material. Source: \cite{ASHBY2013227}}
+  \label{fig:thermal conduct chart insulation}
 \end{figure}
+
+The third layer will be the commercial off the shelf aluminium enclosure with an expected wall thickness of 2 mm in which all the components will be placed.
+We chose to use a \gls{cots} enclosure in order to reduce manufacturing complexity which also helps with our budget and makes the whole experiment safer.
+Its main purpose is to house the electronics and provide a good protection.
+The enclosure chosen is IP certified and was tested in extreme environments close to stratospheric ones.
+It also comes with pre-made holes that allow us to connect experiment to the E-link system and \gls{bexus} power while ensuring a leak tight connection.\par 
+
+The whole enclosure (counting in three layers), not counting the mandatory connections, will have one inlet holes for the vacuum pump to suck in the air and one exit hole for the air to escape. Airflow is fully isolated from the enclosure and routed exclusively through sealed tubing. This ensures that only the measurement chamber is pressurized, in compliance with requirement D.8.\par 
+
+
+
+
+
+
+%The experiment is housed in a \gls{cots} aluminium enclosure with external dimensions of $200\times 200\times 150$ mm and a wall thickness of expected 2 mm. The enclosure provides mechanical protection for all internal components and acts as the primary structural body of the experiment. A \gls{cots} enclosure was selected to reduce manufacturing complexity, minimize cost, and provide a robust structural housing with well-characterized mechanical properties.
+%The enclosure is directly mounted to the ESCARGO frame as described in \sref{mechanical_interface}. Internally, the enclosure accommodates the pressure chamber, two diaphragm vacuum pumps, one piston compressor, a passive outflow hole, shutter valve, tubing, and electronic control hardware. The enclosure also includes two dedicated holes for air inlet and one for outlet, as well as electrical feedthroughs required for connecting to the BEXUS power and E-link system.
+
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_3.png}
+%    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_5.png}
+%    \caption{Technical drawings of experiment enclosure. Drawings are representative and the thickness of both “Main Body” and “Main Lid” will be reduced to 2mm by buying COTS parts.}
+%    \label{fig:enclosure}
+%\end{figure}
 
 \subsection{Internal Layout}
+The internal layout of the Mirage experiment is arranged to maintain a compact configuration in order to minimize space taken in all the axis.
+The philosophy behind the design is to maximize the temperature use from components, which natively produce temperature whilst working.
+Currently, the system is configured such that two vacuum pumps are vertically stacked in the upper-left corner to optimize space utilization along the Z-axis, where spatial constraints are more significant than in the X and Y dimensions.
+These pumps subsequently supply air to a compressor situated in the lower-left corner, which is positioned in the immediate vicinity of the pressure chamber to minimize the distance between the air discharge and the chamber inlet.
+The pressure chamber is located as close as possible to the solenoid valve.
+This proximity is maintained to minimize the total pressurized volume; notably, the tubing connecting the chamber to the valve features a reduced diameter of 2 mm, in contrast to the 6 mm diameter utilized in the remainder of the system.
+Adjacent to the primary assembly is a PCB tower, which provides a compact arrangement for the circuit boards, isolating them from the pneumatic conduits and minimizing the footprint that would otherwise be required for individual, planar placement.
+The layout can be viewed in \fref{fig:cad model internal layout}.
 
-The internal layout of the \gls{mirage} experiment is arranged to maintain a compact configuration and minimize the length of the airflow path between the pressurized chamber and the compressor.
-Electronic control hardware is mounted along the inner bottom of the enclosure, providing physical isolation between electrical components and the pressurized air system.
-This configuration ensures efficient airflow through the chamber while maintaining accessibility for integration and servicing.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing_6.png}
-    \caption{Drawing of the internal layout.}
-    \label{fig:int_layout}
-    
+\begin{figure}
+  \centering 
+  \includegraphics[width=0.8\linewidth]{0_images/figures/internal_layout_mirage.png}
+  \caption{CAD model rendering of the experiment internal layout.}
+  \label{fig:cad model internal layout}
 \end{figure}
 
+%The internal layout of the \gls{mirage} experiment is arranged to maintain a compact configuration and minimize the length of the airflow path between the pressurized chamber and the compressor.
+%Electronic control hardware is mounted along the inner bottom of the enclosure, providing physical isolation between electrical components and the pressurized air system.
+%This configuration ensures efficient airflow through the chamber while maintaining accessibility for integration and servicing.
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing_6.png}
+%    \caption{Drawing of the internal layout.}
+%    \label{fig:int_layout}
+%    
+%\end{figure}
+%
 \subsection{Pressurized Measurement Chamber}
 
-The core element of the experiment is a small pressurized chamber that houses the K96 sensor used for the measurements. The chamber has internal dimensions of approximately $38 \times 33 \times 45$ mm and a wall thickness of 7 mm. It will be machined from aluminium by the \gls{mirage} team at Uppsala University.
+The pressurized chamber is designed to accommodate a K96 sensor alongside an auxiliary pressure sensor and potentially an auxiliary temperature sensor.
+The internal layout is providing sufficient volume to house the printed circuit boards (PCBs) for both the pressure and K96 sensors.
+Commercial off-the-shelf (COTS) components proved unsuitable for this application due to stringent requirements regarding a sanitized internal environment and the necessity for minimal internal volume to optimize airflow.
+Consequently, the chamber will be custom-manufactured using university facilities.
+Drawing upon established automotive engineering methodologies, a copper gasket was selected for the sealing interface.
+Copper is a ductile metal capable of undergoing plastic deformation under sufficient mechanical load, thereby creating a hermetic and waterproof seal.
+The internal geometry focuses on minimizing the displacement distance between the inlet and the outlet. 
+%Although initial design iterations aimed to minimize total dead space, it was subsequently concluded that internal volume is of secondary importance, provided that the airflow remains rapid and free from turbulence. 
+%This laminar flow is maintained by positioning the inlet and outlet on opposing walls in the immediate vicinity of the K96 sensor.
+To reduce assembly complexity, electrical connections are routed through hermetically sealed apertures, as managing cables through such interfaces is more efficient than utilizing the standard connectors provided by the sensors.
+The wall thickness was calculated to be 5 mm on sides/top and 3 mm on bottom, ensuring safe operation at a differential pressure of 3 bar without the risk of structural failure or deformation. 
+\gls{fea} was conducted to validate the structural integrity of the chamber under internal pressure loading, see \fref{fig:static_fea_chamber}.
+The results show a maximum stress of approximately $1.57 \cdot 10^7$ Pa, a maximum displacement of $2.4\cdot10^{-3}$ mm, and a factor of safety of approximately 39.
+These results confirm that the chamber operates well within material limits.
+The chamber is assembled using 6 x M3 fasteners with preload, ensuring that the sealing force exceeds the internal pressure force acting on the lid.
+Given that copper gaskets undergo permanent deformation and are therefore single-use, elastomeric seals will be utilized during the preliminary testing phase. 
+However, for the final flight hardware intended for stratospheric conditions, copper is mandatory due to its superior thermal resilience. 
+In scenarios where pressure drops, or the experiment fails, internal temperatures are expected to reach $-60$ °C.
+At such extremes, rubber seals reach their glass transition temperature, becoming brittle and losing their sealing properties.
+Conversely, copper maintains its structural integrity and, under adequate clamping force, provides a superior seal compared to elastomers.
+The pressure chamber is CNC-machined from an aluminium block, while the gasket is fabricated from a thin copper sheet tailored to the chamber's perimeter.
+The sealing mechanism employs a ridge-and-groove interface between the lid and the body, where a semicircular ridge compresses the copper into a matching groove to ensure a robust seal.
+%A figure of the close-up of the internal layout of the pressure chamber is given in \fref{fig:cad model internal layout chamber}. 
+Technical drawings are provided in \fref{fig:pressure_drawing}.
+\par
 
-The chamber is sealed using a copper gasket to ensure reliable sealing under elevated pressure conditions and temperature changes. Copper gaskets were selected due to their ability to provide a robust metal-to-metal seal capable of maintaining integrity at high pressure differentials.
-
-The chamber is designed to minimize internal volume while providing sufficient space for the sensor and the necessary airflow path. Reducing the internal volume proportionally lowers the airflow rate required to exchange the chamber atmosphere, which improves the overall performance of the experiment.
+%
+%\begin{figure}
+%  \centering 
+%  \includegraphics[width=0.7]{0_images/figures/internal_structure_pressure_chamber.png}
+%  \caption{Close-up on the internal layout of the pressure chamber, containing the K96.}
+%  \label{fig:cad model internal layout chamber}
+%\end{figure}
+%
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.45\textwidth]{0_images/figures/render2.png}
-    \includegraphics[width=0.45\textwidth]{0_images/figures/render1.png}
-    \caption{Renders of the pressurized chamber.}
-    \label{fig:pressure_render}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_2.png}
-    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_4.png}
+    \includegraphics[width=0.45\textwidth]{0_images/figures/technical_drawing_chamber.png}
+    \includegraphics[width=0.45\textwidth]{0_images/figures/technical_drawing_chamber_2.png}
     \caption{Technical drawings of the pressurized chamber.}
     \label{fig:pressure_drawing}
 \end{figure}
@@ -1030,6 +1126,8 @@ Humidity handling is implemented as a dedicated protective loop. If ambient humi
 
 Heating of intake air and heating of electronics may be run in parallel when power limits permit.
 
+The thermal control system will use PID control logic to regulate temperature in designated areas. The control logic will run multiple parallel loops on the same MCU, each producing a duty cycle applied to PWM signals running heaters. The software will receive sensor readings and target temperatures from the main MCU via I2C communication. Within each loop the control error will be calculated once per cycle. The control error will be preserved when entering the next cycle so the derivative term can be calculated by subtracting the new error from the previous. The integral term will be updated by adding the new control error in each cycle. Anti windup will be implemented by limiting how large the integral term can get. The coefficients Kp, Ki and Kd will be programmed as constant variables and will be determined after the system is tuned. The PID control loops will be able to be terminated by command from the main MCU in the event of a failure.
+
 \subsection{Pressure MCU}
 \begin{figure}[H]
 \centering
@@ -1078,7 +1176,39 @@ Total & & & 39856 \\
 
 
 \subsection{Manual operation procedures}
-\dos{Jonathan's section}
+Although the on-board software shall be equipped to handle exceptions from nominal conditions, an operation plan for exceptional situations is helpful. 
+
+\paragraph{Exceptional pressure readings in the pressure chamber} are handled by the on-board software by closing the outlet valve and stopping the pumps. \dos{ref pump action schematic}
+After nominal pressure is restored, the pressurization system will return to normal operations. 
+However, if exceptional pressures are occurring repeatedly, a switch to manual mode might be necessary. 
+Then, the team can try to identify the source of the problem.
+Reasons could be a faulty sensor inside the pressure chamber, a partially frozen outlet, a software error or a faulty pump.\par 
+
+If a pump is not working nominally, the pressure sensors measuring the pressure in the tubing between pumps should show signs of that, too. 
+If a pump is not pressurizing air as much as it should, its intake may be blocked. 
+The team may decide to heat up the experiment in an attempt to melt any ice.
+This may be especially useful for the first vacuum pump, which is connected to the ambient air.
+If the problem can not be solved, the experiment may be aborted due to unknown risks of the faulty equipment.\par 
+
+If a software error is responsible for the exceptional pressure readings, the \gls{pid} algorithm may be misbehaving.
+A restart of the pressure \gls{mcu} may be triggered in an attempt to resolve the issue. 
+If an analysis of the software logs \dos{are we having any?} shows that the autonomous loop on-board the main \gls{mcu} is misbehaving, a restart of the main \gls{mcu} may be triggered.
+If the problem remains unsolved, measurements may be taken in manual mode.\par 
+
+If a partially frozen outlet is responsible for the exceptional pressure readings, the outflow hole heaters may be activated.
+If the problem persists, the outlet is likely not the cause.\par 
+
+If a faulty sensor inside the pressure chamber is responsible for the exceptional pressure readings, the collected data can not be used for meaningful scientific results.
+As it may also be a security hazard, the experiment may be aborted.\par 
+
+\paragraph{Sensor deaths} are not handled by the onboard software in the current design stages.
+If a temperature sensor of a vacuum pump dies, the temperature sensor on the other vacuum pump may be used as a proxy. 
+If both die or the temperature sensor on the compressor dies, the experiment may be aborted due to security risks.\newline 
+If a pressure sensor inside the tubing connecting the pumps dies, the \gls{pid} algorithm might fail. 
+In that case, the pumps may be controlled manually based on prior testing and control using the remaining sensors.\newline
+If a pressure sensor next to a heater dies, that heater cannot be safely used anymore. It can also no longer be controlled by the \gls{pid} algorithm. 
+The outlet hole heater is an exception, as it may then be used manually if the outlet is suspected to be blocked.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ground support equipment}
 
@@ -1171,6 +1301,10 @@ Add terminal fallback & Allow manual commands and configuration through a termin
 \label{fig:ground_gui_mockup}
 \end{figure}
 
-Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight.
+Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight. 
+
+\subsection*{Other Pre-Launch Preparations}
+After the final assembly before Launch there should be not much left to do. If there are many tests, it could be worth it to clear the SD card storage and if this can't be done remotely via ethernet, this needs to be done by accessing the SD card port. \\
+It is also planned to do a final leak test by pressurisation of the pressure chamber to 3.5 bar after the experiment has been assembled to make sure that all the tubing, the electrical valve and the chamber are air tight. It is also planned to run a final test to make sure that all components are connected properly and respond. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
