@@ -37,7 +37,14 @@ Power will be provided via the connection to \gls{bexus} battery pack via a powe
 
 The \gls{mirage} enclosure is mechanically attached to the ESCARGO gondola structure via four mounting points located on its bottom plate. These four connection points interface with two parallel 45 $\times$ 45 mm Bosch aluminium T-slot profiles using M6 T-bolts, M6 rubber spacers, and M6 flange nuts. The parallel profiles are then mounted to the ESCARGO gondola structure using standard Rexroth M6 brackets, M6 T-bolts, and M6 flange nuts. This configuration facilitates installation without necessitating structural modifications to the ESCARGO frame, ensuring full compatibility with the standard mounting interface.
 
-To reduce vibration transmission, temperature transfer and accommodate minor alignment tolerances during installation, rubber spacers are installed between the enclosure and the mounting brackets.
+The mounting procedure for the enclosure is designed for simplicity and versatility. Due to the rectangular geometry of the assembly and the strategic placement of the internal insulation layer, mounting apertures can be integrated into the housing with high flexibility, without compromising the structural integrity of the chassis or the safety of internal components.
+This modularity allows the experiment to be mounted on any face in various configurations.
+While the current mounting scheme is illustrated in the provided documentation, the design remains adaptable to accommodate potential adjustments required by other experiments or spatial constraints.
+To ensure effective mechanical decoupling, an elastomeric damping material (rubber) will be utilized at the interface between the enclosure and the gondola structure.
+This isolation layer is intended to mitigate vibrational transmission, specifically addressing the sensitivity requirements and interference concerns raised by adjacent experimental payloads. 
+It is also significant to note that the nested rectangular architecture of the assembly permits the axial rotation of Layer 3 relative to the external enclosure.
+This modularity ensures that the spatial orientation of the primary system interfaces, specifically the Ethernet, power, and pneumatic inlet/outlet ports—can be adjusted to any face of the structure as required.
+This design feature provides substantial flexibility, allowing the system to be reconfigured for different mission requirements or spatial constraints without necessitating fundamental structural modifications.
 
 The mounting configuration provides a rigid mechanical interface between the experiment enclosure and the ESCARGO frame, ensuring structural redundancy and compliance with the standard ESCARGO mechanical interface requirements.
 
@@ -121,20 +128,56 @@ Total & & 1079.59 & \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mechanical Design}\label{mechanical_design}
 
-The mechanical design of the \gls{mirage} experiment focuses on a compact enclosure housing a pressurized measurement chamber, a multi-stage pump system, supporting electronics, and a heating system. \gls{mirage} is designed to fit within the ESCARGO gondola structure while maintaining structural integrity and ensuring safe operation under the environmental conditions expected during the mission.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing.png}
-    \caption{Technical drawing of the system as a whole.}
-    \label{fig:tech_drawing}
-    
-\end{figure}
+The mechanical design of the \gls{mirage} experiment focuses on a compact enclosure housing, placement of electrical components, pressurized measurement chamber, a multi-stage pump system, heating system, and the pressurization system.
+\gls{mirage} is designed to fit within the ESCARGO gondola structure requirements whilst maintaining structural integrity and ensuring safe operation for the experiment and other participants under the environmental conditions expected during the mission. 
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing.png}
+%    \caption{Technical drawing of the system as a whole.}
+%    \label{fig:tech_drawing}
+%    
+%\end{figure}
 
 \subsection{Experiment Enclosure}
 
-The experiment is housed in a \gls{cots} aluminium enclosure with external dimensions of $200\times 200\times 150$ mm and a wall thickness of expected 2 mm. The enclosure provides mechanical protection for all internal components and acts as the primary structural body of the experiment. A \gls{cots} enclosure was selected to reduce manufacturing complexity, minimize cost, and provide a robust structural housing with well-characterized mechanical properties.
-The enclosure is directly mounted to the ESCARGO frame as described in \sref{mechanical_interface}. Internally, the enclosure accommodates the pressure chamber, two diaphragm vacuum pumps, one piston compressor, a passive outflow hole, shutter valve, tubing, and electronic control hardware. The enclosure also includes two dedicated holes for air inlet and one for outlet, as well as electrical feedthroughs required for connecting to the BEXUS power and E-link system.
+The experimental enclosure is a composite structure consisting of three distinct functional layers.
+The exterior layer comprises a thin protective polymer shell, designed to provide mechanical reinforcement for the underlying insulation.
+The secondary layer serves as the primary thermal barrier, with a nominal thickness of 12.5 mm.
+The final, innermost layer consists of a COTS aluminium enclosure featuring a wall thickness of 2 mm.
+The overall envelope of the assembly is constrained to maximum external dimensions of 200x200x150 mm.\par
+
+The primary objective of the first layer is to safeguard the intermediate insulation from structural degradation.
+Due to the inherent mechanical vulnerability of the insulating material, this external cladding is necessary to prevent failure during handling and operation.
+However, it should be noted that the plastic shell is not the principal defence against high-energy impacts; instead, the responsibility for maintaining structural integrity and absorbing kinetic loads during impact resides with the third layer (aluminium housing).\par
+
+The second layer of the wall will be insulating material which aims to ensure the right temperature inside the experiment in order to avoid any possible temperature deviations and component failure. 
+The selection of the thermal insulation material is informed by material property charts that correlate mechanical strength with density, allowing for the identification of the most suitable candidate for the experimental requirements.
+Based on these comparative diagrams, polymeric foams were identified as the optimal material class, as they provide an ideal balance between required structural integrity and superior thermal insulation properties.
+The precise specification of the foam has not yet been finalized, as the dimensions of the insulation layer are functionally dependent on the final volume of the third layer (internal housing).
+An expansion of the third layer’s dimensions would necessitate a proportional reduction in insulation thickness; conversely, a reduction in the internal assembly's footprint would permit an increased volume for the thermal barrier.
+Despite these potential dimensional refinements, current material analysis confirms that polymeric foams will remain the baseline choice for the insulation architecture.\par 
+
+\begin{figure}
+  \centering 
+  \includegraphics{0_images/figures/insulation_selection_material.png}
+\end{figure}
+
+The third layer will be the commercial off the shelf aluminium enclosure with an expected wall thickness of 2 mm in which all the components will be placed.
+We chose to use a \gls{cots} enclosure in order to reduce manufacturing complexity which also helps with our budget and makes the whole experiment safer.
+Its main purpose is to house the electronics and provide a good protection.
+The enclosure chosen is IP certified and was tested in extreme environments close to stratospheric ones.
+It also comes with pre-made holes that allow us to connect experiment to the healing system and \gls{bexus} power while ensuring a leak tight connection.\par 
+
+The whole enclosure (counting in three layers), not counting the mandatory connections, will have one inlet holes for the vacuum pump to suck in the air and one exit hole for the air to escape. Airflow is fully isolated from the enclosure and routed exclusively through sealed tubing. This ensures that only the measurement chamber is pressurized, in compliance with requirement D.8.\par 
+
+
+
+
+
+
+%The experiment is housed in a \gls{cots} aluminium enclosure with external dimensions of $200\times 200\times 150$ mm and a wall thickness of expected 2 mm. The enclosure provides mechanical protection for all internal components and acts as the primary structural body of the experiment. A \gls{cots} enclosure was selected to reduce manufacturing complexity, minimize cost, and provide a robust structural housing with well-characterized mechanical properties.
+%The enclosure is directly mounted to the ESCARGO frame as described in \sref{mechanical_interface}. Internally, the enclosure accommodates the pressure chamber, two diaphragm vacuum pumps, one piston compressor, a passive outflow hole, shutter valve, tubing, and electronic control hardware. The enclosure also includes two dedicated holes for air inlet and one for outlet, as well as electrical feedthroughs required for connecting to the BEXUS power and E-link system.
 
 \begin{figure}[htbp]
     \centering
