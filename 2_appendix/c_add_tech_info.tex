@@ -46,12 +46,252 @@
 \end{figure}
 
 
+\clearpage
+\subsection{FEA and CFD}
 
-\begin{figure}
+\begin{figure}[htbp!]
   \centering 
-  \includegraphics[width=\textwidth]{0_images/figures/static_fea_chamber.png}
+  \includegraphics[width=\textwidth]{0_images/figures/static_fea_chamber.pdf}
   \caption{Screen capture of the FEA to determine static loads.}
   \label{fig:fea_static_chamber}
 \end{figure}
 
+
+\subsubsection{Mesh settings CFD}\label{sec:mesh settings cfd}
+		INPUT DATA 
+
+Mesh 
+
+    Global Mesh Settings 
+
+                Automatic initial mesh:   On 
+
+                Result resolution level:   4 
+
+                Advanced narrow channel refinement:   On 
+
+        Geometry Resolution 
+
+                Evaluation of minimum gap size:   Automatic 
+
+                Evaluation of minimum wall thickness:   Automatic 
+
+    Computational Domain 
+
+        Size 
+
+                X min:   0.575 m 
+
+                X max:   0.644 m 
+
+                Y min:   0.856 m 
+
+                Y max:   0.883 m 
+
+                Z min:   1.271 m 
+
+                Z max:   1.321 m 
+
+                X size:   0.069 m 
+
+                Y size:   0.027 m 
+
+                Z size:   0.050 m 
+
+        Boundary Conditions 
+
+                2D plane flow:   None 
+
+                At X min:   Default 
+
+                At X max:   Default 
+
+                At Y min:   Default 
+
+                At Y max:   Default 
+
+                At Z min:   Default 
+
+                At Z max:   Default 
+
+Physical Features 
+
+                Fluid Flow:   On 
+
+                Conduction:   Off 
+
+                Structural:   Off 
+
+                Electromagnetics:   Off 
+
+                Time dependent:   Off 
+
+                Gravitational effects:   Off 
+
+                Rotation:   Off 
+
+                Flow type:   Laminar and turbulent 
+
+                High Mach number flow:   On 
+
+                Free surface:   Off 
+
+                Default roughness:   3.0 micrometer 
+
+                Default wall conditions:   Adiabatic wall 
+
+    Initial Conditions 
+
+            Thermodynamic parameters 
+
+                Static Pressure:   300000.00 Pa 
+
+                Temperature:   21.00 °C 
+
+            Velocity parameters 
+
+                Velocity vector 
+
+                Velocity in X direction:   0 m/s 
+
+                Velocity in Y direction:   0 m/s 
+
+                Velocity in Z direction:   0 m/s 
+
+            Turbulence parameters 
+
+                Turbulence intensity and length 
+
+                Intensity:   2.00 % 
+
+                Length:   3.500e-04 m 
+
+    Material Settings 
+
+        Fluids 
+
+                Air 
+
+    Boundary Conditions 
+
+            Inlet Volume Flow 2 
+
+                Type:   Inlet Volume Flow 
+
+                Faces:   Face<2>@LID28<1> 
+
+                Coordinate system:   Face Coordinate System 
+
+                Reference axis:   X 
+
+            Flow parameters 
+
+                Flow vectors direction:   Normal to face 
+
+                Volume flow rate:   6.6700e-07 m^3/s 
+
+                Inlet profile:   0   
+
+            Thermodynamic parameters 
+
+                Approximate pressure:   300000.00 Pa 
+
+                Static pressure:   300000.00 Pa 
+
+
+                Temperature type:   Temperature of initial components 
+
+                Temperature:   21.00 °C 
+
+            Turbulence parameters 
+
+                Turbulence intensity and length 
+
+                Intensity:   2.00 % 
+
+                Length:   3.500e-04 m 
+
+            Boundary layer parameters 
+
+                Boundary layer type:   Turbulent 
+
+
+            Environment Pressure 2 
+
+                Type:   Environment Pressure 
+
+                Faces:   Face<1>@Tryckkammare (1)<1> 
+
+                Coordinate system:   Face Coordinate System 
+
+                Reference axis:   X 
+
+  
+
+            Thermodynamic parameters 
+
+                Environment pressure:   100000.00 Pa 
+
+                Temperature type:   Temperature of initial components 
+
+                Temperature:   20.00 °C 
+
+            Turbulence parameters 
+
+
+                Turbulence intensity and length 
+
+                Intensity:   2.00 % 
+
+                Length:   3.500e-04 m 
+
+            Boundary layer parameters 
+
+                Boundary layer type:   Turbulent 
+
+    Calculation Control Options 
+
+        Finish Conditions 
+
+                Finish Conditions:   If one is satisfied 
+
+                Maximum iterations:   200 
+
+                Maximum travels:   4.000   
+
+            Goals convergence 
+
+                Analysis interval:   0.500   
+
+        Solver Refinement 
+
+                Refinement:   Disabled 
+
+        Solving 
+
+        Results Saving 
+
+                Save before refinement:   On 
+
+            Periodic Saving 
+
+                Units:   Iterations 
+
+                Period:   100   
+
+        Advanced Control Options 
+
+            Flow Freezing 
+
+                Flow freezing strategy:   Disabled
+
+\clearpage
+
+\section{Analysis of Flow Rates}\label{sec:analysis flow rates}
+\begin{figure}[htbp!]
+  \includegraphics[width=\linewidth]{0_images/figures/Flow_curves_dia_pump.png}
+  \caption{Flow curve diagram of the vacuum pumps intended to use. The blue line represents the pump configuration outlined in this document.}
+  \label{fig:flow_curves_dia_pump}
+\end{figure}
+\includepdf[pages=-]{0_images/figures/Flowrate.pdf}
 
