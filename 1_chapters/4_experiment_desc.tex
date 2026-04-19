@@ -877,6 +877,8 @@ Humidity handling is implemented as a dedicated protective loop. If ambient humi
 
 Heating of intake air and heating of electronics may be run in parallel when power limits permit.
 
+The thermal control system will use PID control logic to regulate temperature in designated areas. The control logic will run multiple parallel loops on the same MCU, each producing a duty cycle applied to PWM signals running heaters. The software will receive sensor readings and target temperatures from the main MCU via I2C communication. Within each loop the control error will be calculated once per cycle. The control error will be preserved when entering the next cycle so the derivative term can be calculated by subtracting the new error from the previous. The integral term will be updated by adding the new control error in each cycle. Anti windup will be implemented by limiting how large the integral term can get. The coefficients Kp, Ki and Kd will be programmed as constant variables and will be determined after the system is tuned. The PID control loops will be able to be terminated by command from the main MCU in the event of a failure.
+
 \subsection{Pressure MCU}
 \begin{figure}[H]
 \centering
@@ -1050,6 +1052,10 @@ Add terminal fallback & Allow manual commands and configuration through a termin
 \label{fig:ground_gui_mockup}
 \end{figure}
 
-Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight.
+Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight. 
+
+\subsection*{Other Pre-Launch Preparations}
+After the final assembly before Launch there should be not much left to do. If there are many tests, it could be worth it to clear the SD card storage and if this can't be done remotely via ethernet, this needs to be done by accessing the SD card port. \\
+It is also planned to do a final leak test by pressurisation of the pressure chamber to 3.5 bar after the experiment has been assembled to make sure that all the tubing, the electrical valve and the chamber are air tight. It is also planned to run a final test to make sure that all components are connected properly and respond. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
