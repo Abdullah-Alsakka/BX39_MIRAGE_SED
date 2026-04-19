@@ -54,11 +54,9 @@ Rubber Spacer/Damper & 4 & M6 \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Electrical Interface}\label{electrical_interface}
 
-The electrical interface to the Bexus power unit consists of the MIL-C 26482P series 1 connector, as provided by the user manual. Using pin A and B, the supply voltage from the SAFT MP176065 battery pack will be fed to the power distribution board.
-The connector to the E-Link of the gondola will be an Amphenol RJF21B and the RJ45 connector will be employed for communication with a RJ45 plug on the MCU PCB.
+The electrical interface to the BEXUS power unit consists of the MIL-C 26482P series 1 connector, as provided by the user manual. Using pin A and B, the supply voltage from the SAFT MP176065 battery pack will be fed to the Power Distribution Board (PDB). The connector to the E-Link of the gondola will be an Amphenol RJF21B and the RJ45 connector will be employed for communication with an RJ45 plug on the \gls{mcu} \gls{pcb}. 
 
-Since the Bexus power supply is 28.8V two LM2596HVS step-down voltage regulators will be used on the power distribution board. For the MCU and K96 sensor 8V will be used, the pressurization system operates at 24V, the thermal system at 12V and 3.3V for the sensors. The estimated average current draw from the BEXUS battery is 0.8A and the average power consumption is 23.11W. The total power consumption from BEXUS power unit is 138.67Wh as listed in section 4.7 and the peak current draw is 2.26A. For protecting the BEXUS batteries and other experiments a pre-charge circuit will be implemented in order to limit the currents of the pressurization system and an LC filter to deal with the EMI and switching frequencies of DC/DC converters. Distributed single point ground will be implemented.
-
+Since the BEXUS power supply is 28.8V, three step-down TSR3-2433N DC/DC converters and two linear regulators, LM317 and LM350, will be used on the PDB. For the K96 sensor 8V will be used, the pressurization system operates at 24V, the thermal system at 12V and 3.3V, and 3.3V for the sensors and \glspl{mcu}. The estimated average current draw from the BEXUS battery is 0.46A and the average power consumption is 13.13W, assuming a 7.5h flight. The total power consumption from the BEXUS power unit is 98.45Wh as listed in \sref{sec:power_design} and the peak current draw is 2.30A, assuming the thermal system is active. For protecting the BEXUS batteries and other experiments a pre-charge circuit will be implemented in order to limit the currents of the pressurization system and an LC filter to deal with the EMI and switching frequencies of DC/DC converters. An overcurrent safety measure will be implemented and will be controlled by the main \gls{mcu} and implemented using a current sensor and solid state relays. All subsystems will ground to the PDB and the PDB will ground to the minus-pin of the BEXUS battery line.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Thermal}\label{thermal}
@@ -91,18 +89,128 @@ Experiment expected \gls{cog} position: & Distance from geometric centre: x=4mm 
 \hline
 Vacuum pump & 119$\times$44$\times$73 & 294 & 2 \\
 Compressor & 130$\times$60$\times$85 & 445 & 1 \\
-Arduino Mega & 54$\times$102$\times$15 & 37 & 1\\
 K96 & 42.26$\times$33.9$\times$26.04 & 300 & 1 \\
-MS5607 & 3.0$\times$5.0$\times$0.95 & <1 & 1\\
-SHT45 & 1.5$\times$1.5$\times$0.5 & <1 & 4 \\
-LM2596HVS-ADJ & 10.1$\times$9.0$\times$4.5 & 1.59 & 3 \\
-\gls{pcb} & TBD & TBD & 1 \\
-Thermal system & TBD & TBD &  \\
+Pressure sensor\newline MS580314BA01-00 & 3.0$\times$5.0$\times$0.95 & <1 & 2 \\
+Pressure \& Temperature Sensor\newline ABP2LANT030PG2A3XX & TBD & TBD & 2 \\
+Temperature Sensor 1\newline SHT45 & 1.5$\times$1.5$\times$0.5 & <1 & 4 \\
+Temperature Sensor 2\newline TMP1075DGKR & TBD & TBD & 2 \\
+Temperature Sensor 3\newline TMP117 & 2.0$\times$2.0 & TBD & 1 \\
+DC/DC Converter\newline TRACO TSR3-24xxN & 14$\times$7.6$\times$10.2 & 2.6 & x \\
+PCB & 100$\times$80 & TBD & 5 \\
+MCU\newline ESP32-C5-WROOM-1 & 18$\times$27.5$\times$3.3 & ? & 1 \\
+I2C Multiplexer\newline TCA9548APWR & TBD & TBD & TBD \\
+Ethernet Module\newline WIZ850io & TBD & TBD & TBD \\
+Watchdog IC\newline TPS3813K33DBVR & TBD & TBD & TBD \\
+MCU (thermal)\newline Arduino ESP32-S3-NANO & 45$\times$18 & ? & 2 \\
+RTC\newline DS3231 & TBD & TBD & TBD \\
+Micro SD-card & TBD & TBD & TBD \\
+Heater film & 80$\times$100 & TBD & 1 \\
+Peltier & 40$\times$40$\times$3.6 & 20 & TBD \\
+Current Sensor\newline ACS712 & TBD & TBD & TBD \\
+Pump & TBD & TBD & TBD \\
+Compressor & TBD & TBD & TBD \\
 \hline
-Total & & 1079.59 & \\
+Total & & TBD & \\
 \hline
 \end{tabular}
 \end{table}
+
+\subsection{Component-Level Electronics Description}
+
+\subsubsection{K96 Sensor}
+
+The K96 sensor is a \gls{ndir} gas sensor capable of measuring methane, carbon dioxide, and water vapor. It operates from a 6.0--8.5 V VBB supply and a 2.4--3.6 V IOVCC/RxD logic supply over a temperature range of $-40\degree$C to $+85\degree$C, with a maximum peak current of 300 mA. The sensor also provides local temperature, pressure, and humidity measurements via an integrated BME280 sensor.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{0_images/figures/K96 Sensor.png}
+    \caption{K96 sensor component.}
+    \label{fig:component_k96_exp_components}
+\end{figure}
+
+\subsubsection{Temperature and Humidity Sensor}
+
+The temperature and humidity sensor used for environmental monitoring within the system is the SHT45-AD1B-R2. The sensor operates over a temperature range of $-40$ to $125\degree$C and measures relative humidity in the range of 0--100\% RH. It provides a humidity accuracy of $\pm 1.0$\% RH and a temperature accuracy of $\pm 0.1\degree$C. Communication is performed via a digital I$^2$C interface, enabling direct integration with the processing unit. The sensor operates within a supply voltage range of 1.08 V to 3.6 V and has a typical average current consumption of approximately 0.4 $\mu$A.
+
+The selection of the SHT45 was based on prior recommendations from the ESA committee. In addition, the sensor meets system requirements for accuracy, operating range, low power consumption, and digital communication, making it suitable for monitoring environmental conditions within the experiment.
+
+\subsubsection{Ambient Temperature Sensor}
+
+Ambient temperature monitoring is performed using the same SHT45 sensor chain, which provides temperature readout over the required environmental range.
+
+\subsubsection{Temperature Sensor (Component Monitoring)}
+
+The component temperature sensor used in the system is the TMP1075DGKR. The sensor measures temperature over a range of $-55$ to $125\degree$C and provides a digital output via an I$^2$C interface, enabling direct integration with the processing unit. It offers a typical accuracy of $\pm 0.5\degree$C (over a limited temperature range) and is designed for low-power operation. The sensor is implemented in a surface-mounted package, allowing close thermal contact with components on the PCB.
+
+The TMP1075 is used to measure the surface temperature of selected components inside the experiment enclosure, specifically in contact with the SD-card reader on the main MCU board. The sensor was selected based on its low cost, I$^2$C communication protocol, and surface-mounted form factor, which simplifies integration and enables effective thermal coupling to the measured component. Additionally, the sensor supports configurable I$^2$C addressing, allowing up to 32 devices to be connected on the same bus if required.
+
+This sensor enables monitoring of component temperatures during operation, supporting thermal analysis and verification that components operate within their allowable temperature limits.
+
+\subsubsection{Pressure Sensors}
+
+The pressure sensors used in the design are two sensors: MS580314BA and ABP2LANT030PG2A3XX.
+
+The MS5803-14BA is an absolute pressure sensor providing a highly linear 24-bit digital output for both pressure and temperature. It supports communication via I$^2$C and SPI. The sensor was selected based on system requirements including the ability to measure pressures of up to 5 bar, use of I$^2$C communication, surface-mount compatibility, sufficient accuracy, and integrated temperature measurement. With a measurement range up to 14 bar, the sensor satisfies and exceeds the required operating range. It also meets the requirement of being available through Farnell, which is considered beneficial for procurement.
+
+The ABP2LANT030PG2A3XX is a gauge pressure sensor providing a digital output via I$^2$C. This sensor is used specifically to measure the pressure between the vacuum pump and compressor. The sensor was selected based on its mechanical design, allowing mounting to a T-junction using off-the-shelf components, thereby reducing integration effort. It measures differential pressure relative to ambient in the range 0--30 psi (approximately 0--2 bar), which covers the expected operating conditions of approximately atmospheric pressure. The sensor has a lower accuracy, with a worst-case uncertainty of approximately 0.1 bar and a typical uncertainty of approximately 0.02 bar. This is considered sufficient, as the sensor is primarily used for system control and safety functions, such as regulating the compressor and preventing overpressure. Since the sensor measures gauge pressure, compensation using ambient pressure measurements is required.
+
+\subsubsection{Current Sensor}
+
+The ACS712 is a current sensor that consists of a linear Hall circuit integrated onto one of the PDB PCBs. The sensor is supplied using the 5 V line and has a current draw of 10 mA. The ambient operating temperature range is $-40$ to $85\degree$C, and the current rating is 5 A.
+
+\subsubsection{DC/DC Converter}
+
+The DC/DC converters used are the TRACO TSR3-24xxN for the 12 V, 5 V and 3.3 V lines. The TSR3-24 DC/DC converters have a switching frequency of 1000 kHz. Two linear regulators, LM317 and LM350, are used for the 8 V and 24 V lines, respectively. The former has an output voltage range of 1.25--33 V and a maximum current output of 1.5 A. The latter has an output voltage range of 1.2--33 V and a maximum current output of 3 A, which is required by the compressor and vacuum pumps.
+
+\subsubsection{Main Microcontroller}
+
+The microcontroller unit used in the system is the ESP32-WROOM. The MCU is based on a 32-bit architecture and operates at clock frequencies of up to 240 MHz. It provides integrated Wi-Fi and Bluetooth capabilities, as well as multiple communication interfaces including I$^2$C, SPI, and UART, enabling integration with the system sensors and subsystems. The module operates at a supply voltage of 3.3 V.
+
+The MCU is used as the main processing unit of the system, responsible for sensor data acquisition, control logic, and communication between subsystems.
+
+The selection of the ESP32 was based on its higher computational performance compared to the previously used Arduino Mega, as well as its wide range of communication interfaces and compatibility with the system requirements. Additionally, the module form factor simplifies integration and reduces development effort.
+
+\subsubsection{Subsystem Microcontrollers (Thermal and Pressure Control)}
+
+The thermal and pressure subsystems are each controlled by dedicated microcontrollers, implemented using the Arduino Nano ESP32. The board is based on a 32-bit ESP32-S3 microcontroller and operates at 3.3 V, providing sufficient processing capability for real-time control and data acquisition tasks. It supports multiple communication interfaces, including I$^2$C, SPI, and UART.
+
+These microcontrollers are used for actuator control. By distributing these functions to dedicated units, the system reduces the computational load on the main MCU.
+
+The selection of the Arduino Nano ESP32 was based on its compact form factor, availability, and compatibility with existing development tools. Additionally, it provides sufficient I/O capability and processing performance for subsystem-level control while simplifying implementation through its integrated design.
+
+\subsubsection{MicroSD Card}
+
+Measurement data is stored on a microSDHC memory card (SP016GBSTHBU1V10SP) with a capacity of 16 GB. The card has maximum read and write speeds of up to 85 MB/s and 15 MB/s, respectively. The device operates within a supply voltage range of 2.7--3.6 V and an operating temperature range of $0\degree$C to $70\degree$C.
+
+The card interfaces with the processing core unit via SPI (Serial Peripheral Interface), using the MOSI, MISO, SCK, and CS signals for data transfer and control.
+
+\subsubsection{Pressure Control Actuators}
+
+The pressure control subsystem consists of a vacuum pump and a compressor used together to regulate and increase pressure within the system, as described in \sref{sec: pump system arch}.
+
+The vacuum pump is a compact diaphragm pump operating on a 24 V supply and controlled via PWM, enabling adjustable operation.
+
+The compressor is a DC motor operating on 24 V. It does not include an integrated control circuit and is therefore driven using a low-side MOSFET control circuit implemented on the pressure control PCB.
+
+The selection of the vacuum pump and compressor was based on compatibility with system voltage, availability, and their combined ability to achieve the required pressure conditions. By operating these components together, the system enables controlled pressurization.
+
+\subsubsection{Thermal Control Actuators}
+
+The thermal control subsystem consists of a Peltier element and resistive heater films used to regulate temperature within the experiment enclosure.
+
+The Peltier element is a thermoelectric module with dimensions of $40 \times 40$ mm, operated at 3.3 V to reduce current. It is used to provide active thermal control within the system by transferring heat when an electrical current is applied.
+
+The heater elements are resistive heater films with dimensions of approximately $12 \times 39$ mm, operated at 12 V and 4.5 W. These elements generate heat through resistive losses and are used to provide controlled heating within the system.
+
+The selection of the Peltier element and heater films was based on availability, simple electrical integration, and their ability to provide sufficient thermal control within the expected operating conditions.
+
+\subsubsection{I2C Multiplexer}
+
+A TCA9548APWR is used to manage communication on the I$^2$C bus. The device provides up to eight independent I$^2$C channels, allowing multiple devices with identical or limited address configurations to be connected without address conflicts.
+
+The multiplexer communicates with the main MCU via the I$^2$C interface and is required in the system due to the use of multiple sensors with fixed or overlapping I$^2$C addresses.
+
+The selection of the TCA9548A was based on compatibility with the system, simplicity of integration, and its ability to expand the I$^2$C bus while maintaining reliable communication.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mechanical Design}\label{mechanical_design}
@@ -340,97 +448,142 @@ Fasteners (M3/M6 bolts, screws) & COTS \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Electronics Design}
 
-The overall electronics architecture of the \gls{mirage} experiment is shown in \fref{fig:electrical_schematic}. The system consists of a Power Distribution Board, which interfaces with the BEXUS gondola power supply and provides regulated voltages to the experiment subsystems. The processing core is based on an Arduino Mega microcontroller, which manages sensor data acquisition, system control, and communication with onboard storage.
+The overall electronics architecture of the MIRAGE experiment is illustrated in Figure 4.8. The design is centered around a Power Distribution Board that interfaces with the BEXUS gondola power supply. This board monitors current consumption and distributes regulated voltage levels to all subsystems within the experiment.
 
-Additional subsystems include the pressurization system, the thermal control system, the K96 NDIR sensor core, and external environmental sensors measuring ambient temperature, pressure, and humidity. The ambient sensors communicate with the processing unit via an I²C interface, while the K96 NDIR sensor communicates using a UART interface. The interactions between these subsystems and the processing unit are illustrated in \fref{fig:electrical_schematic}. Each subsystem is described in more detail in the following sections.
+At the core of the system is an ESP32-based main control unit, responsible for coordinating sensor data acquisition, executing control logic, and managing communication with onboard storage and peripheral modules. The control unit interfaces with multiple subsystems, including the pressurization system, thermal control system, the K96 NDIR sensor core, and a set of environmental sensors.
+
+The environmental sensors measuring ambient temperature, pressure, and humidity are connected to the main control unit via an I$^2$C bus through a multiplexer, allowing multiple sensors with identical addresses or a large number of devices to be handled efficiently. In contrast, the K96 NDIR sensor communicates with the control unit through a UART interface. Additional interfaces and signal routing, such as PWM-controlled actuators and analog sensing lines, are also integrated as shown in the schematic.
+
+The interconnections between all subsystems and the central processing unit are depicted in Figure 4.8. Each subsystem and its functionality are described in more detail in the following sections.
 
 \begin{figure}[H]
     \centering
-        \includegraphics[width=1.0\textwidth]{0_images/figures/Mirage_Electrical_Schematic.png}
+        \includegraphics[width=1.0\textwidth]{0_images/figures/ele_schematic.png}
             \caption{Electrical Schematic}
                 \label{fig:electrical_schematic}
                 \end{figure}
 
-\subsection{Processing core unit}
-
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.5\textwidth]{0_images/figures/Arduino MEGA Rev3.png}
-%    \caption{Arduino Mega Rev3 WiFi}
-%    \label{fig:component_arduino}
-%\end{figure}
-
-
-An Arduino Mega will be used for preliminary testing and as a backup solution, and will be replaced by a dedicated processing \gls{pcb} once assembly begins. The Arduino Mega is equipped with an Ethernet shield, enabling it to communicate with EGSE and save measurement data to an SD card. The Arduino needs a power input between 7-12V, which will be converted from the 28.8V provided by Bexus' SAFT batteries through a DC/DC stepdown regulator.
-
-\subsection{MicroSD Card}
-
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.3\textwidth]{0_images/figures/MicroSD card.png}
-%    \caption{SDHC Memory Card}
-%    \label{fig:component_SDHC}
-%\end{figure}
-
-Measurement data will be stored on a microSDHC memory card (SP016GBSTHBU1V10SP) with a capacity of 16~GB. The card has maximum read and write speeds of up to 85~MB/s and 15~MB/s, respectively. The device operates within a supply voltage range of 2.7--3.6~V and an operating temperature range of 0\degree C to 70\degree C.
-
-The card interfaces with the processing core unit via the SPI (Serial Peripheral Interface), using the MOSI, MISO, SCK, and CS signals for data transfer and control.
-
 \subsection{Power Distribution Board}
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.3\textwidth]{0_images/figures/Stepdown DCDC.png}
-%    \caption{LM2596HVS-ADJ step-down DC/DC regulator}
-%    \label{fig:component_LM2596HVS-ADJ_DC/DC_regulator}
-%\end{figure}
-Power distribution within the experiment is handled by a dedicated Power Distribution Board (PDB). The board receives a nominal input voltage of 28.8 V from the BEXUS power system and distributes regulated voltages to the experiment subsystems.
+Power distribution within the experiment is handled by a dedicated Power Distribution Board (PDB). The board receives a nominal input voltage of 28.8 V from the BEXUS power system and distributes regulated voltages to the experiment subsystems. The voltage regulation will be implemented using three TSR3-2433N DC/DC converters and two linear regulators, LM317 and LM350. The TRACO TSR3 has a high efficiency (~90+\%) and requires fewer complementary components but cannot provide more than 15 V and will therefore be used for lower voltage levels such as 3.3 V. The LM317 will be used for the 8 V line and has an adjustable 1.25--33 V output and an output current of 1.5 A. The 24 V line is required to handle higher currents due to the vacuum pumps and compressor and will therefore use the LM350 with an adjustable output voltage range of 1.2--33 V and an output current of 3 A.
 
-Voltage regulation is implemented using three LM2596HVS-ADJ step-down DC/DC converters. These regulators operate at a switching frequency of 150 kHz, support input voltages up to 57 V, and provide adjustable output voltages in the range of 1.2–37 V. The converters generate three regulated voltage rails required by the experiment: 24 V for the thermal and pressurization systems (compressor and vacuum pumps), 8 V for the K96 NDIR sensor and the MCU, and 3.3 V for the environmental sensors.
+The five required voltage levels of the experiment are 24 V for the two vacuum pumps and compressor, 12 V for the various heaters, 8 V for the K96 sensor, 5 V for the current sensor, and 3.3 V for the sensors, Peltier and microcontrollers.
 
-To mitigate switching noise introduced by the DC/DC converters on the shared power lines, an LC filter with a cut-off frequency of approximately 4 kHz is implemented on the power distribution board.
+To mitigate the switching noise introduced by the DC/DC converters on the shared power lines, an LC filter with a cut-off frequency of 5 kHz will be implemented on the power distribution board, see Figure 4.5.X. The TRACO TSR3 DC/DC converters also have a third-order CLC filter in accordance with the recommended application notes of the TSR3. The cut-off frequency for this filter is 33.9 kHz, also seen in Figure 4.5.X.
 
-Due to the high startup currents expected from the pressurization system, a pre-charge circuit is implemented on the power distribution board to limit inrush currents during system startup.
+The vacuum pumps and compressor have high inrush currents when powered on, and to mitigate this a pre-charge circuit is integrated on the PDB PCB on the 24 V line. The pre-charge circuit consists of two back-to-back SIS176LDN NMOS. The main MCU provides the required gate voltage of 3.3 V for the NMOS in series with the 30 ohm resistor to limit the inrush current and then switches to the Q3 and Q6 NMOS in Figure 4.5.X.
 
-
-
-\subsection{K96 Sensor}
+Due to the potential high current draw from the BEXUS batteries, a current measurement sensor ACS712 is located after the backup LC filter. The mechanism for limiting current if it becomes too high is done by sending an analog signal to the main MCU, which in turn can disable each power rail and thus limit the current draw. The caveat is that the 3.3 V rail cannot be limited in this way due to it supplying the main MCU. The disabling of power lines is done with an S102S01 solid state relay.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{0_images/figures/K96 Sensor.png}
-    \caption{K96 Sensor. Taken from \cite{wastine2022}}
-    \label{fig:component_K96_sensor}
+    \includegraphics[width=0.9\textwidth]{0_images/figures/pdb.png}
+    \caption{Power distribution board schematic.}
+    \label{fig:pdb_schematic}
 \end{figure}
 
-The K96 sensor is a \gls{ndir} gas sensor capable of measuring methane, carbon dioxide, and water vapor. It operates from a 6.0--8.5 V VBB supply and a 2.4--3.6 V IOVCC/RxD logic supply over a temperature range of $-40\degree$C to +85\degree C, with a maximum peak current of 300 mA. The sensor also provides local temperature, pressure, and humidity measurements via an integrated BME280 sensor.
 
-\subsection{Temperature and Humidity Sensor}
+\subsection{Microcontroller Unit}
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.3\textwidth]{0_images/figures/Humidity Sensor.png}
-%    \caption{SHT3X-DIS Humidity Sensor}
-%    \label{fig:component_SHT3X-DIS_humidity}
-%\end{figure}
+The main control unit of the MIRAGE system is centered around the ESP32-C5-WROOM-1, which serves as the primary processing unit responsible for reading, collection, management and storage of data from the K96 as well as both ambient and internal temperature, pressure and humidity sensors. The data from the sensors will be stored on the SD-card. It will also handle communication with the ground station using the provided E-link connection onboard the BEXUS gondola.
 
-The ambient temperature and humidity sensor is a SHT45, with an operating range of -40 to 125$^\circ$C and a humidity measurement range of 0--100\% RH. The sensor provides a humidity accuracy of $\pm 1.0$ \% RH and a temperature accuracy of $\pm 0.1\,^\circ$C. Communication with the sensor is performed via an I$^2$C digital interface, allowing temperature and humidity data to be read directly by the processing unit. The operating voltage range is 1.08 V to 3.6 V, with a typical average current consumption of approximately 0.4 $\mu$A.
+As shown in \fref{fig:mcu_pcb}, the ESP32-C5 is powered through the 3.3 V rail from the power distribution board. Decoupling capacitors are placed on the power rail to ensure stable operation.
 
-\subsection{Pressure Sensor}
-The ambient pressure sensor MS5607 is a barometric sensor that provides a highly linear
-and precise 24-bit pressure and temperature value. It has I$^2$C and SPI interface up to
-20MHz and has can measure between 10-1200mbar with an accuracy of ±1.5mbar. The
-operating temperature range is -40 to 85\degree C and the supply voltage is between 1.8 and
-3.6V
+Communication with peripherals is handled through multiple interfaces. The SPI interface is used for communication with the SD card and the Ethernet module, enabling both data storage and communication with the ground station. The I$^2$C bus is used to interface with sensors and subsystem microcontrollers. To allow multiple devices with identical I$^2$C addresses, a TCA9548A I$^2$C multiplexer is implemented, which divides the bus into multiple selectable channels.
+
+A DS3231 real-time clock is connected to the I$^2$C bus to provide accurate timekeeping for timestamping sensor data. The MCU PCB also includes multiple connectors and test points, providing access to power and communication lines for integration with external sensors and subsystem control units.
+
+The main MCU also has the capabilities to disable power to all but the 3.3 V line in case of overcurrent.
+
+In addition to its primary functions, the MCU also implements system monitoring and fault recovery mechanisms. It acts as a software watchdog for the pressure and thermal MCUs, ensuring that these subsystems operate correctly and respond as expected. In the event of irregular behavior or loss of communication, the MCU can initiate appropriate recovery actions. To further enhance system reliability, a dedicated hardware watchdog is included for the main MCU, providing automatic reset functionality in case of software faults or system hangs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{0_images/figures/mcu_pcb.png}
+    \caption{Main MCU PCB schematic.}
+    \label{fig:mcu_pcb}
+\end{figure}
+
+\subsection{Thermal System}
+
+The thermal system is designed to control the temperature of critical components within the MIRAGE experiment and consists of both passive and active elements. The active thermal system is implemented on a dedicated thermal control PCB centered around a thermal MCU, implemented using an ESP32-S3 Nano, which operates as a slave to the main MCU. The thermal MCU receives sensor data and control signals from the main MCU through the I$^2$C interface and uses this information to regulate thermal conditions throughout the system. It contains the control logic for the active thermal system and supports multiple operating modes, including PID control, simple control, manual control, and an off mode, providing flexibility and redundancy in case of unexpected behavior or system failure. The PID parameters will be determined through experimental testing at a later stage.
+
+Temperature sensors are placed at key locations within the experiment, including the air inlet, the pipe between the vacuum pump and compressor, the pressure chamber, and the SD-card. These sensors are read by the main MCU, which forwards the relevant data to the thermal MCU. As the sensors are distributed throughout the system, several dedicated PCB designs are used to accommodate different sensor types and mounting locations.
+
+Control of heating and cooling elements is achieved through PWM signals generated by the thermal MCU. These signals are applied to the gates of IRLZ44N logic-level N-channel MOSFETs, which act as low-side switches for the active components. Power is supplied directly from the power distribution board to the heating and cooling elements, while the MOSFETs control the current path to ground. Gate resistors and pull-down resistors are included to ensure stable switching behavior, and the MOSFETs are arranged on the PCB to allow for heat sinking if required.
+
+\subsubsection{SD-card Heater PCB}
+
+Figures \fref{fig:sd_heater_layout}, \fref{fig:sd_heater_3d}, and \fref{fig:sd_heater_assembly} show the design of the PCB housing both a heater and a temperature sensor dedicated for the SD-card holder.
+
+The qwiic 4-pin 1 mm pitch connector will be used to connect the sensor to the main MCU. Some nylon/plastic will preferably be used instead of metal to minimize the thermal conductivity of the screws. The final layout of the components on the up-side has not been determined. A thermal pad will be placed between the PCB and the SD-card to improve thermal conductivity. The thermal switch should also be added to the heater to prevent the SD-card from overheating in case of failure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.32\textwidth]{0_images/figures/sd_heater_1.png}
+    \includegraphics[width=0.32\textwidth]{0_images/figures/sd_heater_2.png}
+    \includegraphics[width=0.32\textwidth]{0_images/figures/sd_heater_3.png}
+    \caption{SD-card heater PCB layout views.}
+    \label{fig:sd_heater_layout}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{0_images/figures/3d_sd_heater_1.png}
+    \includegraphics[width=0.45\textwidth]{0_images/figures/3d_sd_heater_2.png}
+    \caption{SD-card heater PCB 3D views.}
+    \label{fig:sd_heater_3d}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{0_images/figures/sd_assembly_1.png}
+    \includegraphics[width=0.45\textwidth]{0_images/figures/sd_assembly_2.png}
+    \caption{SD-card heater assembly views.}
+    \label{fig:sd_heater_assembly}
+\end{figure}
+
+\subsubsection{SHT45 PCB}
+
+The temperature sensor SHT45 will be used at varying places around the experiment box and these will need to be mounted on a PCB. The plan is to use the same PCB as the SD-card heater. This PCB will be a multipurpose PCB that can be used for two different purposes and will keep down the cost. The PCB used for the SHT sensors can be seen in \fref{fig:sht45_pcb}, this is the same PCB as used for the SD-card heater but with different components soldered on it.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{0_images/figures/sht45_up.png}
+    \includegraphics[width=0.45\textwidth]{0_images/figures/sht_45_down.png}
+    \caption{SHT45 sensor PCB views.}
+    \label{fig:sht45_pcb}
+\end{figure}
 
 \subsection{Pressurization system}
-The pressurization system is powered through the experiment power distribution board and controlled by the processing unit. The system includes two diaphragm vacuum pumps and a piston compressor, which together provide the airflow and pressure increase required for the measurement chamber. The system operates at 24 V and is supplied through the experiment power distribution system.
+The pressurization system consists of two G4BL2490S-4 diaphragm vacuum pumps, one W10BW247S piston pump compressor and an MCU. The vacuum pumps will be placed in series to decrease the pressure differential, thus increasing the volumetric flow rate, and will be controlled by the pressure MCU using PWM signals, see \fref{fig:pressure_mcu_overview}. A MOSFET low-side control will be implemented on the MCU to control the duty cycle of the compressor.
 
-Pressure sensors will be installed between the compression stages and inside the measurement chamber to monitor system performance. These sensors provide feedback to the processing unit, enabling monitoring of the internal pressure and verification of correct system operation.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{0_images/figures/pressure_mcu.png}
+    \caption{Pressure subsystem MCU overview.}
+    \label{fig:pressure_mcu_overview}
+\end{figure}
 
-A passive outlet is used to allow air to exit the measurement chamber. The outlet is implemented as a fixed flow restriction that enables continuous exhaust of air while the pumps and compressor maintain the required chamber pressure. The internal chamber pressure is therefore primarily regulated by the pressurization system, while the passive outlet ensures continuous gas exchange within the chamber.
+Pressure sensors will be placed (see \fref{fig:pressure_mcu_kicad}) between compression stages and inside the measurement chamber to monitor system performance. These sensors provide feedback to the main MCU which in turn sends operational instructions to the pressure MCU. This will ensure that the pressure inside the measurement chamber stays at an optimal level.
 
-Detailed electrical interfaces, component specifications, and control parameters will be defined during the detailed design phase following component selection and testing.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{0_images/figures/pressure_mcu_kikad.png}
+    \caption{Pressure MCU KiCad design.}
+    \label{fig:pressure_mcu_kicad}
+\end{figure}
+
+The sensor that is measuring the pressure of the air between the vacuum pump and compressor is the ABP2LANT030PG2A3XX and will be mounted using a T-junction.
+
+To house the pressure and temperature sensor MS580314 inside the pressure chamber a dedicated PCB will be used. Additionally the PCB will contain a footprint for a SHT45 in case it is needed. The PCB also contains 100 nF capacitors on sensor supply voltage as specified in the sensors' respective data sheets. The PCB is also designed to be as compact as possible because of the restricted available space. Therefore no physical connectors are used, instead opting for wires mounted through pairs of holes on the PCB. A screwhole has also been added to the board in case the board needs mounting with screws, see \fref{fig:pressure_mcu_drawing}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{0_images/figures/pressure_mcu_drawing.png}
+    \caption{Pressure sensor PCB drawing.}
+    \label{fig:pressure_mcu_drawing}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Thermal Design}\label{sec: thermal design}
@@ -692,63 +845,122 @@ Ziegler-Nichols tuning method should be used, meaning only implementing P contro
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Power design}
+\label{sec:power_design}
 
 The \gls{mirage} team expects to rely exclusively on the 28.8V SAFT MP176065 which is provided by the gondola.
 
-The experiment will have an estimated average current of 0.80A and use 138.67Wh in total, see table 4.9, including the thermal system and the pressurization system. This is higher than previous estimations, mainly due to the thermal system, compressor and vacuum pumps, but this calculation is based on full capacity so it's expected to be lower than this. The peak current draw is high at 2.26A from the BEXUS side for ~30 minutes, see table 4.8, while the compressor and vacuum pumps are working at full capacity, which is close to the requirement D.11.1. 
-Since the MCU PCB will be designed by thesis students it is difficult to estimate precisely the current draw for this component, however it was estimated to be 300mA. The K96 has a max current of 300mA but the expected average is lower depending on the time per measurement. 
+The experiment will have an estimated average current of 0.46A and consume a total of 98.45Wh, see \tref{tab:power_full_flight_duty}, including the thermal system and the pressurization system. Previous estimates have not taken into account duty cycles of components but these numbers do. The experiment peak current, assuming duty cycles and thermal and pressurization systems are active at the same time, is 2.30A and occurs during the ascent phase of the flight when measurements are being taken, see \tref{tab:power_ascent_peak}. The rationale is to make sure that the air entering the pumps is at a functional temperature, that the gas in the measurement chamber is within the temperature range of requirement X.X and that the outlet does not freeze. Due to these facts, the worst-case scenario is that the thermal system has to be activated at the same time as the pumps and compressor. \tref{tab:power_ascent_no_thermal} shows the optimistic case that no heaters or coolers are needed during the ascent phase and the peak current is then 1.87A and a total consumption of 67.38Wh from the BEXUS batteries. The realistic case is between 1.87--2.30A with a peak power consumption of 53.91W--66.20W during ascent phase.
 
-Before launch, the pressurization system, e.g. vacuum pumps and compressor currents will be limited using some sort of pre-charge circuit and will thus not have a major impact on the energy consumption as a whole. During the flight phase, the pressurization system will be activated in lesser capacity for $\approx 45$ minutes and in full capacity $\approx 30$ minutes in order to conserve energy for the rest of the experiment. After the measurement phase the pressurization system will be limited or completely shut off.
+Disregarding duty cycles on components such as heaters, coolers, vacuum pumps and compressors, the average current draw is 0.66A for the duration of the flight (assuming 7.5h) and a total power consumption of 143.51Wh. However, this is not a realistic estimate due to the fact that the compressor is bottlenecked by the vacuum pumps and thus cannot run at 100\% capacity. Additionally, the heaters and coolers are very likely not needed to run on 100\% duty cycle, or even close to 100\%, to achieve optimal temperature. Because of this, estimations of the duty cycles have been added to listed components, and the numbers require further testing.
 
-The thermal system will not be activated while the pressurization system is active in order to not exceed current draw limitations and thus will only be operational as detailed in thermal design section.
+The main MCU runs on very low power, roughly 175mA at 3.3V, and the other MCUs, for example pressure MCU and thermal MCU, run on low power as well. A shutter valve will be deployed that will draw 6W of power at 24V during measurements. The K96 has a max current of 300mA but this is a peak current and will be lower when in use.
+
+The extended power budget in \aref{app:add_tech_info} documents both pre-launch and ascent phases in detail, including the no-duty-cycle case (\tref{tab:app_power_no_duty}), the duty-cycle case (\tref{tab:app_power_with_duty}), pre-launch standby (\tref{tab:app_power_prelaunch_idle}), and pre-launch startup at T0h--T0.25h (\tref{tab:app_power_prelaunch_t0}). The pre-launch startup is estimated to be approximately 15 minutes to start the main MCU and initialize measurements with the sensors (excluding the K96 measurement phase). The appendix also includes ascent-phase calculations for both the thermal-active case (\tref{tab:app_power_ascent_peak}) and the no-heater/no-cooler case (\tref{tab:app_power_ascent_no_thermal}).
 
 \begin{table}[H]
 \centering
-\caption{Max current consumption}
-\label{tab:current_consumption}
-\begin{tabular}{llllll}
+\caption{Full flight power consumption (with margins) assuming duty cycles}
+\label{tab:power_full_flight_duty}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllllll}
 \toprule
-\textbf{Amount} & \textbf{Components}& \textbf{Voltage} & \textbf{Current} &\textbf{Power} &\textbf{Energy}\\
+\textbf{Duration} & \textbf{Amount} & \textbf{Component} & \textbf{Voltage} & \textbf{Current} & \textbf{Duty Cycle} & \textbf{Power} & \textbf{Total power} & \textbf{Total Energy} \\
 \midrule
-1 & MCU & 8V & 300mA & 2.4W & 1.2Wh\\
-1 & K96 & 8V & 300mA & 2.4 & 1.2Wh \\
-2 & MS5607 & 3.3V& 1µA & 6.6µW & 3.3µWh \\
-6 & SHT45 & 3.3V & 0.4µA & 7.92µW & 3.96µWh \\
-1 & Compressor & 24V & 1.25A & 30W & 15Wh \\
-2 & Vacuum pumps & 24V & 0.42A & 20W & 10Wh\\
-1 & SDHC & 3.3V & 150 mA & 0.495W & 0.248Wh \\
+1.25h & 1 & K96 & 8V & 300mA & 100\% & 2.4W & 2.4W & 2.25Wh \\
+7.5h & 4 & SHT45 & 3.3V & 0.4$\mu$A & 100\% & 1mW & 4mW & 0.03Wh \\
+1.25h & 1 & Compressor & 24V & 1.25A & 70\% & 30W & 30W & 26.25Wh \\
+1.25h & 1 & Vacuum Pump & 24V & 0.42A & 90\% & 10W & 10W & 11.25Wh \\
+1.25h & 1 & Vacuum Pump & 24V & 0.42A & 60\% & 10W & 10W & 7.5Wh \\
+7.5h & 1 & SDHC & 3.3V & 150mA & 100\% & 495mW & 495mW & 3.71Wh \\
+7.5h & 1 & Main MCU & 3.3V & 175mA & 100\% & 578mW & 578mW & 4.34Wh \\
+1.25h & 1 & P. MCU & 3.3V & 50mA & 100\% & 165mW & 165mW & 0.21Wh \\
+6.25h & 1 & P. MCU (idle) & 3.3V & 20mA & 100\% & 66mW & 66mW & 0.41Wh \\
+1.33h & 1 & Peltier 2 & 3.3V & 1.52A & 20\% & 5W & 5W & 1.33Wh \\
+1.33h & 1 & Inlet Heater & 12V & 375mA & 50\% & 4.5W & 9W & 5.99Wh \\
+5h & 1 & SD-card heater & 12V & 167mA & 50\% & 2W & 2W & 5Wh \\
+1.33h & 1 & Chamber heater & 12V & 750mA & 50\% & 9W & 9W & 5.99Wh \\
+1.33h & 1 & Outlet Heater & 12V & 375mA & 10\% & 4.5W & 4.5W & 0.6Wh \\
+7.5h & 1 & T. MCU & 3.3V & 50mA & 100\% & 165mW & 165mW & 1.24Wh \\
+7.5h & 2 & MS5803 & 3.3V & 1.22mA & 100\% & 4mW & 8mW & 0.06Wh \\
+7.5h & 5 & TMP & 3.3V & 0.031mA & 100\% & 0.1mW & 0.5mW & 4mWh \\
+7.5h & 2 & ABP2 & 3.3V & 0.79mA & 100\% & 2.6mW & 5.2mW & 0.039Wh \\
+1.25h & 1 & Shutter Valve & 24V & 250mA & 100\% & 6W & 6W & 7.5Wh \\
 \midrule
-Total &&& 2.45A & 55.295W & 27.648Wh\\
-Total (BEXUS) &&28.8V& 2.26A & 65.05W & 32.526Wh \\
+Total \& AVG & & & & & & 11.16W & & 83.69Wh \\
+Total (AVG at 28.8V) & & & 28.8V & 0.46A & & 13.13W & & \\
+Total (at 28.8V) & & & & & & & & 98.45Wh \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Power consumption from the power distribution board and the Bexus power unit}
-\label{tab:power_consumption}
-\begin{tabular}{L{1.6cm}llllll}
+\caption{Ascent phase T0h-T1.15h. Peak power consumption and current draw}
+\label{tab:power_ascent_peak}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllllll}
 \toprule
-\textbf{Duration} & \textbf{Amount} & \textbf{Component} & \textbf{Voltage} & \textbf{Current} & \textbf{Power} & \textbf{Total Energy} \\
+\textbf{Duration} & \textbf{Amount} & \textbf{Component} & \textbf{Voltage} & \textbf{Current} & \textbf{Duty Cycle} & \textbf{Power} & \textbf{Total power} & \textbf{Total Energy} \\
 \midrule
-6h & 1 & MCU & 8V & 300mA & 2.4 W & 14.4Wh \\
-1.25h & 1 & K96 & 8V & 300mA & 2.4 W & 3Wh \\
-6h & 6 & SHT45 & 3.3 V & 0.4µA & 1.32 µW & 47.52µWh \\
-1.25h & 1 & Compressor & 24V & 1.25A & 30W & 37.5Wh \\
-1.25h & 2 & Vacuum Pump & 24V & 0.42A & 10W & 25Wh \\
-6h & 2 & Pressure sensor & 3.3V & 1µA & 3.3µW & 39.6µWh \\
-6h & 1 &SDHC &3.3V& 150mA & 0.495W & 2.97Wh \\
-3.5h & 1 &Heating element &12V& 0.83A & 10W & 35Wh \\
-
+1.25h & 1 & K96 & 8V & 300mA & 100\% & 2.4W & 2.4W & 3Wh \\
+1.25h & 4 & SHT45 & 3.3V & 0.4$\mu$A & 100\% & 1mW & 4mW & 5mWh \\
+1.25h & 1 & Compressor & 24V & 1.25A & 70\% & 30W & 30W & 26.25Wh \\
+1.25h & 1 & Vacuum Pump & 24V & 0.42A & 90\% & 10W & 10W & 11.25Wh \\
+1.25h & 1 & Vacuum Pump & 24V & 0.42A & 60\% & 10W & 10W & 7.50Wh \\
+1.25h & 1 & SDHC & 3.3V & 150mA & 100\% & 495mW & 495mW & 0.62Wh \\
+1.25h & 1 & Main MCU & 3.3V & 175mA & 100\% & 578mW & 578mW & 0.72Wh \\
+1.25h & 1 & P. MCU & 3.3V & 50mA & 100\% & 165mW & 165mW & 0.21Wh \\
+1.25h & 1 & Peltier 2 & 3.3V & 1.52A & 20\% & 5W & 5W & 1.25Wh \\
+1.25h & 1 & Inlet Heater & 12V & 375mA & 50\% & 4.5W & 9W & 5.63Wh \\
+1.25h & 1 & Chamber heater & 12V & 750mA & 50\% & 9W & 9W & 5.63Wh \\
+1.25h & 1 & Outlet Heater & 12V & 375mA & 10\% & 4.5W & 4.5W & 0.56Wh \\
+1.25h & 1 & T. MCU & 3.3V & 50mA & 100\% & 165mW & 165mW & 0.21Wh \\
+1.25h & 2 & MS5803 & 3.3V & 1.22mA & 100\% & 4mW & 8mW & 10mWh \\
+1.25h & 5 & TMP & 3.3V & 0.031mA & 100\% & 0.1mW & 0.5mW & 1mWh \\
+1.25h & 2 & ABP2 & 3.3V & 0.79mA & 100\% & 2.6mW & 5.2mW & 7mWh \\
+1.25h & 1 & Shutter Valve & 24V & 250mA & 100\% & 6W & 6W & 7.50Wh \\
 \midrule
-Average (Bexus) & & & 28.8V & 0.80A & 23.11W\\
-Total Bexus Power & & & & & & 138.67Wh \\
+Total & & & & & & & & 70.34Wh \\
+Total (AVG) & & & & & & 56.27W & & \\
+Total & & & 28.8V & 2.30A & & & & 82.75Wh \\
+Total AVG (28.8V) & & & 28.8V & & & 66.20W & & \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
-Table 4.9 presents key components, amount of components, duration of use, voltage levels, currents and power. The table is representing from the experimenters perspective while the average and total BEXUS power is from the BEXUS power unit perspective. This calculations used the assumption of $85\%$ efficiency to calculate the power consumtion on the BEXUS power unit. 
+\begin{table}[H]
+\centering
+\caption{Ascent phase ver 2: no heaters/coolers. Peak current and power consumption}
+\label{tab:power_ascent_no_thermal}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllllll}
+\toprule
+\textbf{Duration} & \textbf{Amount} & \textbf{Component} & \textbf{Voltage} & \textbf{Current} & \textbf{Duty Cycle} & \textbf{Power} & \textbf{Total power} & \textbf{Total Energy} \\
+\midrule
+1.25h & 1 & K96 & 8V & 300mA & 100\% & 2.4W & 2.4W & 3Wh \\
+1.25h & 4 & SHT45 & 3.3V & 0.4$\mu$A & 100\% & 1mW & 4mW & 5mWh \\
+1.25h & 1 & Compressor & 24V & 1.25A & 70\% & 30W & 30W & 26.25Wh \\
+1.25h & 1 & Vacuum Pump & 24V & 0.42A & 90\% & 10W & 10W & 11.25Wh \\
+1.25h & 1 & Vacuum Pump & 24V & 0.42A & 60\% & 10W & 10W & 7.50Wh \\
+1.25h & 1 & SDHC & 3.3V & 150mA & 100\% & 495mW & 495mW & 0.62Wh \\
+1.25h & 1 & Main MCU & 3.3V & 175mA & 100\% & 578mW & 578mW & 0.72Wh \\
+1.25h & 1 & P. MCU & 3.3V & 50mA & 100\% & 165mW & 165mW & 0.21Wh \\
+1.25h & 1 & T. MCU & 3.3V & 50mA & 100\% & 165mW & 165mW & 0.21Wh \\
+1.25h & 2 & MS5803 & 3.3V & 1.22mA & 100\% & 4mW & 8mW & 10mWh \\
+1.25h & 5 & TMP & 3.3V & 0.031mA & 100\% & 0.1mW & 0.5mW & 1mWh \\
+1.25h & 2 & ABP2 & 3.3V & 0.79mA & 100\% & 2.6mW & 5.2mW & 7mWh \\
+1.25h & 1 & Shutter Valve & 24V & 250mA & 100\% & 6W & 6W & 7.50Wh \\
+\midrule
+Total & & & & & & & & 57.28Wh \\
+Total (AVG) & & & & & & 45.82W & & \\
+Total & & & 28.8V & 1.87A & & & & 67.38Wh \\
+Total AVG (28.8V) & & & 28.8V & & & 53.91W & & \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Software design}
 
