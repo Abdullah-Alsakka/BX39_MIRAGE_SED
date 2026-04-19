@@ -122,8 +122,9 @@ Experiment expected \gls{cog} position: & Distance from geometric centre: x=4mm 
 \hline
 \endlastfoot
 
-Vacuum pump & 119$\times$44$\times$73 & 294 & 2 \\
-Compressor & 130$\times$60$\times$85 & 445 & 1 \\
+Vacuum pump\newline G4-4 Series Diaphragm & 119$\times$44$\times$73 & 294 & 2 \\
+Compressor\newline W6 Series Piston & 130$\times$60$\times$85 & 445 & 1 \\
+Valve\newline 2V025-1/4 & TBD & TBD & 2\\
 K96 & 42.26$\times$33.9$\times$26.04 & 300 & 1 \\
 Pressure sensor\newline MS580314BA01-00 & 3.0$\times$5.0$\times$0.95 & <1 & 2 \\
 Pressure \& Temperature Sensor\newline ABP2LANT030PG2A3XX & TBD & TBD & 2 \\
@@ -142,12 +143,47 @@ Micro SD-card & TBD & TBD & TBD \\
 Heater film & 80$\times$100 & TBD & 1 \\
 Peltier & 40$\times$40$\times$3.6 & 20 & TBD \\
 Current Sensor\newline ACS712 & TBD & TBD & TBD \\
-Pump & TBD & TBD & TBD \\
-Compressor & TBD & TBD & TBD \\
 \hline
 Total & & TBD & \\
 \hline
 \end{longtable}
+
+
+\begin{longtable}{p{4cm}p{4cm}ll}
+\caption{Mechanical components}
+\label{tab:mechanical_components}\\
+
+\hline
+\textbf{Component} & \textbf{Type} & \textbf{Mass (g)} & \textbf{Quantity}\\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}}\\
+\hline
+\textbf{Component} & \textbf{Type} & \textbf{Mass (g)} & \textbf{Quantity}\\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{\textit{Continued on next page}}\\
+\endfoot
+
+\hline
+\endlastfoot
+Enclosure (1st and 2nd layer) & COTS & 890 & 1\\ 
+Enclosure (3rd layer) & COTS & 380 & 1\\ 
+Pressurization chamber body & Custom machined & 147 & 1\\ 
+Pressurization chamber lid & Custom machined & 90 & 1\\ 
+RJF21B connector & COTS & $\approx 15$ & 1 \\ 
+Air tubing assembly & COTS & $\sim 120$ & 1 \\ 
+MIL-C 26482P series 1 & COTS & $\sim 50$ & 1 \\ 
+Fasteners (M3/M6 bolts, screws) & COTS & TBD & TBD\\ 
+Fasteners (3D printed parts) & Custom machined & TBD & TBD 
+\hline
+Total & & $\approx 2700 $ & \\
+\hline
+\end{longtable}
+
 
 \subsection{Component-Level Electronics Description}
 
@@ -265,7 +301,7 @@ The mechanical design of the \gls{mirage} experiment focuses on a compact enclos
 The experimental enclosure is a composite structure consisting of three distinct functional layers.
 The exterior layer comprises a thin protective polymer shell, designed to provide mechanical reinforcement for the underlying insulation.
 The secondary layer serves as the primary thermal barrier, with a nominal thickness of 12.5 mm.
-The final, innermost layer consists of a COTS aluminium enclosure featuring a wall thickness of 2 mm.
+The final, innermost layer consists of a \gls{cots} aluminium enclosure featuring a wall thickness of 2 mm.
 The overall envelope of the assembly is constrained to maximum external dimensions of 200x200x150 mm.\par
 
 The primary objective of the first layer is to safeguard the intermediate insulation from structural degradation.
@@ -311,8 +347,7 @@ The whole enclosure (counting in three layers), not counting the mandatory conne
 %\end{figure}
 
 \subsection{Internal Layout}
-The internal layout of the Mirage experiment is arranged to maintain a compact configuration in order to minimize space taken in all the axis.
-The philosophy behind the design is to maximize the temperature use from components, which natively produce temperature whilst working.
+The internal layout of the \gls{mirage} experiment is arranged to maintain a compact configuration in order to minimize space taken in all the axis.
 Currently, the system is configured such that two vacuum pumps are vertically stacked in the upper-left corner to optimize space utilization along the Z-axis, where spatial constraints are more significant than in the X and Y dimensions.
 These pumps subsequently supply air to a compressor situated in the lower-left corner, which is positioned in the immediate vicinity of the pressure chamber to minimize the distance between the air discharge and the chamber inlet.
 The pressure chamber is located as close as possible to the solenoid valve.
@@ -352,7 +387,9 @@ The internal geometry focuses on minimizing the displacement distance between th
 %Although initial design iterations aimed to minimize total dead space, it was subsequently concluded that internal volume is of secondary importance, provided that the airflow remains rapid and free from turbulence. 
 %This laminar flow is maintained by positioning the inlet and outlet on opposing walls in the immediate vicinity of the K96 sensor.
 To reduce assembly complexity, electrical connections are routed through hermetically sealed apertures, as managing cables through such interfaces is more efficient than utilizing the standard connectors provided by the sensors.
-The wall thickness was calculated to be 5 mm on sides/top and 3 mm on bottom, ensuring safe operation at a differential pressure of 3 bar without the risk of structural failure or deformation. 
+The interface will be a bulkhead-feedthrough connector like the MIL-C 26482P series 1. 
+The wall thickness was calculated to be 5 mm on sides/top and 3 mm on bottom, ensuring safe operation at a differential pressure of 3 bar without the risk of structural failure or deformation.\par
+
 \gls{fea} was conducted to validate the structural integrity of the chamber under internal pressure loading, see \fref{fig:static_fea_chamber}.
 The results show a maximum stress of approximately $1.57 \cdot 10^7$ Pa, a maximum displacement of $2.4\cdot10^{-3}$ mm, and a factor of safety of approximately 39.
 These results confirm that the chamber operates well within material limits.
