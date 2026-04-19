@@ -450,8 +450,9 @@ A detailed description is given in \aref{app:thermal_background}.
 
 \subsection{Cold case}\label{sec: thermal cold case}
 The cold case is a steady state assumption, given environmental conditions at a specific altitude. The appropriate altitude is determined as the maximum of the air heat convection $Q_\mathrm{conv}(h)$ profile from the averaged temperature and pressure profiles given in \fref{fig:temp_press_profile}. It is assumed that no solar radiation is impacting the system (except \gls{ir} radiation from the Earth). Ambient pressure is taken from \fref{fig:temp_press_profile}, while the ambient temperature is set to be $-80$°C. Notably, the tubes containing pressurized, hot air, are assumed to be perfect thermal insulators, which is far from accurate. However, as the heat flux provided by the heated air is very small, this is acceptable.\par 
-To estimate impact of different operations and system designs, the analysis takes into account whether pumps are turned on or off, whether the experiment has heaters or not and whether the experiment is insulated or not. The insulation is assumed to be a 5 cm thick box of styrofoam, completely encapsulating the chassis. The pumps are assumed to draw 50 W. This corresponds to the maximum power draw possible by two diaphragm pumps and one piston compressor. The active pumps were chosen according to the operations schedule as outlined in \sref{sec: pump system arch}. Assuming an efficiency of 60\% for the diaphragm pumps and 40\% for the piston compressor, the resulting heat load is 26 W.\par 
+To estimate impact of different operations and system designs, the analysis takes into account whether pumps are turned on or off, whether the experiment has heaters or not and whether the experiment is insulated or not. The insulation is assumed to be a 5 cm \dos{adjust} thick box of styrofoam, completely encapsulating the chassis. The pumps are assumed to draw 50 W. This corresponds to the maximum power draw possible by two diaphragm pumps and one piston compressor. The active pumps were chosen according to the operations schedule as outlined in \sref{sec: pump system arch}. Assuming an efficiency of 60\% for the diaphragm pumps and 40\% for the piston compressor, the resulting heat load is 26 W. \dos{adjust}\par 
 
+\dos{THE ENTIRE ANALYSIS NEEDS TO BE UPDATED}
 In \tref{tab:thermal results cold case} the results of the cold case analysis are displayed. 
 Without the styrofoam insulation, the chassis reaches dangerously low temperatures, even with an active heating system. The heating system then would require over 75 W, which is unfeasible. Even with the styrofoam insulation, the required heating power is around 22 W, which is unsustainable for longer periods of time. However, when the pumps are being used, their heat alone is enough to keep the chassis and chamber within desired temperatures. The cold case analysis therefore concludes a necessity of insulation and active pumps.
 
@@ -463,14 +464,14 @@ Without the styrofoam insulation, the chassis reaches dangerously low temperatur
 \begin{tabular}{@{}lll S[table-format=-2.2] S[table-format=-2.2] S[table-format=-2.2]@{}}
 \toprule
 \textbf{Insulation} & \textbf{Pumps} & \textbf{Thermal System} & {$T_{Chassis}$ [\si{\celsius}]} & {$T_{Chamber}$ [\si{\celsius}]} & {Power [\si{W}]} \\ \midrule
-None & Off & None & -79.27 & -79.27 & {---} \\
-None & Off & Active & -29.02 & 21.00 & 75.23 \\ 
-Styrofoam & Off & Passive & -78.70 & -78.70 & {---} \\
-Styrofoam & Off & Active & 6.52 & 21.00 & 21.79 \\ \midrule
-None & Active & None & -61.80 & -61.80 & {---} \\
-None & Active & Active & -20.40 & 21.00 & 62.28 \\ 
-Styrofoam & Active & Passive & -72.41 & -72.41 & {---} \\
-Styrofoam & Active & Active & 21.14 & 21.00 & -0.21 \\ \bottomrule
+None & Off & None & -79.15 & -79.15 & {---} \\
+None & Off & Active & -24.19 & 21.00 & 67.97 \\ 
+Styrofoam & Off & Passive & -78.57 & -78.57 & {---} \\
+Styrofoam & Off & Active & 3.55 & 21.00 & 26.25 \\ \midrule
+None & Active & None & -56.91 & -56.91 & {---} \\
+None & Active & Active & -14.76 & 21.00 & 52.47 \\ 
+Styrofoam & Active & Passive & -66.22 & -66.22 & {---} \\
+Styrofoam & Active & Active & 17.65 & 21.00 & 3.72 \\ \bottomrule
 \addlinespace
 \multicolumn{6}{l}{\small \textit{Note: Negative power values indicate active cooling required to maintain target temperature.}}
 \end{tabular}
@@ -494,14 +495,14 @@ This agrees well with the planned operations for the pumps, as given in \sref{se
 \begin{tabular}{@{}lll S[table-format=-2.2] S[table-format=-2.2] S[table-format=-2.2]@{}}
 \toprule
 \textbf{Insulation} & \textbf{Pumps} & \textbf{Thermal System} & {$T_{Chassis}$ [\si{\celsius}]} & {$T_{Chamber}$ [\si{\celsius}]} & {Power [\si{W}]} \\ \midrule
-None & Off & None & -3.16 & -3.16 & {---} \\
-None & Off & Active & 16.39 & 21.00 & 6.93 \\ 
-Styrofoam & Off & Passive & -47.32 & -47.32 & {---} \\
-Styrofoam & Off & Active & 11.89 & 21.00 & 13.71 \\ \midrule
-None & Active & None & 65.10 & 65.10 & {---} \\
-None & Active & Active & 30.25 & 21.00 & -13.92 \\ 
-Styrofoam & Active & Passive & -29.47 & -29.47 & {---} \\
-Styrofoam & Active & Active & 26.75 & 21.00 & -8.65 \\ \bottomrule
+None & Off & None & -1.10 & -1.10 & {---} \\
+None & Off & Active & 17.39 & 21.00 & 5.44 \\ 
+Styrofoam & Off & Passive & -47.19 & -47.19 & {---} \\
+Styrofoam & Off & Active & 11.10 & 21.00 & 14.90 \\ \midrule
+None & Active & None & 80.38 & 80.38 & {---} \\
+None & Active & Active & 31.73 & 21.00 & -16.48 \\ 
+Styrofoam & Active & Passive & -14.96 & -14.96 & {---} \\
+Styrofoam & Active & Active & 25.73 & 21.00 & -7.44 \\ \bottomrule
 \addlinespace
 \multicolumn{6}{l}{\small \textit{Note: Negative power values indicate active cooling required to maintain desired chamber temperature.}}
 \end{tabular}
@@ -514,57 +515,138 @@ As before, the continuous operation uses a lumped system approach. However, now 
     mc_{p}\dot{T} =& Q_\mathrm{ele}+Q_\mathrm{pump}(h)+Q_\mathrm{transfer} + Q_\mathrm{rad\,in}(h) + Q_\mathrm{insulation} - Q_\mathrm{conv}(h) - Q_\mathrm{rad\,out} \label{eq: heat diff chassis}
 \end{align}
 for the chassis. As before, the power required to keep the pressure chamber at 21 °C can be calculated via \eqref{eq:heat_balance_chamber}, since $\dot{T}$ is supposed to be equal to 0 for the chamber. 
-In this scenario the pumps operate by the operating plan specified in \sref{sec: pump system arch}. Additionally, pumps and thermal systems are activated 30 minutes before launch to simulate pre-heating and pre-pressurisation of the chamber. Otherwise, the pumps are assumed to work on lower power draw settings at altitudes under 14 km, adding an estimated heat load of 18 W. Between 14 km and 22 km, the pumps operate at full power, adding a heat load of 26 W. Beyond 22 km the pumps are switched off. The total flight time is estimated to be 6 h long. 
+In this scenario the pumps operate by the operating plan specified in \sref{sec: pump system arch}. As described in \dos{reference launch preparations} the pressurization system will be used to pressurize the chamber to 3 bar around 3 hours before launch. The pumps will therefore only start at launch. Between 0 km and 22 km, the pumps operate at full power, adding a heat load of 26 W. Beyond 22 km the pumps are switched off. The total flight time is estimated to be 6 h long. 
 The float phase is assumed to be at constant 26 km altitude. The heating system is assumed to be capable of a maximum heating output of 10 W.
-After the pumps are deactivated at 22 km, the heating system aims to stabilize the chamber temperature at $-5$°C. This is done as a proxy to prevent the electronics in the chassis from freezing.\par 
+After the pumps are deactivated at 22 km, the heating system aims to stabilize the chamber temperature at $-5$°C. This is done as a proxy of the heaters active in the PCB stack \dos{reference component ID} to prevent the electronics in the chassis from freezing.\par 
 
 The result for an experiment inside a styrofoam insulation box and subject to solar daylight is shown in \fref{fig:continous thermal sim main}. 
 %As expected, heating is especially necessary between ca 8 km and 14 km. 
-The chassis temperature never drops much below $-10$°C, while the thermal power requirements do not reach the set maximum of 10 W.  
-By integrating the power requirement curve one obtains a total required heating power of $\approx 29.45$ Wh. This result refers to heating energy and not to the energy necessary to power heating components, which is expected to be greater.\par 
-If no insulation were used, the total required heating power would jump to 37.45 Wh. If insulation were used, but no daylight were available, the heating power required would be 36.42 Wh. The temperature and heating curves for both cases are provided in \fref{fig:continous thermal sim side}. If no insulation is used, the heating system is unable to keep the chamber temperature within the required temperature range of 15 °C to 40 °C during ascend. It also fails at keeping the chassis temperature within a safe range of -15 to 65 °C during descend. On the other hand, if insulation is used, but the flight is during nighttime or particularly cloudy conditions, the effects are rather minimal. The heater would max out its power output and the chassis temperature would drop to around $-15$°C during descend, which is just the lower limit of the safe range and still 10 °C away from the strict lower limit of -25 °C.
+The chassis temperature never drops much below $-10$°C, while the thermal power requirements reach the set maximum of 10 W. By integrating the power requirement curve one obtains a total required heating power of $\approx 36.93$ Wh \dos{compare with estimates from thermal thesis group}.
+This result refers to heating energy and not to the energy necessary to power heating components, which is expected to be greater.\par 
+If no insulation were used, the total required heating power would drop to 26.79 Wh. Reason for the reduction in power is due to the experiment being heated better by the sun at floating altitudes.
+This indicates that the final insulation chosen should not be as reflected as the hypothetical styrofoam assumed here. 
+If insulation were used, but no daylight was available, the heating power required would be 40.11 Wh. The temperature and heating curves for both cases are provided in \fref{fig:continous thermal sim side}. If no insulation is used, the heating system is unable to keep the chamber temperature within the required temperature range of 15 °C to 40 °C during ascend. It also fails at keeping the chassis temperature within a desired range of -15 to 65 °C during descend. On the other hand, if insulation is used, but the flight is during nighttime or particularly cloudy conditions, the differences to \fref{fig:continous thermal sim main} are rather minimal. The heater would max out its power output and the chassis temperature would drop to around $-20$ °C during descend, which is the lower limit of the desired range and still 5 °C away from the strict lower limit of -25 °C.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{0_images/figures/thermal_analysis_plot_WITHins_WITHlight.png}
-    \caption{Expected temperature of the chassis and chamber and the heating power necessary to sustain 21 °C in the chamber. The gray lines indicate the time intervals when the balloon is ascending, floating, and descending. The colours indicate different power settings of the pressurization system: green - no pumps, yellow - low power, red - high power.}
+    \includegraphics[width=0.8\textwidth]{0_images/figures/thermal_analysis_plot_WITHins_WITHlight.pdf}
+    \caption{Expected temperature of the chassis and chamber and the heating power necessary to sustain 21 °C in the chamber. The gray lines indicate the time intervals when the balloon is ascending, floating, and descending. The colours indicate different power settings of the pressurization system: green - no pumps, red - active pumps.}
     \label{fig:continous thermal sim main}
 \end{figure}
 
 \begin{figure}[htbp]
 \begin{subfigure}[c]{0.5\linewidth}
-\includegraphics[width=\linewidth]{0_images/figures/thermal_analysis_plot_NOins_WITHlight.png}
+\includegraphics[width=\linewidth]{0_images/figures/thermal_analysis_plot_NOins_WITHlight.pdf}
 \caption{No insulation, with daylight.}
 \end{subfigure}
 \hfill
 \begin{subfigure}[c]{0.5\linewidth}
-\includegraphics[width=\linewidth]{0_images/figures/thermal_analysis_plot_WITHins_NOlight.png}
+\includegraphics[width=\linewidth]{0_images/figures/thermal_analysis_plot_WITHins_NOlight.pdf}
 \caption{With insulation, no daylight}
 \end{subfigure}%
-\caption{Expected temperature of the chassis and chamber and the heating power necessary to sustain 21 °C in the chamber. The gray lines indicate the time intervals when the balloon is ascending, floating, and descending. The colours indicate different power settings of the pressurization system: green - no pumps, yellow - low power, red - high power.}
+\caption{Expected temperature of the chassis and chamber and the heating power necessary to sustain 21 °C in the chamber. The gray lines indicate the time intervals when the balloon is ascending, floating, and descending. The colours indicate different power settings of the pressurization system: green - no pumps, red - active pumps.}
 \label{fig:continous thermal sim side}
 \end{figure}
 
 \subsection{Conclusion}\label{sec: thermal conclusion}
-The cold and hot case analysis shows that the experiment if enclosed in a styrofoam insulation is able to stay within the required temperature range depending on the proper use of pumps. In the ascend phase, the pumps are generating enough heat to keep the chamber temperature at 21 °C, even without additional heating elements. In fact the transient analysis shows that temperatures of chassis and chamber might reach close to 40 °C. During float phase, the chamber temperature is allowed to drop to $-5$°C. This is done in order to keep the electrical components within the chassis at around $-10$°C. The required total heating power for daytime and nighttime would be $\approx 29.45$ Wh and $\approx 36.42$ Wh, respectively. Depending on the final design of the electrical components, the temperature limit and thus required power might be lowered further.
+The cold and hot case analysis shows that the experiment if enclosed in a styrofoam insulation is able to stay within the required temperature range depending on the proper use of pumps. In the ascend phase, the pumps are generating enough heat to keep the chamber temperature at over 21 °C, even without additional heating elements. In fact the transient analysis shows that temperatures of chassis and chamber might reach between 30 °C to 40 °C. During float phase, the chamber temperature is allowed to drop to $-5$°C. This is done in order to keep the electrical components within the chassis at around $-10$°C. The required total heating power for daytime and nighttime would be $\approx 26.79$ Wh and $\approx 40.11$ Wh, respectively. Depending on the final design of the electrical components, the temperature limit and thus required power might be lowered further.
+The real insulation material will likely not be styrofoam but another foam \dos{reference material selection analysis}. 
 
 \subsection{Passive thermal control system}
-The above analysis shows that white styrofoam is a good candidate for insulation. The chassis is planned to be completely surrounded by 5 cm thick styrofoam insulation. Further analysis on other insulation materials and implementations, as well as on other passive control systems, will commence with the start of thesis project 6 and 7 (see \tref{tab:thesis}). Additionally, the intake air will be preheated before being fed to the diaphragm pumps. This can be done via a thermally conductive, solenoid shaped tubing housed inside the chassis. If the tubing has higher heat capacity than the incoming air, it can act as a heat sink, heating the incoming air to an acceptable temperature. The exact shape and length of the tube will be determined via tests.
+There are three elements of the passive control system. The specifics of each need to be determined through further testing.
+
+\paragraph{The insulation} material is still to be decided, as is its exact dimensions.
+This simulation estimates a thickness of 21 mm on the sides and 13 mm on the top and bottom. The real insulation is expected to be of a similar size.
+\dos{Add analysis of Molly and Haya}
+
+\paragraph{The intake air preheater} is necessary for the vacuum pump to receive air at temperatures greater than 0 °C and can be either active or passive.
+The design as shown in \dos{ref overview schematic} includes the active heater and is the currently chosen design approach.
+However, further testing might show that a passive system is sufficient. 
+In this case, the tubing delivering ambient air to the first vacuum pump would have a high enough heat capacity to act as a heat sink for the incoming ambient air. 
+The required length, shape, and material of the tubing would need to be determined via tests.
+Additionally, a spring turbulator might be placed inside the tube to increase the heat transfer efficiency.
+
+\paragraph{The thermal bridges for the pumps} might be necessary to cool the pumps down.
+Under prolonged use the pumps reach around 50 °C at room temperature and surface level pressure.
+When pressure decreases at higher altitude convective cooling decreases and the pumps are therefore expected to become even hotter.
+To prevent overheating, the pumps might need to be cooled using thermal bridges consisting of \dos{aluminium} plates connected to the enclosure and to the pumps using thermal pads. 
 
 \subsection{Active thermal control system}
-The above analysis shows that during ascend and before launch, the pumps alone will provide enough heating power to heat the chamber to around 40 °C. This is on the edge of the acceptable temperature range as outlined in \tref{tab:design_req}, P.7. Further analysis of overheating mitigation methods, including pump duty cycles and other active thermal control methods will commence with the start of thesis project 6 (see \tref{tab:thesis}). \par 
+The above analysis shows that during ascend and before launch, the pumps alone will provide enough heating power to heat the chamber to around 40 °C. This is on the edge of the acceptable temperature range as outlined in \tref{tab:performance_req}, P.7. Therefore, coolers as well as heaters are needed. The exact specifications of which experiment parts need to be heated and which need to be cooled will be determined through future tests. The system design is including both heating and cooling functionalities where necessary.\par
 
 During float and descend, the above analysis shows that a 10 W heater is sufficient to keep the electronics inside the chassis within acceptable limits, see \tref{tab:design_req}, D.1.3. There are multiple common choices for thermal control components at low wattages and high precision. These will be discussed below.
-\paragraph{\gls{ptc} ceramics} are commonly used in portable space heaters. They are used via resistive heating. However, due to their \gls{ptc}, a rising internal temperature causes their resistivity to increase as well. This behaviour can be configured, such that a desired maximum temperature can be set at which the ceramic resistivity becomes too high for the temperature to rise further. They are therefore self-regulating, adding additional security and requiring less controlling. They are also quite cheap. However, because they are made of ceramic, they can not easily fit inside a tight experiment. 
 
-\paragraph{Peltier devices} are heat pumps, that transfer heat from one side of the device to the other when an electrical current is applied. Upon reversal of the current polarity, the heat transfer flow is also reversed. These devices can therefore be used to cool and heat. This makes them great candidates for an active thermal control system that has to cool and heat components depending on mission phase. The downside is that they require heat sinks that the excess heat (or lack thereof) can be dumped to. They also require more sophisticated controlling software and circuits to be able to switch between cooling and heating.
+\emph{\gls{ptc} ceramics} are commonly used in portable space heaters. They are used via resistive heating. However, due to their \gls{ptc}, a rising internal temperature causes their resistivity to increase as well. This behaviour can be configured, such that a desired maximum temperature can be set at which the ceramic resistivity becomes too high for the temperature to rise further. They are therefore self-regulating, adding additional security and requiring less controlling. They are also quite cheap. However, because they are made of ceramic, they can not easily fit inside a tight experiment. 
 
-\paragraph{Polyimide film heating elements} consist of a thin conductive heating element surrounded by polyimide film. They are very flexible, sturdy and commonly used in space environment heating solutions. Although they are not self-regulating, they can be easily controlled using \gls{pid} algorithms. They are unable to provide cooling, but offer a great surface area to enable uniform heating. Due to their flexibility, they are also easy to integrate into a system and do not require complex software or circuits.\par  
+\emph{Peltier devices} are heat pumps that transfer heat from one side of the device to the other when an electrical current is applied. Upon reversal of the current polarity, the heat transfer flow is also reversed. These devices can therefore be used to cool and heat. This makes them great candidates for an active thermal control system that has to cool and heat components depending on mission phase. The downside is that they require heat sinks that the excess heat (or lack thereof) can be dumped to. They also require more sophisticated controlling software and circuits to be able to switch between cooling and heating.
 
-Because of the low heating power required, the small operating temperature expected, the ease of integration, its big surface area, and its low cost a polyimide film heating element is chosen. The heating element is included in \tref{tab:power_consumption}. It can be attached via \gls{psa} and wrapped around the pressure chamber. Since the chamber is made out of aluminium, and aluminium is good thermal conductor, one heating pad should suffice. This will be confirmed by tests. Should tests show that there is indeed no need for heating the pressurization chamber, the heater may be moved directly to the temperature sensitive electrical components like the \gls{pcb}.\par 
+\emph{Polyimide film heating elements} consist of a thin conductive heating element surrounded by polyimide film. They are very flexible, sturdy and commonly used in space environment heating solutions. Although they are not self-regulating, they can be easily controlled using \gls{pid} algorithms. They are unable to provide cooling, but offer a great surface area to enable uniform heating. Due to their flexibility, they are also easy to integrate into a system and do not require complex software or circuits.\par  
 
-The heating pad will be controlled using a \gls{pid} algorithm, as common for heating appliances. The algorithm will run on the \gls{mcu}. The \gls{mcu} then controls the heating power of the heating pad by adjusting its duty cycle by powering a \gls{mosfet}. The exact \gls{pwm} setting is to be determined by the final \gls{mcu} design. To prevent overheating of the chamber, a \gls{tco} unit is used, wired in series with the heating pad. It can be directly attached via \gls{psa} to the outside of the pressure chamber, monitoring its temperature and breaking the circuit when its temperature reaches above 50 °C.
 
+Currently, Peltier devices as well as polyimide film strips are both included in the design to provide fine temperature control at different points in the experiment.
+While \gls{ptc} ceramics are not included, fixed-value ceramic resistive heaters are.
+This is done to make the control easier.
+\tref{tab: comp active thermal control} gives an overview of the different heaters and coolers currently planned.
+With further tests, some of these components may be removed, however, no new ones shall be added.
+In the following a brief description and justification of every component will be given.
+
+
+\begin{table}
+  \centering 
+  \caption{Components of the active thermal control system}
+  \label{tab: comp active thermal control}
+  \begin{tabular}{L{5cm} L{1cm} L{1.2cm} L{5cm}}
+    \toprule 
+    Location & Type & Model & Purpose\\ 
+    \midrule 
+    Vacuum pump inlet & Heater & Heating film & Preheats air before vacuum pump\\ 
+    Inside pressure chamber & Heater & Heating film & Heats air inside pressure chamber\\ 
+    Between pressure chamber and enclosure wall & Cooler & Peltier & Cools air inside pressure chamber\\ 
+    Around outlet & Heater & Resistor & Prevents outlet freezing\\ 
+    SD-card reader & Heater & Resistor & Heats SD-card\\ 
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{The intake air preheater} is located at the tubing connecting the first vacuum pump to the outside air.
+The purpose of this heating setup is to heat the air from ambient temperatures to a temperature above 0 °C for the vacuum pumps.
+This will be realized using a film heater around the tubing.
+Depending on the temperature inside the enclosure, this tubing should be insulated. 
+The temperature sensor (SHT45) will be mounted by drilling a small hole through the tube and placing the sensor such that it can come into contact with the airflow.
+
+\paragraph{The pressure chamber heater and cooler} are both included to be able to control the pressure chamber temperature to the desired narrow temperature range (see \tref{tab:performance_req}, P.8). 
+With further testing it might be decided that only heating or only cooling capabilities are needed. 
+The thermal simulation shown above suggests that this depends heavily on the final insulation material.
+The heater is a polyimide film heater \dos{include model id} and is mounted inside the pressure chamber to reduce heating losses and improve fast response times. 
+The cooler is a Peltier device and connects the pressure chamber and the enclosure wall \dos{include model id}. 
+Both the heater and the cooler will be controlled using temperature data from inside the pressure chamber (both K96 and potentially SHT45). 
+
+\paragraph{The SD-card heater} will consist of four surface mounted resistors wired in series.
+The resistors will be thermally connected to the SD-card using a thermal pad.
+The SD-card heater will be mounted directly on the SD-card using screws.
+As the SD-card is considered a critical temperature sensitive component, the SD-card heater will also have a thermal switch (MP-22 50C WH 70) in addition to the temperature sensor (TMP1075DGKR).
+This is to reduce the risk of overheating the SD-card.
+
+\paragraph{The outlet cooler} is needed because the air exiting the pressure chamber will undergo rapid decompression, cooling the gas significantly. 
+To mitigate water condensation and in particular ice formation, the outlet needs to have heating capabilities.
+The outlet hole heater will consist of four ceramic resistors in series around the tubing that connects the chamber outlet to the outside air.
+The resistors will need to be thermally connected by using thermal glue.
+Around the resistor some pipe insulation can be placed to increase efficiency.
+The heater should be dimensioned such that it uses 4.5W.
+It would likely be controlled by using data from the chamber pressure sensor. If the pressure in the chamber is rising higher than expected when the compressor is on or if the chamber pressure is not dropping when the compressor is off, one can assume that the outlet hole is blocked.
+If the shutter for the outlet is open it is likely that the outlet hole has frozen over and thus the outlet hole heater should be turned on. 
+
+\paragraph{The control of the active thermal components} will be implemented via a \gls{pid} algorithm, as common for heating appliances. 
+The algorithm will run on the dedicated thermal \gls{mcu}. 
+The PID control system needs tuning before launch to work optimally.
+Since accurate simulation requires a lot of assumptions and work, the tuning should be done by physical testing.
+Ziegler-Nichols tuning method should be used, meaning only implementing P controller and tuning the system, so it ever so slightly oscillates. Then using this method to set other coefficients. 
+
+
+%Because of the low heating power required, the small operating temperature expected, the ease of integration, its big surface area, and its low cost a polyimide film heating element is chosen. The heating element is included in \tref{tab:power_consumption}. It can be attached via \gls{psa} and wrapped around the pressure chamber. Since the chamber is made out of aluminium, and aluminium is good thermal conductor, one heating pad should suffice. This will be confirmed by tests. Should tests show that there is indeed no need for heating the pressurization chamber, the heater may be moved directly to the temperature sensitive electrical components like the \gls{pcb}.\par 
+%
+%The heating pad will be controlled using a \gls{pid} algorithm, as common for heating appliances. The algorithm will run on the \gls{mcu}. The \gls{mcu} then controls the heating power of the heating pad by adjusting its duty cycle by powering a \gls{mosfet}. The exact \gls{pwm} setting is to be determined by the final \gls{mcu} design. To prevent overheating of the chamber, a \gls{tco} unit is used, wired in series with the heating pad. It can be directly attached via \gls{psa} to the outside of the pressure chamber, monitoring its temperature and breaking the circuit when its temperature reaches above 50 °C.
+%
 
 % This can lead to overheating of the electrical components if the heat from dissipated power accumulates. Therefore, it is essential to know how much power is dissipated and to take additional cooling measures in case that radiative cooling is insufficient.
 
