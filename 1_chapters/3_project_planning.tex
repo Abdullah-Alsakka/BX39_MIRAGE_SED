@@ -262,8 +262,6 @@ VE -- vehicle
 
 PE -- personnel
 
-EN -- environmental
-
 OR -- organisational
 
 DS -- data related
@@ -320,12 +318,15 @@ The rankings for probability (P) and severity (S) are combined to assess the ove
 
 \rowcolor{mediumorange} TC10 & Pump failure & C & 4 & medium & Have multiple pumps in setup, choose appropriate components \\
 \rowcolor{lowyellow} TC11 & Pump failure & C & 2 & low &  Acceptable risk \\
+\rowcolor{mediumorange} TC12 & Pump failure & C & 4 & medium & Pumps in series now due to flow rate issues; Pump failure is acceptable as trade-off \\
 \rowcolor{mediumorange} MS10 & Over-frozen gas inlet or outlet & C & 4 & medium & Large enough radius of outlets and inlets, heating element at inlet to heat air to appropriate temperature, move primary expansion point of air to being inside the experiment enclosure \\
 \rowcolor{verylowgreen} MS11 & Over-frozen gas inlet or outlet & A & 4 & very low & Acceptable risk \\
 \rowcolor{lowyellow} DS10 & Loss of data & B & 4 & low & Send part of data to ground regularly \\
 \rowcolor{verylowgreen} DS11 & Loss of data & A & 4 & very low & Acceptable risk \\
 \rowcolor{mediumorange} TC20 & Underheating of electronics during ascent & C & 3 & medium & More heating measures such as insulation and heating elements \\
 \rowcolor{verylowgreen} TC21 & Underheating of electronics during ascent & A & 4 & very low & Acceptable risk \\
+\rowcolor{mediumorange} TC22 & Undercooling of SD card & C & 4 & medium & Implement heater and thermal control for SD card holder \\
+\rowcolor{verylowgreen} TC23 & Undercooling of SD card & A & 4 & very low & Acceptable risk \\
 \rowcolor{lowyellow} TC30 & Failure of thermal control due to too low temperatures & B & 3 & low & Acceptable risk\\
 \rowcolor{verylowgreen} PE10 & Drop out of Team member & B & 2 & very low & Acceptable risk \\
 \rowcolor{mediumorange} OR10 & Lack of funding & C & 4 & medium & Contact more companies, find other sources from university \\
@@ -341,6 +342,29 @@ The rankings for probability (P) and severity (S) are combined to assess the ove
 \rowcolor{verylowgreen} MS31 & Software failure of thermal control & A & 3 & very low & Acceptable risk \\
 \rowcolor{lowyellow} MS40 & Software failure of pressure control & C & 2 & low & Implement watchdog and option to restart software from ground \\
 \rowcolor{verylowgreen} MS41 & Software failure of pressure control & A & 2 & very low & Acceptable risk \\
+\rowcolor{mediumorange} MS50 & Software failure due to failure of sensor & C & 4 & medium & Mark non-responsive sensors as dead, define fallback behaviour of software for each sensor. \\
+\rowcolor{lowyellow} MS51 & Software failure due to failure of sensor & C & 2 & low & Acceptable risk \\
+\rowcolor{mediumorange} TC70 & Delays due to lack of experience in manufacturing
+ & D & 3 & medium & Already started prototyping and will be continued a lot \\
+\rowcolor{lowyellow} TC71 & Delays due to lack of experience in manufacturing & C & 3 & low & Acceptable risk \\
+\rowcolor{lowyellow} TC80 & Failure of pressure sensor outside of pressure chamber & C & 2 & low & Pumps should keep running as before. Manual pump adjustments based on tests to keep the pressure stable as long as possible \\
+\rowcolor{verylowgreen} TC81 & Failure of pressure sensor outside of pressure chamber & C & 1 & very low & Acceptable risk \\
+\rowcolor{mediumorange} TC90 & Failure of pressure sensor inside of pressure chamber & C & 3 & medium & Close shutter and stop pumps, option to restart if sensor comes back \\
+\rowcolor{lowyellow} TC91 & Failure of pressure sensor inside of pressure chamber & C & 2 & low & Acceptable risk \\
+\rowcolor{mediumorange} TC100 & Failure of temperature sensor & C & 3 & medium & Define fall back strategy for each temperature sensor depending on function and importance \\
+\rowcolor{lowyellow} TC101 & Failure of temperature sensor & C & 2 & low & Acceptable risk \\
+\rowcolor{mediumorange} TC110 & Leakage in pressure system during ascent & C & 3 & medium & Conduct final leakage test after full assembly before launch to detect \\
+\rowcolor{verylowgreen} TC111 & Leakage in pressure system during ascent & A & 3 & very low & Acceptable risk \\
+\rowcolor{mediumorange} MS60 & Loss of pressure during ascent & C & 3 & medium & Close shutter (if possible) and stop pumps, build up pressure again with closed shutter if possible \\
+\rowcolor{lowyellow} MS61 & Loss of pressure during ascent & C & 2 & low & Acceptable risk \\
+\rowcolor{mediumorange} TC120 & Overheating of SD Card Heater & C & 3 & medium & Include thermal switch at SD Card \\
+\rowcolor{verylowgreen} TC121 & Overheating of SD Card Heater & A & 3 & very low & Acceptable risk \\
+\rowcolor{lowyellow} TC130 & Overheating of heater inside pressure chamber & C & 2 & low & Include thermal switch and mount heater in a way that it's not directly touching K96 \\
+\rowcolor{verylowgreen} TC131 & Overheating of heater inside pressure chamber & A & 2 & very low & Acceptable risk \\
+\rowcolor{mediumorange} MS70 & Multiple energy intensive components causing too high current/power consumption temporarily & C & 3 & medium & Software should prevent energy intensive components from being on at same time. Can also add something to estimate total power drawn \\
+\rowcolor{lowyellow} MS71 & Multiple energy intensive components causing too high current/power consumption temporarily & B & 3 & low & Acceptable risk \\
+\rowcolor{lowyellow} TC140 & MOSFET breakdown causing short circuit and heater/cooler on line being constantly on & B & 4 & low & Thermal switch at SD card and pressure chamber heaters \\
+\rowcolor{verylowgreen} TC141 & MOSFET breakdown causing short circuit and heater/cooler on line being constantly on & B & 2 & very low & Acceptable risk \\
 \end{longtable}
 % %
 % %\begin{landscape}
