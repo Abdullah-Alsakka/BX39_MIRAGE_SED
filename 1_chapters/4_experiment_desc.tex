@@ -754,21 +754,50 @@ Table 4.9 presents key components, amount of components, duration of use, voltag
 
 The on-board software is responsible for collecting data from the sensors and store it on the on-board SD card. It is also responsible for handling communication from and to ground, as well as the control of the internal pressure and thermal systems and preventing condensation.
 
-For the pressurisation system the software needs to be able to read out the pressure sensor in the measurement chamber and adjust the power of the pumps accordingly to maintain a constant pressure of 3 bar. The mechanical side of the system is explained above. Since the vacuum pumps prepressurise the air that is then compressed to 3 bar, the power of the vacuum pumps and the compressor need to be handled separately. Depending on whether the compressor needs to have a minimum flowrate to work, it might be possible that a pulsed operation is necessary for the compressor, which would put strain on the electrical system. The software needs to be able to adjust these different components accordingly based on the internal pressure sensor. \\
+\subsection{Overview}
 
-For the thermal control system the software needs to take sensor inputs from different places. It should be split into two different programs, where one is responsible for stabilizing the temperature in the measurement chamber at around room temperature. This also includes controlling potential active heating elements at the gas inlet of the outer enclosure and before the air at 3 bar enters the measurement chamber based on at least on the thermal sensor of the K96 but possibly also several thermal sensor in between. The other thermal control loop should monitor components that are at risk of overheating and components that could underheat. There might be also active heating elements at critical components like the MCU, which could be switched on if the temperatures drop dangerously low inside the electrical compartment. This control loop need to take the different temperature outputs of sensors that are close to the pumps and electrical components and if necessary take counter measures via controlling the heating elements or reducing the power of the pumps.\\
-For humidity the role of the software is to detect to high humidity levels (>80\% r.H.). If the ambient sensors detect high levels of humidity outside the software should close the shutter and stop the pumps as a first step to prevent more air with high humidity levels from entering the measurement chamber without losing pressure. When the humidity levels are low enough, the temperature of the air taken into the measurement chamber should be increased slightly by increasing the temperature of the active heating elements until the internal humidity is lower as well.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\textwidth]{0_images/figures/control_flow.png}
+\caption{Control flow diagram}
+\label{fig:cont_flow}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{0_images/figures/state_chart.png}
+\caption{State diagram}
+\label{fig:state_diagram}
+\end{figure}
 
 
-The settings of those systems depend on the readings of the internal and external pressure and temperature sensors. Additionally, correct flight phases need to be engaged. This is done based on longer term changes in the recorded ambient pressure or via a command from the ground, with the command taking priority. A control flow and state diagram are provided in Figure \ref{fig:cont_flow} and Figure \ref{fig:state_diagram}.
+
 
 The experiment will run on 2 main modes: Manual and Autonomous. Each of the main modes has a submode for standby and active measurements. When the experiment reaches the point where no more data needs to be collected, the system will move to standby mode unless a command has been given to do otherwise. The modes will also allow for autonomous work even through radio blackouts and loss of communication. If below 22\,km and a loss of connection occurs, the system will automatically switch to autonomous measurements mode; if however the experiment is above 22\,km and a loss of connection occurs then the system will switch to Autonomous standby mode that will ensure the experiment remains safe without exhausting any of the hardware.
+
+To engage the correct flight phases, longer term changes in the recorded ambient pressure or via a command from the ground are used, with the command taking priority. A control flow and state diagram are provided in Figure \ref{fig:cont_flow} and Figure \ref{fig:state_diagram}.
+
+\subsection{Main MCU}
+
+The settings of the thermal and pressure subsystems depend on the readings of the internal and external pressure and temperature sensors. 
+These will be provided to the slave \gls{mcu}s via the Main (Master) \gls{mcu}.
 
 To guarantee operations watchdog systems will be used to reset the operations if it encountered a fatal error.
 The software system will work with different threads working asynchronously.
 Data transfer between the threads will happen through producer-consumer queues that are thread-safe.
 There will be a thread for reading sensor data, a thread of controlling hardware, a thread sending downlink packages and receiving packages from uplink, a thread to write data on the SD card and finally a thread to control everything with the aid of a watchdog.
 
+
+\subsection{Thermal MCU}
+For the thermal control system the software needs to take sensor inputs from different places. It should be split into two different programs, where one is responsible for stabilizing the temperature in the measurement chamber at around room temperature. This also includes controlling potential active heating elements at the gas inlet of the outer enclosure and before the air at 3 bar enters the measurement chamber based on at least on the thermal sensor of the K96 but possibly also several thermal sensor in between. The other thermal control loop should monitor components that are at risk of overheating and components that could underheat. There might be also active heating elements at critical components like the MCU, which could be switched on if the temperatures drop dangerously low inside the electrical compartment. This control loop need to take the different temperature outputs of sensors that are close to the pumps and electrical components and if necessary take counter measures via controlling the heating elements or reducing the power of the pumps.\\
+For humidity the role of the software is to detect to high humidity levels (>80\% r.H.). If the ambient sensors detect high levels of humidity outside the software should close the shutter and stop the pumps as a first step to prevent more air with high humidity levels from entering the measurement chamber without losing pressure. When the humidity levels are low enough, the temperature of the air taken into the measurement chamber should be increased slightly by increasing the temperature of the active heating elements until the internal humidity is lower as well.\\
+
+
+
+\subsection{Pressure MCU}
+For the pressurisation system the software needs to be able to read out the pressure sensor in the measurement chamber and adjust the power of the pumps accordingly to maintain a constant pressure of 3 bar. The mechanical side of the system is explained above. Since the vacuum pumps prepressurise the air that is then compressed to 3 bar, the power of the vacuum pumps and the compressor need to be handled separately. Depending on whether the compressor needs to have a minimum flowrate to work, it might be possible that a pulsed operation is necessary for the compressor, which would put strain on the electrical system. The software needs to be able to adjust these different components accordingly based on the internal pressure sensor. \\
+
+\subsection{Interfaces}
 All transmissions are saved to the on-board storage with timestamps. Similarly, all saved data is saved with timestamps, too. A table detailing the expected data sizes of data to be stored is given in Table \ref{tab:data_rates}. In total 39856 bits per second (40 kbit) will be stored. This means that for the duration of 6 hours a storage of 108 MB (megabyte) is required to store all the data received from the sensors. The SD cards onboard are more than enough for this task. Some of this data will be downlinked every seconds for redundancy and tracking of the functionality of the experiment. Based on the sampling rates in Table \ref{tab:data_rates},the Elink thread can pull 100 datapoints from the telemetry and data queue to downlink each second, resulting in an estimated downlink rate of 32.8 kbps, below the experiment requirements (P.18) of 100 kbps. Assuming a maximum connection dropout duration of 10 minutes, this would likewise imply a build-up of data of 19.68 Mbit. Transferring it over the next 5 minutes gives a data rate of 65.6 kbps which is feasible. With compression it is probable that only half the rates stated need to be transmitted, but a higher data rate could be used to send duplicates or checksums for error mitigation.
 
 The frequencies are chosen based on the datasheets of the sensors. The SHT45 sensor has multiple modes, fast mode plus (FM+) was chosen for this mission. The K96 sensor relies on the speed of the NDIR sensor within with typically is below 10 Hz, whereas in the MS5607 sensor OSR 4096 mode was chosen. The \gls{rtc} frequency was calculated to be equal to all the frequencies added. This is to consider the scenario where none of the sensors data readings collide and all the readings from the 3 sensors are collected at different timestamps, which will require one timestamp for each.
@@ -803,20 +832,9 @@ Total & & & 39856 \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=.9\textwidth]{0_images/figures/control_flow.png}
-\caption{Control flow diagram}
-\label{fig:cont_flow}
-\end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{0_images/figures/state_chart.png}
-\caption{State diagram}
-\label{fig:state_diagram}
-\end{figure}
-
+\subsection{Manual operation procedures}
+\dos{Jonathan's section}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ground support equipment}
 
