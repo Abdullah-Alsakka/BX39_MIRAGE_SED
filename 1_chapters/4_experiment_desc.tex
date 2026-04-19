@@ -4,16 +4,30 @@
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{0_images/figures/Mirage Block schematic.png}
-    \caption{Experimental Setup}
+    \includegraphics[width=0.8\textwidth]{0_images/figures/System_Overview_Schematic.pdf}
+    \caption{MIRAGE Experimental Setup. Cicles indicate sensors. Sensors are named according to $\mathrm{type}_\mathrm{system\, ID}$, where type can be T: temperature, P: pressure, H: humidity, M: methane, C: carbon dioxide, W: water. The systems are colour coded with Pink components: Pressurization system, Blue components: General system/Main MCU, Brown components: Thermal system, Yellow components: K96, Green components: Ambient sensors, Red components: other.}
     \label{fig:experimental_setup}
-    
 \end{figure}
 
-The experiment will feature a NDIR sensor (K96), a pressurization system, a thermal system, ambient environment sensors and a processing unit. 
-The pressurization system will include a pumping mechanism in order to increase the pressure and the amount of particles that can be measured. The air will be heated up and pumped into the measurement chamber with the K96 sensor inside together with temperature, pressure and humidity sensors. The gas will be exchanged continously to exchange the sample while maintaining the pressure of 3 bar. 
-The K96 Sensor will communicate with the processing unit and the processing unit sends the measured digital data for storage to the SDHC card.
-The pressure sensor,temperature sensor and humidity sensor communicate with the processing unit via digital interfaces (such as $I^2C$) to ensure that the pump and thermal control system are running with the right parameters to maintain room temperature conditions and a stable pressure of 3 bar. Unique addresses are used to identify each sensor's signal, allowing the processing unit to collect and organize data from all ambient sensors efficiently.
+The experiment is built around the K96 \gls{ndir} sensor inside pressure chamber with continuously exchanging air (see \fref{fig:experimental_setup}).
+In order to pressurize the chamber, \gls{mirage} will have two vacuum pumps and one piston compressor.
+The first vacuum pump is taking ambient air and pressurizes it to around 0.5 bar.
+The second vacuum pump then pressurizes 0.5 bar to 1 bar and the compressor from 1 bar to 3 bar. 
+To monitor the settings of the pumps, temperature sensors mounted directly on the pumps, as well as temperature and pressure sensors between compression stages will be used.
+The outlet of the pressure chamber is controlled using a valve to open/close the airflow.
+Besides the sensors for the pressurization system, there are sensors for the thermal system and ambient sensors.\newline
+The active components of the thermal system (heaters and coolers) will be controlled via a slave thermal \gls{mcu}.
+Likewise, the pumps will be controlled via a slave pressure \gls{mcu}.
+The main \gls{mcu} will act as a master for the other \gls{mcu}s and run the main part of the software.
+Power will be provided via the connection to \gls{bexus} battery pack via a power connector and distributed to the system via a \gls{pdb}. 
+
+
+
+
+%The experiment will feature an \gls{ndir} sensor (K96), a pressurization system, a thermal system, ambient environment sensors and three processing units. 
+%The pressurization system will include a pumping mechanism in order to increase the pressure and the amount of particles that can be measured. The air will be heated up and pumped into the measurement chamber with the K96 sensor inside together with temperature, pressure and humidity sensors. The gas will be exchanged continously to exchange the sample while maintaining the pressure of 3 bar. 
+%The K96 Sensor will communicate with the processing unit and the processing unit sends the measured digital data for storage to the SDHC card.
+%The pressure sensor,temperature sensor and humidity sensor communicate with the processing unit via digital interfaces (such as $I^2C$) to ensure that the pump and thermal control system are running with the right parameters to maintain room temperature conditions and a stable pressure of 3 bar. Unique addresses are used to identify each sensor's signal, allowing the processing unit to collect and organize data from all ambient sensors efficiently.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experiment Interfaces}
