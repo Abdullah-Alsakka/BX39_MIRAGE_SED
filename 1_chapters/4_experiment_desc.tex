@@ -834,7 +834,39 @@ Total & & & 39856 \\
 
 
 \subsection{Manual operation procedures}
-\dos{Jonathan's section}
+Although the on-board software shall be equipped to handle exceptions from nominal conditions, an operation plan for exceptional situations is helpful. 
+
+\paragraph{Exceptional pressure readings in the pressure chamber} are handled by the on-board software by closing the outlet valve and stopping the pumps. \dos{ref pump action schematic}
+After nominal pressure is restored, the pressurization system will return to normal operations. 
+However, if exceptional pressures are occurring repeatedly, a switch to manual mode might be necessary. 
+Then, the team can try to identify the source of the problem.
+Reasons could be a faulty sensor inside the pressure chamber, a partially frozen outlet, a software error or a faulty pump.\par 
+
+If a pump is not working nominally, the pressure sensors measuring the pressure in the tubing between pumps should show signs of that, too. 
+If a pump is not pressurizing air as much as it should, its intake may be blocked. 
+The team may decide to heat up the experiment in an attempt to melt any ice.
+This may be especially useful for the first vacuum pump, which is connected to the ambient air.
+If the problem can not be solved, the experiment may be aborted due to unknown risks of the faulty equipment. \dos{too drastic??}\par 
+
+If a software error is responsible for the exceptional pressure readings, the \gls{pid} algorithm may be misbehaving.
+A restart of the pressure \gls{mcu} may be triggered in an attempt to resolve the issue. 
+If an analysis of the software logs \dos{are we having any?} shows that the autonomous loop on-board the main \gls{mcu} is misbehaving, a restart of the main \gls{mcu} may be triggered.
+If the problem remains unsolved, measurements may be taken in manual mode.\par 
+
+If a partially frozen outlet is responsible for the exceptional pressure readings, the outflow hole heaters may be activated.
+If the problem persists, the outlet is likely not the cause.\par 
+
+If a faulty sensor inside the pressure chamber is responsible for the exceptional pressure readings, the collected data can not be used for meaningful scientific results.
+As it may also be a security hazard, the experiment may be aborted.\par 
+
+\paragraph{Sensor deaths} are not handled by the onboard software in the current design stages.
+If a temperature sensor of a vacuum pump dies, the temperature sensor on the other vacuum pump may be used as a proxy. 
+If both die or the temperature sensor on the compressor dies, the experiment may be aborted due to security risks.\newline 
+If a pressure sensor inside the tubing connecting the pumps dies, the \gls{pid} algorithm might fail. 
+In that case, the pumps may be controlled manually based on prior testing and control using the remaining sensors.\newline
+If a pressure sensor next to a heater dies, that heater cannot be safely used anymore. It can also no longer be controlled by the \gls{pid} algorithm. 
+The outlet hole heater is an exception, as it may then be used manually if the outlet is suspected to be blocked.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ground support equipment}
 
