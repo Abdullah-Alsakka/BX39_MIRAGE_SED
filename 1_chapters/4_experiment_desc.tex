@@ -731,6 +731,10 @@ Total & & & 39856 \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ground support equipment}
 
-A \gls{gui} will be developed for easy control of \gls{mirage} during the mission. The \gls{gui} will allow ground operators to send commands through uplink and visualize the downlink data. Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight.
+A Python-based \gls{gui} will be developed for ground operations during the mission. The interface will be implemented using a suitable graphical library such as Tkinter, PyQt, or PySide, depending on the final balance between simplicity, responsiveness, and development effort. For plotting and visualizing received downlink data, libraries such as Matplotlib or PyQtGraph can be used, while the downlink data itself will also be stored locally on the ground computer for later inspection and post-flight analysis.
+
+The \gls{gui} will include clickable buttons for common mission commands, allowing operators to send predefined instructions through uplink without manually typing them each time. In addition, the interface will contain a terminal section for commands or configuration options that are not part of the predefined buttons, providing flexibility for debugging, manual intervention, and ad-hoc control during operations.
+
+Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
