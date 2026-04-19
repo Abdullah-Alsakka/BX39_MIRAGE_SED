@@ -32,7 +32,7 @@ Experiment expected \gls{cog} position: & Distance from geometric centre: x=4mm 
 \toprule
 \textbf{Risk} & \textbf{Key Characteristics} & \textbf{Mitigation} \\
 \midrule
-Use of a pressurised vessel with 3 bar difference beween outside and inside. & Material: Aluminium & Pressure test will be conducted up to 4 bar in line with the Esrange safety manual. \\
+Use of a pressurised vessel with 3 bar difference between outside and inside. & Material: Aluminium & Pressure test will be conducted up to 4.5 bar in line with the Esrange safety manual. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -53,14 +53,14 @@ While testing it was noticed that the pumps become very hot and reach temperatur
 E-Link Interface: E-Link required? Yes/No & Yes\\
 Number of E-Link interfaces: & 1 \\
 Number of required IP addresses: & 2 (one for the experiment and one for the ground station)\\
-Data rate -- downlink (max. and average): & max: 100 Kbit/s  (average: 33 Kbit/s) \\
-Data rate -- uplink (max. and average): & max: 10 Kbit/s \\
+Data rate -- downlink (max. and average): & max: 100 kbps  (average: 33 kbps) \\
+Data rate -- uplink (max. and average): & max: 10 kbps \\
 Interface type (RS-232, Ethernet): & Ethernet \\
 \midrule
 Power system: Gondola power required? Yes/No & Yes\\
-Peak power and current consumption: & 65.05 W and 2.26 A \\
-Average power and current consumption: & 23.11 W and 0.8 A \\
-Total power and current consumption after lift-off & 138.67 Wh and 8.59 Ah \\
+Peak power and current consumption: & 66.20 W and 2.30 A \\
+Average power and current consumption: & 13.13 W and 0.46 A \\
+Total power and current consumption after lift-off & 98.45 Wh and 3.42 Ah \\
 \midrule
 Power system: Experiment includes batteries? Yes/No & No\\
 Type of batteries: & \\
@@ -114,7 +114,7 @@ Workstation&Table & 3 \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Accommodation Requirements}
 
-The experiment needs access to fresh air and the gas in- and outlets should not be covered by the canvas. They should be directed away from the vehicle and other experiments to minimize interference and contamination of the intaken air. Therefore the experiment should be accommodated in a corner of the gondola.
+The experiment needs access to fresh air and the gas in- and outlets should not be covered by the canvas. They should be directed away from the vehicle and other experiments to minimize interference and contamination of the intake air. Therefore, the experiment should be accommodated in a corner of the gondola.
 \clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -140,7 +140,7 @@ Time/Day & Main Task & Description & Responsible & Duration [h:m] & Comments\\
 \end{table}
 
 The activities in \tref{tab:preparation} are planned to take place within the first two days after arrival before the Gondola Interference Test and the Flight Compatibility Test to make sure that there is enough time to notice issues and possibly fix them. The list is preliminary at this stage and the durations are expected to change. There will be a team morning meeting to make sure that everyone is updated and delays can be taken care of quickly. It is expected that there will be some spare time on day 3 before the Gondola Interference Test.\\
-The preparations involve mainly assembly and testing to verify that assembly worked well and that no component got dammaged during transport. MIRAGE doesn't have parts that need to be removed before flight or that require late access. The experiment is capable of heating sensitive components to prevent undercooling and in the case of ambient temperatures below -20°C this needs to be considered.
+The preparations involve mainly assembly and testing to verify that assembly worked well and that no component got damaged during transport. MIRAGE doesn't have parts that need to be removed before flight or that require late access. The experiment is capable of heating sensitive components to prevent undercooling, and in the case of ambient temperatures below -20°C this needs to be considered.
 %\begin{table}[htbp]
 %\centering
 %\caption{List of planned activities}
@@ -185,7 +185,7 @@ T + 6h30 & Landing & \\
 \end{table}
 
 The timestamps here are only a rough orientation because some of the actions depend on the ambient pressure value and because the flight phases can differ in length depending on different external factors.  \\
-As summarised in \tref{tab:timeline} the experiment undergoes a functionality test while it is still in the DOME to take advantage of the external power supply and in the hope that issues can be still fixed at that time. At the end of this test the electrical valve shall be shut and the chamber prepressurised to 3\,bar. This is done to save the energy and time it takes to build up the pressure in the first place and to prevent the experiment from starting with the likely very humid air outside. However,this also means that the first few minutes of data are wasted until the air is completely exchanged and therefore this part of the timeline is up to change depending on the relative humidity.\\
+As summarised in \tref{tab:timeline} the experiment undergoes a functionality test while it is still in the DOME to take advantage of the external power supply and in the hope that issues can be still fixed at that time. At the end of this test the electrical valve shall be shut and the chamber prepressurised to 3\,bar. This is done to save the energy and time it takes to build up the pressure in the first place and to prevent the experiment from starting with the likely very humid air outside. However, this also means that the first few minutes of data are wasted until the air is completely exchanged and therefore this part of the timeline is up to change depending on the relative humidity.\\
 After this phase the experiment is switched off again until 15 minutes before launch to start preheating the pumps and ensure that the flight is started in a temperature range that was accounted for in the thermal design. The ambient sensor data is already being collected and the housekeeping data and internal sensor data to monitor the system as well. \\
 The actual pressure system is supposed to be only able to start from the moment of the launch to save power as the pumps are the most energy consuming part of the experiment. This doesn't mean that the pumps necessarily start already and that the experiment starts the atmospheric measurement because the system should only start if the ambient humidity is below 80\% to ensure that not too much moisture is transported into the colder regions where it could freeze. After launch the experiment runs fully until a pressure of 40\,mbar and above is detected for at least one minute. After that the shutter is closed, the pumps are turned off and the experiment runs in standby with just the part running that is necessary to maintain communication, monitoring of the internal temperature and corresponding thermal control and data collection of ambient sensors.\\
 This state is maintained until the mission is already well into descent to keep the option of attempting to take measurements during float or descent, since it takes too long to rebuild pressure from scratch at low ambient pressures. Once the pressure increases above 0.5\,bar the valve is opened for a few minutes to depressurise and remove the risk of landing with a pressurised vessel. Then the experiment is switched off. \\
@@ -199,7 +199,7 @@ This state is maintained until the mission is already well into descent to keep 
 It is expected that the recovery will not be very complex for MIRAGE, especially since the pressure vessel should have been depressurised before the landing. More information will be provided later.\\
 
 If there is enough time left and the experiment is recovered at latest on day 8, the experiment should be partially disassembled. If it is in good shape the functionality could be tested as well. It is desirable to test the condition of the K96 as early as possible. For packaging and transport it should be assembled again if possible to be then disassembled fully in Uppsala.\\ 
-While still at ESRANGE a preliminary overview of the data using the data analysis pipeline should be conducted once the SD card was recovered. An early assessment of the mission success is done as well. The full data analysis is done in the longer term after the launch to evaluate the first primary objective of MIRAGE and valitdate the recorded concentration measurements.
+While still at ESRANGE a preliminary overview of the data using the data analysis pipeline should be conducted once the SD card was recovered. An early assessment of the mission success is done as well. The full data analysis is done in the longer term after the launch to evaluate the first primary objective of MIRAGE and validate the recorded concentration measurements.
 
 
 %Celebrate!

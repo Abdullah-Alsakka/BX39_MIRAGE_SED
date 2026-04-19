@@ -249,8 +249,8 @@ Accomodation & 10 & 10000 & Not ordered & For the launch campain, counting only 
 Team Building & 25 & 500 & Not ordered &  \\
 Team Jersey & 25 & 150 & Not ordered &  \\
 \hline
-15\% Margin for Manegerial Costs & & 18562.5 & & \\
-Total for Manegerial Costs (+ margin) & & 142312.5 & & \\
+15\% Margin for Managerial Costs & & 18562.5 & & \\
+Total for Managerial Costs (+ margin) & & 142312.5 & & \\
 \end{longtable}
 
 
@@ -445,6 +445,14 @@ The rankings for probability (P) and severity (S) are combined to assess the ove
 \rowcolor{lowyellow} MS71 & Multiple energy intensive components causing too high current/power consumption temporarily & B & 3 & low & Acceptable risk \\
 \rowcolor{lowyellow} TC140 & MOSFET breakdown causing short circuit and heater/cooler on line being constantly on & B & 4 & low & Thermal switch at SD card and pressure chamber heaters \\
 \rowcolor{verylowgreen} TC141 & MOSFET breakdown causing short circuit and heater/cooler on line being constantly on & B & 2 & very low & Acceptable risk \\
+\rowcolor{lowyellow} TC150 & Inrush current too high due to underdimensioned charge resistor or wrong timing, causing blown fuse & B & 4 & low & Test the precharge circuit before flight \\
+\rowcolor{mediumorange} TC160 & Linear regulator overheating due to high power dissipation, causing lower output and thermal shutdown & C & 4 & medium & Add heatsink or cooling \\
+\rowcolor{lowyellow} TC170 & DC-DC converter switching noise affecting power lines and impairing other experiments & B & 3 & low & Add filters \\
+\rowcolor{mediumorange} TC180 & Ground instability between power and signal ground interfering with signals & C & 3 & medium & Keep separate sigGND and pwrGND; join close to battery connection \\
+\rowcolor{lowyellow} TC190 & Current sensor inaccuracy causing wrong information to ground station and impacting decisions & B & 3 & low & Calibrate sensor; output can vary with temperature \\
+\rowcolor{lowyellow} TC200 & 3.3V rail single point of failure causing system failure & B & 4 & low & Add rail monitoring \\
+\rowcolor{mediumorange} TC210 & Incorrect power/load estimations causing undersized components to burn out & C & 4 & medium & Calculate worst-case loads \\
+\rowcolor{mediumorange} TC220 & Transient behavior not accounted for, creating hidden failure points and unpredictable consequences & C & 4 & medium & Perform experiments and simulations \\
 \end{longtable}
 % %
 % %\begin{landscape}
