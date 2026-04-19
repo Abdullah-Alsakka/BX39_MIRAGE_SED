@@ -733,7 +733,30 @@ Total & & & 39856 \\
 
 A Python-based \gls{gui} will be developed for ground operations during the mission. The interface will be implemented using a suitable graphical library such as Tkinter, PyQt, or PySide, depending on the final balance between simplicity, responsiveness, and development effort. For plotting and visualizing received downlink data, libraries such as Matplotlib or PyQtGraph can be used, while the downlink data itself will also be stored locally on the ground computer for later inspection and post-flight analysis.
 
+Downlink reception will be handled by a dedicated Python process that listens to the ground station input stream, receives the incoming telemetry packets, and forwards them to the \gls{gui}. The received packets will first be decoded and validated so that malformed or incomplete messages can be filtered out before they are shown to the operator. After parsing, the values will be timestamped on the ground computer and written to local storage in a structured format such as CSV or JSON, allowing the team to preserve a full mission log even if the visual interface is closed or restarted.
+
+The same data stream will then be used for live plots in the \gls{gui}, so that the operator can monitor pressure, temperature, humidity, and system status in real time as the packets arrive. This makes it possible to compare the most recent telemetry with previous points in the log and quickly identify anomalies during the mission. If the downlink is interrupted, the locally stored packet history will still be available for later review and recovery of the measurement timeline.
+
 The \gls{gui} will include clickable buttons for common mission commands, allowing operators to send predefined instructions through uplink without manually typing them each time. In addition, the interface will contain a terminal section for commands or configuration options that are not part of the predefined buttons, providing flexibility for debugging, manual intervention, and ad-hoc control during operations.
+
+\begin{table}[H]
+\centering
+\caption{Ground support tasks}
+\label{tab:ground_support_tasks}
+\begin{tabular}{p{4cm}p{9cm}}
+\toprule
+\textbf{Task} & \textbf{What has to be done} \\
+\midrule
+Develop the Python GUI & Implement the ground control interface using a suitable Python GUI library. \\
+Receive downlink data & Build a listener that receives telemetry packets from the ground station input stream. \\
+Validate and parse packets & Reject malformed packets, decode the payload, and extract telemetry values. \\
+Timestamp and store data & Save received data locally on the ground computer in a structured log format. \\
+Plot telemetry live & Display pressure, temperature, humidity, and status values in real time. \\
+Add command buttons & Provide clickable controls for common uplink commands. \\
+Add terminal fallback & Allow manual commands and configuration through a terminal area in the GUI. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight.
 
