@@ -169,7 +169,7 @@ The third layer will be the commercial off the shelf aluminium enclosure with an
 We chose to use a \gls{cots} enclosure in order to reduce manufacturing complexity which also helps with our budget and makes the whole experiment safer.
 Its main purpose is to house the electronics and provide a good protection.
 The enclosure chosen is IP certified and was tested in extreme environments close to stratospheric ones.
-It also comes with pre-made holes that allow us to connect experiment to the healing system and \gls{bexus} power while ensuring a leak tight connection.\par 
+It also comes with pre-made holes that allow us to connect experiment to the E-link system and \gls{bexus} power while ensuring a leak tight connection.\par 
 
 The whole enclosure (counting in three layers), not counting the mandatory connections, will have one inlet holes for the vacuum pump to suck in the air and one exit hole for the air to escape. Airflow is fully isolated from the enclosure and routed exclusively through sealed tubing. This ensures that only the measurement chamber is pressurized, in compliance with requirement D.8.\par 
 
@@ -190,41 +190,85 @@ The whole enclosure (counting in three layers), not counting the mandatory conne
 %\end{figure}
 
 \subsection{Internal Layout}
+The internal layout of the Mirage experiment is arranged to maintain a compact configuration in order to minimize space taken in all the axis.
+The philosophy behind the design is to maximize the temperature use from components, which natively produce temperature whilst working.
+Currently, the system is configured such that two vacuum pumps are vertically stacked in the upper-left corner to optimize space utilization along the Z-axis, where spatial constraints are more significant than in the X and Y dimensions.
+These pumps subsequently supply air to a compressor situated in the lower-left corner, which is positioned in the immediate vicinity of the pressure chamber to minimize the distance between the air discharge and the chamber inlet.
+The pressure chamber is located as close as possible to the solenoid valve.
+This proximity is maintained to minimize the total pressurized volume; notably, the tubing connecting the chamber to the valve features a reduced diameter of 2 mm, in contrast to the 6 mm diameter utilized in the remainder of the system.
+Adjacent to the primary assembly is a PCB tower, which provides a compact arrangement for the circuit boards, isolating them from the pneumatic conduits and minimizing the footprint that would otherwise be required for individual, planar placement.
+The layout can be viewed in \fref{fig:cad model internal layout}.
 
-The internal layout of the \gls{mirage} experiment is arranged to maintain a compact configuration and minimize the length of the airflow path between the pressurized chamber and the compressor.
-Electronic control hardware is mounted along the inner bottom of the enclosure, providing physical isolation between electrical components and the pressurized air system.
-This configuration ensures efficient airflow through the chamber while maintaining accessibility for integration and servicing.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing_6.png}
-    \caption{Drawing of the internal layout.}
-    \label{fig:int_layout}
-    
+\begin{figure}
+  \centering 
+  \includegraphics[width=0.8\linewidth]{0_images/figures/internal_layout_mirage.png}
+  \caption{CAD model rendering of the experiment internal layout.}
+  \label{fig:cad model internal layout}
 \end{figure}
 
+%The internal layout of the \gls{mirage} experiment is arranged to maintain a compact configuration and minimize the length of the airflow path between the pressurized chamber and the compressor.
+%Electronic control hardware is mounted along the inner bottom of the enclosure, providing physical isolation between electrical components and the pressurized air system.
+%This configuration ensures efficient airflow through the chamber while maintaining accessibility for integration and servicing.
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{0_images/figures/tech_drawing_6.png}
+%    \caption{Drawing of the internal layout.}
+%    \label{fig:int_layout}
+%    
+%\end{figure}
+%
 \subsection{Pressurized Measurement Chamber}
 
-The core element of the experiment is a small pressurized chamber that houses the K96 sensor used for the measurements. The chamber has internal dimensions of approximately $38 \times 33 \times 45$ mm and a wall thickness of 7 mm. It will be machined from aluminium by the \gls{mirage} team at Uppsala University.
+The pressurized chamber is designed to accommodate a K96 sensor alongside an auxiliary pressure sensor and potentially an auxiliary temperature sensor.
+The internal layout is providing sufficient volume to house the printed circuit boards (PCBs) for both the pressure and K96 sensors.
+Commercial off-the-shelf (COTS) components proved unsuitable for this application due to stringent requirements regarding a sanitized internal environment and the necessity for minimal internal volume to optimize airflow.
+Consequently, the chamber will be custom-manufactured using university facilities.
+Drawing upon established automotive engineering methodologies, a copper gasket was selected for the sealing interface.
+Copper is a ductile metal capable of undergoing plastic deformation under sufficient mechanical load, thereby creating a hermetic and waterproof seal.
+The internal geometry focuses on minimizing the displacement distance between the inlet and the outlet. 
+%Although initial design iterations aimed to minimize total dead space, it was subsequently concluded that internal volume is of secondary importance, provided that the airflow remains rapid and free from turbulence. 
+%This laminar flow is maintained by positioning the inlet and outlet on opposing walls in the immediate vicinity of the K96 sensor.
+To reduce assembly complexity, electrical connections are routed through hermetically sealed apertures, as managing cables through such interfaces is more efficient than utilizing the standard connectors provided by the sensors.
+The wall thickness was calculated to be 5 mm on sides/top and 3 mm on bottom, ensuring safe operation at a differential pressure of 3 bar without the risk of structural failure or deformation. 
+\gls{fea} was conducted to validate the structural integrity of the chamber under internal pressure loading, see \fref{fig:static_fea_chamber}.
+The results show a maximum stress of approximately $1.57 \cdot 10^7$ Pa, a maximum displacement of $2.4\cdot10^{-3}$ mm, and a factor of safety of approximately 39.
+These results confirm that the chamber operates well within material limits.
+The chamber is assembled using 6 x M3 fasteners with preload, ensuring that the sealing force exceeds the internal pressure force acting on the lid.
+Given that copper gaskets undergo permanent deformation and are therefore single-use, elastomeric seals will be utilized during the preliminary testing phase. 
+However, for the final flight hardware intended for stratospheric conditions, copper is mandatory due to its superior thermal resilience. 
+In scenarios where pressure drops, or the experiment fails, internal temperatures are expected to reach $-60$ °C.
+At such extremes, rubber seals reach their glass transition temperature, becoming brittle and losing their sealing properties.
+Conversely, copper maintains its structural integrity and, under adequate clamping force, provides a superior seal compared to elastomers.
+The pressure chamber is CNC-machined from an aluminium block, while the gasket is fabricated from a thin copper sheet tailored to the chamber's perimeter.
+The sealing mechanism employs a ridge-and-groove interface between the lid and the body, where a semicircular ridge compresses the copper into a matching groove to ensure a robust seal.
+%A figure of the close-up of the internal layout of the pressure chamber is given in \fref{fig:cad model internal layout chamber}. 
+Technical drawings are provided in \fref{fig:pressure_drawing}.
+\par
 
-The chamber is sealed using a copper gasket to ensure reliable sealing under elevated pressure conditions and temperature changes. Copper gaskets were selected due to their ability to provide a robust metal-to-metal seal capable of maintaining integrity at high pressure differentials.
-
-The chamber is designed to minimize internal volume while providing sufficient space for the sensor and the necessary airflow path. Reducing the internal volume proportionally lowers the airflow rate required to exchange the chamber atmosphere, which improves the overall performance of the experiment.
+%
+%\begin{figure}
+%  \centering 
+%  \includegraphics[width=0.7]{0_images/figures/internal_structure_pressure_chamber.png}
+%  \caption{Close-up on the internal layout of the pressure chamber, containing the K96.}
+%  \label{fig:cad model internal layout chamber}
+%\end{figure}
+%
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.45\textwidth]{0_images/figures/render2.png}
-    \includegraphics[width=0.45\textwidth]{0_images/figures/render1.png}
-    \caption{Renders of the pressurized chamber.}
-    \label{fig:pressure_render}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_2.png}
-    \includegraphics[width=0.45\textwidth]{0_images/figures/tech_drawing_4.png}
+    \includegraphics[width=0.45\textwidth]{0_images/figures/technical_drawing_chamber.png}
+    \includegraphics[width=0.45\textwidth]{0_images/figures/technical_drawing_chamber_2.png}
     \caption{Technical drawings of the pressurized chamber.}
     \label{fig:pressure_drawing}
+\end{figure}
+
+\begin{figure}
+  \centering 
+  \includegraphics[width=0.7\textwidth]{0_images/figures/static_fea_chamber.png}
+  \caption{Screen capture of the FEA.}
+  \label{fig:fea_static_chamber}
 \end{figure}
 
 \subsection{Pump System Architecture}\label{sec: pump system arch}
