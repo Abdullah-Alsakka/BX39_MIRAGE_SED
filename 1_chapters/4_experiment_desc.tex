@@ -100,14 +100,28 @@ Experiment expected \gls{cog} position: & Distance from geometric centre: x=4mm 
 \end{tabular}
 \end{table}
 
-\begin{table}[H]
-\centering
+\begin{longtable}{p{4cm}p{4cm}ll}
 \caption{Electrical components}
-\label{tab:electrical_components}
-\begin{tabular}{p{4cm}p{4cm}ll}
+\label{tab:electrical_components}\\
+
 \hline
 \textbf{Component} & \textbf{Dimensions (mm)} & \textbf{Mass (g)} & \textbf{Quantity}\\
 \hline
+\endfirsthead
+
+\multicolumn{4}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}}\\
+\hline
+\textbf{Component} & \textbf{Dimensions (mm)} & \textbf{Mass (g)} & \textbf{Quantity}\\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{\textit{Continued on next page}}\\
+\endfoot
+
+\hline
+\endlastfoot
+
 Vacuum pump & 119$\times$44$\times$73 & 294 & 2 \\
 Compressor & 130$\times$60$\times$85 & 445 & 1 \\
 K96 & 42.26$\times$33.9$\times$26.04 & 300 & 1 \\
@@ -133,8 +147,7 @@ Compressor & TBD & TBD & TBD \\
 \hline
 Total & & TBD & \\
 \hline
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \subsection{Component-Level Electronics Description}
 
