@@ -14,9 +14,9 @@ The pipeline ingests all sensor data streams listed in \tref{tab:data_rates}. Th
 
 \subsection*{Processing stages}
 
-The data analysis consist of six sequential processing stages:\\
+The data analysis consists of six sequential processing stages:\\
 \textbf{Stage 1 - Data ingestion} Raw binary data from the SD card and E-link are parsed and reconciled into a unified, time stamped data set. Where both sources contain the same time interval, the SD card record is prioritised; the E-link data is used to check for corrupted data and indication of missing data.\\
-\textbf{Stage 2 - Temporal alignment} All primary science sensors (K96, MS5607, SHT45) are sampled at 10 Hz. The MS5607 and SHT45 are capable of higher native rates but are read by the MCU at 10\,Hz. Temporal alignment therefor consists of verifying timestamp consistency across channels and resample any auxiliary data streams onto the common 10\,Hz time base. \\
+\textbf{Stage 2 - Temporal alignment} All primary science sensors (K96, MS5607, SHT45) are sampled at 10 Hz. The MS5607 and SHT45 are capable of higher native rates but are read by the MCU at 10\,Hz. Temporal alignment therefore consists of verifying timestamp consistency across channels and resampling any auxiliary data streams onto the common 10\,Hz time base. \\
 \textbf{Stage 3 - Calibration and correction} The raw K96 detector signals are processed through the calibration model developed by the sensor calibration team. The model converts raw detector output to corrected $CH_4$ and $CO_2$ molar fractions. By taking the ambient humidity sensor data into account and flushing in the case of too much relative humidity the quality of the data is ensured. Data collected during flushing are flagged as non-science data. \\
 \textbf{Stage 4 - Altitude assignment} Geometric altitude is derived from the ambient MS5607 barometric pressure sensor using the hypsometric equation. It will be cross-referenced against the GPS data of the gondola.\\ 
 \textbf{Stage 5 - Quality flagging} Seven quality flags are applied to each data point to indicate measurement conditions that may affect data reliability:
@@ -31,7 +31,7 @@ Flag & Condition & Effect\\
 \hline
 QF-1 & Warm-up period (sensors not thermally stable) & Data excluded \\
 QF-2 & Flushing cycle active &  Data excluded \\
-QF-3 & Chamber pressure outside of the 2.5-3.5\,bar target range & Data flagged are retained with degraded uncertainty\\
+QF-3 & Chamber pressure outside of the 2.5-3.2\,bar target range & Data flagged are retained with degraded uncertainty\\
 QF-4 & Ambient pressure sensor saturation ($p<10\,mbar$) & Altitude assignment degraded \\
 QF-5 & Humidity in pressure chamber above 80\% & Data excluded until flushing completed \\
 QF-6 & K96 temperature outside of range it was calibrated for & Data flagged to mark inflated uncertainty\\  
@@ -40,27 +40,35 @@ QF-7 & E-link data gap & Affects redundancy check only - science data unaffected
 \end{tabular}
 \end{table}
 
-Data points flagged with QF-1, 2 or 5 are excluded from science profile ('non-science data'). Points flagged with QF-3 or 6 are retained but carry an inflated uncertainty estimate. QF-3 and 7 affect auxiliary data quality rather than the atmospheric gas measurements itself.\\
-\textbf{Stage 6 - Validation preparation} The quality-controlled $CH_4$ and $CO_2$ profiles are formated for comparison against independent reference sources. This includes interpolation onto standard altitude grids used by reference data sets and calculation of vertical resolution estimates based on the balloon ascent rate, the K96 integration time and pressure dependent flow rate of the pumps.
+Data points flagged with QF-1, 2 or 5 are excluded from science profile ('non-science data'). Points flagged with QF-3 or 6 are retained but carry an inflated uncertainty estimate. QF-3 and 7 affect auxiliary data quality rather than the atmospheric gas measurements themselves.\\
+\textbf{Stage 6 - Validation preparation} The quality-controlled $CH_4$ and $CO_2$ profiles are formatted for comparison against independent reference sources. This includes interpolation onto standard altitude grids used by reference data sets and calculation of vertical resolution estimates based on the balloon ascent rate, the K96 integration time and pressure dependent flow rate of the pumps.
 
 \subsection*{Validation and Comparison} 
 The processed MIRAGE $CH_4$ and $CO_2$ profiles will be compared against multiple independent data sources to assess measurement quality and quantify the agreement with those:
 \begin{itemize}
   \item Radiative Transfer Models (RTM)
-  \subitem RTTOV (Radiative Transfer for TOVs) provides simulated top of atmosphere radiances from which $CH_4$ and $CO_2$ concentration profiles can be derived. RTM comparison establishes whether the MIRAGE profile is qualitatively consistent with the expected atmospheric state. 
+  \begin{itemize}
+    \item RTTOV (Radiative Transfer for TOVs) provides simulated top of atmosphere radiances from which $CH_4$ and $CO_2$ concentration profiles can be derived. RTM comparison establishes whether the MIRAGE profile is qualitatively consistent with the expected atmospheric state.
+  \end{itemize}
   \item Chemical Transport Models (CTM)
-  \subitem MOCAGE (Modèle de Chimie Atmosphérique à Grande Échelle) assimilates satellite observations from IASI and TROPOMI into its calculations and provides modelled $CH_4$ and $CO_2$ concentration profiles that serve as an independent estimate of the vertical concentration structure. Previous comparisons between CTM outputs and in-situ balloon measurements have shown different levels of correspondance, making this a useful but not definitive validation source.
+  \begin{itemize}
+    \item MOCAGE (Modèle de Chimie Atmosphérique à Grande Échelle) assimilates satellite observations from IASI and TROPOMI into its calculations and provides modelled $CH_4$ and $CO_2$ concentration profiles that serve as an independent estimate of the vertical concentration structure. Previous comparisons between CTM outputs and in-situ balloon measurements have shown different levels of correspondence, making this a useful but not definitive validation source.
+  \end{itemize}
   \item Satellite retrievals
-  \subitem TROPOMI L2 and GOSAT L2 $CH_4$ and $CO_2$ products provide column averaged and partial column information. Comparison requires application of satellite averaging  kernels to the MIRAGE profile to account for differences in vertical sensitivity.
+  \begin{itemize}
+    \item TROPOMI L2 and GOSAT L2 $CH_4$ and $CO_2$ products provide column averaged and partial column information. Comparison requires application of satellite averaging kernels to the MIRAGE profile to account for differences in vertical sensitivity.
+  \end{itemize}
   \item Other In-situ Data 
-  \subitem TDLAS measurements conducted from Esrange in 2016 \cite{Khair2017} provide the most direct comparison, although there has been some time between these measurement and the planned launch time for BEXUS39. AirCore measurements over France in 2018 \cite{RINGO} offer an additional reference point, with appropriate scaling for the $CH_4$ and $CO_2$ concentration increase between 2018 and the planned launch time for BEXUS39.
+  \begin{itemize}
+    \item TDLAS measurements conducted from Esrange in 2016 \cite{Khair2017} provide the most direct comparison, although there has been some time between these measurements and the planned launch time for BEXUS39. AirCore measurements over France in 2018 \cite{RINGO} offer an additional reference point, with appropriate scaling for the $CH_4$ and $CO_2$ concentration increase between 2018 and the planned launch time for BEXUS39.
+  \end{itemize}
 \end{itemize} 
  
 The analysis is implemented in two modes. A preliminary overview mode is designed for on-site use at Esrange in the days following the flight, producing a summary assessment of flight success, sensor status and a preliminary profile comparison against at least one reference source. An in-depth mode performs the full validation against all available sources with uncertainty propagation.
 
 \section{Calibration Plan}
 Because the K96 sensor is quite sensitive to temperature and humidity and has a big uncertainty associated with the methane concentration values, the calibration stage in the data analysis plan above is very important to the overall success of MIRAGE. \\
-The Calibration plan described here is based on ref. \cite{gia_accurate_2025} by Gia et al. In this study, it was demonstrated that machine learning based calibration could significantly reduce the measurement uncertainty of the K96 NDIR sensor. Specifically, it was shown that the Neural Network calibrated sensor output achieved a correlation of up to 99,98\% for CO2 and 99,03\% for CH4 when compared to reference measurements obtained from a Piccaro sensor. The intrinsic accuracy of the K96 gas sensor is on the order of 5-10 ppm. The aim of the calibration is therefore to enhance the measurement accuracy to approximately 0.5 ppm by systematic calibration and advanced signal processing techniques. \\ 
+The Calibration plan described here is based on ref. \cite{gia_accurate_2025} by Gia et al. In this study, it was demonstrated that machine learning based calibration could significantly reduce the measurement uncertainty of the K96 NDIR sensor. Specifically, it was shown that the Neural Network calibrated sensor output achieved a correlation of up to 99.98\% for CO2 and 99.03\% for CH4 when compared to reference measurements obtained from a Picarro sensor. The intrinsic accuracy of the K96 gas sensor is on the order of 5--10 ppm. The aim of the calibration is therefore to enhance the measurement accuracy to approximately 0.5 ppm by systematic calibration and advanced signal processing techniques. \\
 Machine Learning (ML) models can model the complex, non-linear dependencies between sensor output and environmental parameters, which are difficult to capture with simple analytical models. Thereby, they can enable more accurate and robust calibration of the K96 sensor across varying operating conditions. \\
 There are different ML models that are considered:
 \begin{itemize}
@@ -75,7 +83,7 @@ There are different ML models that are considered:
 Furthermore, it will be tested if a multi variable interpolation function could be used alternatively for the calibration. Possible interpolation functions are Piecewise Linear Interpolator (PLInterp), Nearest-Neighbor Interpolator (NNInterp) and Radial Basis Function Interpolator (RBDInterp). 
 \subsection*{Calibration Data}
 The parameters used to train the ML models are temperature, humidity, pressure and K96 sensor output. The training data used include values of the parameters varying between the maximum and minimum value that each of them shall stay in according to the experiment design and its requirements to ensure that the models are exposed to all relevant environmental conditions. \\
-The calibration procedure to collect training and testing data will be conducted at the Norunda weather station, which provides the necessary infrastructure for controlled calibration. Norunda offers four different calibration gases with specified concentrations of $CH_4$ and $CO_2$ and a dew point generator for humidity variation. Norunda also uses a Picarro sensor for high accuracy reference measurements of atmospheric $CH_4$ and $CO_2$ concentrations. Unfortunately, it can't be used for the calibration itself because it is used for continuous atmospheric monitoring. However, the measurement setup can be connected to it via a tube and thereby collect atmospheric test data to validate the calibration model later on.Therefore, the simulation of the environmental conditions expected 
+The calibration procedure to collect training and testing data will be conducted at the Norunda weather station, which provides the necessary infrastructure for controlled calibration. Norunda offers four different calibration gases with specified concentrations of $CH_4$ and $CO_2$ and a dew point generator for humidity variation. Norunda also uses a Picarro sensor for high accuracy reference measurements of atmospheric $CH_4$ and $CO_2$ concentrations. Unfortunately, it can't be used for the calibration itself because it is used for continuous atmospheric monitoring. However, the measurement setup can be connected to it via a tube and thereby collect atmospheric test data to validate the calibration model later on. Therefore, the simulation of the environmental conditions expected 
 during the stratospheric flight and the collection of reliable reference data for testing is possible at Norunda. \\
 For the data collection procedure, the goal is to cross vary the environmental parameters mentioned above as shown in the preliminary calibration profile in 
 %\autoref{fig:calibration_profile}.  
@@ -149,7 +157,7 @@ The resulting expectations for every objective for MIRAGE are summarised below i
 \toprule
 \textbf{Priority} & \textbf{Description} & \textbf{Expectation before CDR} \\
 \midrule
-Technical - Primary & Measure methane, carbon dioxide and water with an NDIR sensor core up to at least 20\,km altitude. & Should be reached but for $CH_4$ only with an uncertainty larger than 0.5\,ppm. \\
+Technical - Primary & Measure methane, carbon dioxide and water with an NDIR sensor core up to at least 20\,km altitude. & Should be reached, with $CH_4$ uncertainty targeted at 0.5\,ppm or below. \\
 Technical - Primary & Demonstrate a pressurisation system that can maintain 3 bar up to at least 20\,km altitude.& Should be reached \\
 Scientific - Secondary & Validate recorded measurements via chemical transport models, satellite data and previous in-situ measurements by other groups.& Depends on the first objective \\
 Scientific - Secondary & Evaluate decrease of measurement uncertainty in the field by employing AI-based calibration. & Should be reached but unknown how much decrease of uncertainty \\
