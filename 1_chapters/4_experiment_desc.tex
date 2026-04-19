@@ -444,11 +444,13 @@ Detailed electrical interfaces, component specifications, and control parameters
 The temperature conditions in a stratospheric balloon flight are quite extreme with temperatures reaching as low as -80\degree C. At the same time the air pressure can drop as low as 10 mbar, which also implies that convective heat transfer is very weak, which might cause a poorly designed system to overheat. An averaged ambient pressure and temperature profile is shown in \fref{fig:temp_press_profile}. The low temperatures might cause substantial convective cooling at lower altitudes of around 8 km, while the low pressure in combination with solar radiation might cause substantial internal and radiative heating. 
 In the following, the worst hot and cold cases will be analysed, and expected temperatures of the experiment will be shown by referencing the expected pump operations schedule.\par 
 
-\subsection{Thermal analysis background}
+\subsection{Thermal analysis}
+
+\subsubsection{Thermal analysis background}
 A detailed description is given in \aref{app:thermal_background}.
 
 
-\subsection{Cold case}\label{sec: thermal cold case}
+\subsubsection{Cold case}\label{sec: thermal cold case}
 The cold case is a steady state assumption, given environmental conditions at a specific altitude. The appropriate altitude is determined as the maximum of the air heat convection $Q_\mathrm{conv}(h)$ profile from the averaged temperature and pressure profiles given in \fref{fig:temp_press_profile}. It is assumed that no solar radiation is impacting the system (except \gls{ir} radiation from the Earth). Ambient pressure is taken from \fref{fig:temp_press_profile}, while the ambient temperature is set to be $-80$°C. Notably, the tubes containing pressurized, hot air, are assumed to be perfect thermal insulators, which is far from accurate. However, as the heat flux provided by the heated air is very small, this is acceptable.\par 
 To estimate impact of different operations and system designs, the analysis takes into account whether pumps are turned on or off, whether the experiment has heaters or not and whether the experiment is insulated or not. The insulation is assumed to be a 5 cm \dos{adjust} thick box of styrofoam, completely encapsulating the chassis. The pumps are assumed to draw 50 W. This corresponds to the maximum power draw possible by two diaphragm pumps and one piston compressor. The active pumps were chosen according to the operations schedule as outlined in \sref{sec: pump system arch}. Assuming an efficiency of 60\% for the diaphragm pumps and 40\% for the piston compressor, the resulting heat load is 26 W. \dos{adjust}\par 
 
@@ -477,7 +479,7 @@ Styrofoam & Active & Active & 17.65 & 21.00 & 3.72 \\ \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Hot case}\label{sec: thermal hot case}
+\subsubsection{Hot case}\label{sec: thermal hot case}
 Similar to the cold case, the hot case will follow a lumped system approach. However, the appropriate altitude here is chosen to minimize the impact of heat convection via air and maximizing solar heating. This means that the hot case will assume environmental conditions like those found at 30 km altitude, namely $T=-66$°C, $p=0.01$ bar and cloud-free skies. As in the cold case analysis, the effects of pumps, active heating, and styrofoam insulation are tested for individually. The results are displayed in \tref{tab:thermal results hot case}. Without styrofoam insulation, and no thermal system/heating or active pumps, the chassis temperature will reach around $-3$°C. 
 Adding the insulation leads to a counterintuitive temperature reduction to $-47$°C. This is due to the styrofoam reflecting more sunlight than the aluminium, while simultaneously loosing heat more efficiently via \gls{ir} radiation. 
 As the heat loads involved are comparatively small, an active heating system has to provide around 14 W to raise the chamber temperature to 21 °C. However, if pumps are active at 30 km altitude, the chassis will quickly reach temperatures higher than 21 °C, requiring cooling of around 9 W instead.\par 
@@ -509,7 +511,7 @@ Styrofoam & Active & Active & 25.73 & 21.00 & -7.44 \\ \bottomrule
 \end{table}
 
 
-\subsection{Continuous operation}
+\subsubsection{Continuous operation}
 As before, the continuous operation uses a lumped system approach. However, now the total energy of the system is not assumed to be constant, but transient. This means that the system temperature is changing with the changing environmental and internal heat loads. Therefore, thermal inertia needs to be taken into account via
 \begin{align}
     mc_{p}\dot{T} =& Q_\mathrm{ele}+Q_\mathrm{pump}(h)+Q_\mathrm{transfer} + Q_\mathrm{rad\,in}(h) + Q_\mathrm{insulation} - Q_\mathrm{conv}(h) - Q_\mathrm{rad\,out} \label{eq: heat diff chassis}
@@ -548,11 +550,15 @@ If insulation were used, but no daylight was available, the heating power requir
 \label{fig:continous thermal sim side}
 \end{figure}
 
-\subsection{Conclusion}\label{sec: thermal conclusion}
+\subsubsection{Conclusion of thermal analysis}\label{sec: thermal conclusion}
 The cold and hot case analysis shows that the experiment if enclosed in a styrofoam insulation is able to stay within the required temperature range depending on the proper use of pumps. In the ascend phase, the pumps are generating enough heat to keep the chamber temperature at over 21 °C, even without additional heating elements. In fact the transient analysis shows that temperatures of chassis and chamber might reach between 30 °C to 40 °C. During float phase, the chamber temperature is allowed to drop to $-5$°C. This is done in order to keep the electrical components within the chassis at around $-10$°C. The required total heating power for daytime and nighttime would be $\approx 26.79$ Wh and $\approx 40.11$ Wh, respectively. Depending on the final design of the electrical components, the temperature limit and thus required power might be lowered further.
 The real insulation material will likely not be styrofoam but another foam \dos{reference material selection analysis}. 
 
-\subsection{Passive thermal control system}
+\subsection{Thermal control systems}
+The thermal control systems are split into passive and active thermal control systems. 
+These will be explained in the following.
+
+\subsubsection{Passive thermal control system}
 There are three elements of the passive control system. The specifics of each need to be determined through further testing.
 
 \paragraph{The insulation} material is still to be decided, as is its exact dimensions.
@@ -571,7 +577,7 @@ Under prolonged use the pumps reach around 50 °C at room temperature and surfac
 When pressure decreases at higher altitude convective cooling decreases and the pumps are therefore expected to become even hotter.
 To prevent overheating, the pumps might need to be cooled using thermal bridges consisting of \dos{aluminium} plates connected to the enclosure and to the pumps using thermal pads. 
 
-\subsection{Active thermal control system}
+\subsubsection{Active thermal control system}
 The above analysis shows that during ascend and before launch, the pumps alone will provide enough heating power to heat the chamber to around 40 °C. This is on the edge of the acceptable temperature range as outlined in \tref{tab:performance_req}, P.7. Therefore, coolers as well as heaters are needed. The exact specifications of which experiment parts need to be heated and which need to be cooled will be determined through future tests. The system design is including both heating and cooling functionalities where necessary.\par
 
 During float and descend, the above analysis shows that a 10 W heater is sufficient to keep the electronics inside the chassis within acceptable limits, see \tref{tab:design_req}, D.1.3. There are multiple common choices for thermal control components at low wattages and high precision. These will be discussed below.
@@ -635,6 +641,7 @@ Around the resistor some pipe insulation can be placed to increase efficiency.
 The heater should be dimensioned such that it uses 4.5W.
 It would likely be controlled by using data from the chamber pressure sensor. If the pressure in the chamber is rising higher than expected when the compressor is on or if the chamber pressure is not dropping when the compressor is off, one can assume that the outlet hole is blocked.
 If the shutter for the outlet is open it is likely that the outlet hole has frozen over and thus the outlet hole heater should be turned on. 
+
 
 \paragraph{The control of the active thermal components} will be implemented via a \gls{pid} algorithm, as common for heating appliances. 
 The algorithm will run on the dedicated thermal \gls{mcu}. 
