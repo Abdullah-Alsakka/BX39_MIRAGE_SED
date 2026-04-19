@@ -117,11 +117,29 @@ In addition to the \gls{mirage} workforce, there is the RiseUpp board which will
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Budget}
 
-The estimated total budget of the experiment \emph{parts} without the K96 sensor is 6089 SEK, and with a 15\% buffer is 7000 SEK ($\approx$ 650 EUR). The K96 sensor, which was sponsored, is not commercially available and was estimated to be 5000 SEK; making the total cost of the experiment around 1200 EUR. Additional managerial costs like outreach and travel expenses lead to a sum of approximately 85000 SEK ($\approx$ 8000 EUR).
+The estimated total budget of the experiment \emph{parts} without the K96 sensor is 9540 SEK, and with a 15\% buffer is 10970 SEK ($\approx$ 1020 EUR). The K96 sensor, which was sponsored, is not commercially available and was estimated to be 5000 SEK; making the total cost of the experiment around 1500 EUR. Additional managerial costs like outreach and travel expenses lead to a sum of approximately 153300 SEK ($\approx$ 14200 EUR).
 
 For the hardware, \gls{mirage} was sponsored by SenseAir AB and received 2 K96 sensors; one for testing and one for use. Additionally, the pumps and the compressor were ordered.
 
 All of the hardware costs can be covered by the money given through Uppsala university for the thesis projects, however \gls{mirage} aims to find external sponsors for additional outreach budget. Additional material such as cables, screws, RTCs and small microcontrollers are available for the team in the designated lab at Uppsala university and is provided; they were not added to the total cost.
+
+Since \gls{mirage} is under the RiseUpp association, which itself is under the umbrella of Astronomisk Ungdom; a pool of 100k SEK in total and 20k SEK per association is available for projects.
+Due to the lack of student experiment projects applying to this grant, the \gls{mirage} team is confident of receiving the grant. This will cover all hardware costs and will help with additional managerial costs.
+A better overview on the funding can be seen in table \ref{tab:funding}.
+
+\begin{table}[htbp]
+\centering
+\caption{Funding Overview}
+\label{tab:funding}+
+\begin{tabular}{p{4cm}p{6cm}p{3cm}}
+\toprule
+\textbf{From} & \textbf{Amount} & \textbf{Status} \\
+\midrule
+Astronomisk Ungdom & 20000 SEK & Applied to \\
+Uppsala University & Up to 1000 SEK per thesis project & Available \\
+SenseAir AB & 2 K96 sensors, \gls{ir} lamps & Received
+\end{tabular}
+\end{table}
 
 \begin{longtable}{p{3cm}p{1.7cm}p{1.5cm}p{3cm}p{5cm}}
 \caption{Budget Breakdown}
@@ -148,29 +166,91 @@ All of the hardware costs can be covered by the money given through Uppsala univ
 \endlastfoot
 
 Enclosure & 1 & 720 & Not ordered &  \\
-MS5607 Pressure Sensor & 2 & 81.75 & Not ordered & \\
-SHT45 Temperature Sensor & 3 & 51.88 & Not ordered & \\
-Voltage Regulators & 3 & 65.29 & Not ordered & \\
-SD Card & 1 & 50.04 & Not ordered & 16 GB \\
-\gls{pcb} & 1 & 200 & Not ordered & \\
-Vacuum Pump & 2 & 1353.91 & Ordered & \\
-Compressor & 1 & 1169.77 & Ordered & \\
-Pump DevBoard & 1 & 53.96 & Ordered & \\
-Power connector & 1 & 80.55 & Not ordered & \\
-Amphenol Data Connector (RJF21B) & 1 & 571.25 & Not ordered & \\
-10 W heating pad & 1 & 20.63 & Not ordered & \\
 K96 & 2 & 5000 & Available & Non-commercial, estimate of value\\
+Aluminum Block & 1 & 200 & Available & For enclosure \\
+Plexy Glass & 1 & 90 & Not ordered & For lid \\
+High Precision Valve & 1 & 56 & Not ordered &  \\
+MS5607 Pessure Sensor & 1 & 81.75 & Not ordered &  \\
+ESP32-C5 DevKit & 1 & 199 & Not ordered & For prototyping \\
+ESP32-C5 Chip & 1 & 79 & Not ordered & For final PCB \\
+RTC IC & 1 & 116 & Not ordered &  \\
+I2C Multiplexer & 1 & 14 & Not ordered &  \\
+Ethernet Module Chip & 1 & 25 & Not ordered &  \\
+Ethernet Module Connector & 1 & 200 & Not ordered &  \\
+Watchdog & 1 & 20 & Not ordered &  \\
+Voltage Regulator & 1 & 34 & Not ordered & For USB port \\
+SD Card Reader SPI & 1 & 34 & Not ordered &  \\
+MEM2067 SD Card Reader & 1 & 10 & Not ordered &  \\
+Thermal MCU & 1 & 239 & Not ordered &  \\
+SHT45 Temp \& Humidity Sensor & 7 & 76 & Not ordered &  \\
+SD Card & 1 & 119 & Not ordered & 32 GB \\
+MCU PCB & 1 & 500 & Not ordered &  \\
+Vacuum Pump & 2 & 1354 & Not ordered &  \\
+Compressor & 1 & 1170 & Not ordered &  \\
+Pump DevBoard & 1 & 54 & Not ordered &  \\
+Power Connector & 1 & 80 & Not ordered &  \\
+Amphenol Data Connector & 1 & 575 & Not ordered &  \\
+inductor 47uH & 1 & 0.9 & Not ordered &  \\
+capacitor 22uF & 2 & 4 & Not ordered &  \\
+ACS712 & 1 & 61.6 & Not ordered &  \\
+R1 10k & 1 & 0.2 & Not ordered &  \\
+R2 15k & 1 & 0.2 & Not ordered &  \\
+Cf 10nF & 1 & 0.1 & Not ordered &  \\
+D1 1N914 & 1 & 0.1 & Not ordered &  \\
+comparator TLV9020 & 4 & 1.2 & Not ordered &  \\
+Rpu 100k & 1 & 0.6 & Not ordered &  \\
+Mosfet & 4 & 1.6 & Not ordered &  \\
+Capacitor 100nF & 4 & 0.1 & Not ordered &  \\
+Rg 47ohm & 2 & 0.9 & Not ordered &  \\
+Rgs 10kohm & 2 & 1.4 & Not ordered &  \\
+TSR-3 2433N & 1 & 8.4 & Not ordered &  \\
+TSR-3 2450N & 1 & 8.4 & Not ordered &  \\
+TSR-3 24120N & 1 & 8.5 & Not ordered &  \\
+Cout 10uF & 5 & 0.9 & Not ordered &  \\
+C 4,7 & 6 & 1.3 & Not ordered &  \\
+L 4,7 & 3 & 0.7 & Not ordered &  \\
+LM317 & 2 & 3.7 & Not ordered &  \\
+1uF & 2 & 0.1 & Not ordered &  \\
+10uF & 2 & 0.1 & Not ordered &  \\
+0.1uF & 2 & 0.1 & Not ordered &  \\
+R1 240ohm & 2 & 1.4 & Not ordered &  \\
+1N4002 & 2 & 1.2 & Not ordered &  \\
+R2 1.3K & 1 & 1.1 & Not ordered &  \\
+LM350 & 1 & 12.5 & Not ordered &  \\
+1uF & 1 & 0.1 & Not ordered &  \\
+10uF & 1 & 0.1 & Not ordered &  \\
+0.1uF & 1 & 0.1 & Not ordered &  \\
+R1 120ohm & 1 & 0.8 & Not ordered &  \\
+R2 2.2k & 1 & 0.3 & Not ordered &  \\
+Screw terminals & 10 & 0.1 & Not ordered &  \\
+pre charge resistor 30ohm & 1 & 0.1 & Not ordered &  \\
+SSR & 3 & - & Not ordered &  \\
+PCB & 2 & 500 & Not ordered & For thermal system \\
+TMP1075 & 1 & 5 & Not ordered &  \\
+1 k$\Omega$ resistor 2512 & 5 & 2.3 & Not ordered &  \\
+10nF capacitor 1206 & 10 & 2.1 & Not ordered &  \\
+IRLZ44N Power MOSFET & 10 & 10.3 & Not ordered &  \\
+Generic 270 $\Omega$ resistor & 10 & 1 & Not ordered &  \\
+Generic 10 k$\Omega$ & 10 & 1 & Not ordered &  \\
+ESP32 S3 Nano devboard & 1 & 182.6 & Not ordered &  \\
+SIP socket & 2 & 67.1 & Not ordered &  \\
+Pressure sensor ABP2LANT150PG2A3 & 1 & 244.1 & Not ordered &  \\
+Heating film & 5 & 21.4 & Not ordered &  \\
+Pressure sensor MS580314 & 1 & 233.9 & Not ordered &  \\
+Peltier 12V 5A & 1 & 99 & Not ordered &  \\
+JST qwiic connector & 10 & 7 & Not ordered &  \\
+100nF Capacitor surface & 2 & 3 & Not ordered &  \\
 \hline
-15\% Margin for Hardware & & 913 & & \\
-Total for Hardware & & 12000 & & \\
+15\% Margin for Hardware & & 1430.84 & & \\
+Total for Hardware (+ margin) & & 10969.7925 & & \\
 \hline
-Travel Expenses & 5 & 3000 & Not ordered & For the launch campaign, counting only additional nonsponsored students \\
-Accommodation & 5 & 10000 & Not ordered & For the launch campaign, counting only additional nonsponsored students \\
-Team Building & 15 & 500 & Not ordered & \\
-Team Jersey & 10 & 100 & Not ordered & \\
+Travel Expenses & 10 & 750 & Not ordered & For the launch campain, counting only additional nonsponsored students \\
+Accomodation & 10 & 10000 & Not ordered & For the launch campain, counting only additional nonsponsored students \\
+Team Building & 25 & 500 & Not ordered &  \\
+Team Jersey & 25 & 150 & Not ordered &  \\
 \hline
-15\% Margin for Manegerial Costs & & 11025 & & \\
-Total for Manegerial Costs & & 84500 & & \\
+15\% Margin for Manegerial Costs & & 18562.5 & & \\
+Total for Manegerial Costs (+ margin) & & 142312.5 & & \\
 \end{longtable}
 
 

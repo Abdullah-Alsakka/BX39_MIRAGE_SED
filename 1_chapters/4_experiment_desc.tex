@@ -838,6 +838,95 @@ Total & & & 39856 \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ground support equipment}
 
-A \gls{gui} will be developed for easy control of \gls{mirage} during the mission. The \gls{gui} will allow ground operators to send commands through uplink and visualize the downlink data. Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight.
+A Python-based \gls{gui} will be developed for ground operations during the mission. The interface will be implemented using a suitable graphical library such as Tkinter, PyQt, or PySide, depending on the final balance between simplicity, responsiveness, and development effort. For plotting and visualizing received downlink data, libraries such as Matplotlib or PyQtGraph can be used, while the downlink data itself will also be stored locally on the ground computer for later inspection and post-flight analysis.
+
+Downlink reception will be handled by a dedicated Python process that listens to the ground station input stream, receives the incoming telemetry packets, and forwards them to the \gls{gui}. The received packets will first be decoded and validated so that malformed or incomplete messages can be filtered out before they are shown to the operator. After parsing, the values will be timestamped on the ground computer and written to local storage in a structured format such as CSV or JSON, allowing the team to preserve a full mission log even if the visual interface is closed or restarted.
+
+The same data stream will then be used for live plots in the \gls{gui}, so that the operator can monitor pressure, temperature, humidity, and system status in real time as the packets arrive. This makes it possible to compare the most recent telemetry with previous points in the log and quickly identify anomalies during the mission. If the downlink is interrupted, the locally stored packet history will still be available for later review and recovery of the measurement timeline.
+
+The \gls{gui} will include clickable buttons for common mission commands, allowing operators to send predefined instructions through uplink without manually typing them each time. In addition, the interface will contain a terminal section for commands or configuration options that are not part of the predefined buttons, providing flexibility for debugging, manual intervention, and ad-hoc control during operations.
+
+\begin{table}[H]
+\centering
+\caption{Ground support tasks}
+\label{tab:ground_support_tasks}
+\begin{tabular}{p{4cm}p{9cm}}
+\toprule
+\textbf{Task} & \textbf{What has to be done} \\
+\midrule
+Develop the Python GUI & Implement the ground control interface using a suitable Python GUI library. \\
+Receive downlink data & Build a listener that receives telemetry packets from the ground station input stream. \\
+Validate and parse packets & Reject malformed packets, decode the payload, and extract telemetry values. \\
+Timestamp and store data & Save received data locally on the ground computer in a structured log format. \\
+Plot telemetry live & Display pressure, temperature, humidity, and status values in real time. \\
+Add command buttons & Provide clickable controls for common uplink commands. \\
+Add terminal fallback & Allow manual commands and configuration through a terminal area in the GUI. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[x=1.05cm,y=1.05cm]
+    % Main window frame
+    \draw[rounded corners=2pt, thick] (0,0) rectangle (14,8.5);
+
+    % Quadrants
+    \draw[rounded corners=2pt] (0.4,4.5) rectangle (6.8,8.15);
+    \draw[rounded corners=2pt] (7.2,4.5) rectangle (13.6,8.15);
+    \draw[rounded corners=2pt] (0.4,0.4) rectangle (6.8,4.0);
+    \draw[rounded corners=2pt] (7.2,0.4) rectangle (13.6,4.0);
+
+    % Section labels
+    \node[anchor=west,font=\bfseries] at (0.65,7.72) {Logs and updates};
+    \node[anchor=west,font=\bfseries] at (7.45,7.87) {Live plot area};
+    \node[anchor=west,font=\bfseries] at (0.65,3.72) {Command panel};
+    \node[anchor=west,font=\bfseries] at (7.45,3.72) {Built-in terminal};
+
+    % Log lines
+    \foreach \y/\txt in {7.1/Telemetry received,6.65/Packet validated,6.2/Pressure stable,5.75/Temperature updated,5.3/Uplink command sent} {
+        \draw (0.7,\y) -- (6.4,\y);
+        \node[anchor=west,scale=0.82] at (0.75,\y-0.2) {\txt};
+    }
+
+    % Plot area with tabs
+    \draw[rounded corners=1pt] (7.55,7.15) rectangle (8.55,7.65);
+    \draw[rounded corners=1pt,fill=gray!20] (8.62,7.15) rectangle (9.82,7.65);
+    \draw[rounded corners=1pt] (9.89,7.15) rectangle (11.05,7.65);
+    \draw[rounded corners=1pt] (11.12,7.15) rectangle (12.38,7.65);
+    \node[scale=0.72] at (8.05,7.4) {Temp};
+    \node[scale=0.72] at (9.22,7.4) {Pressure};
+    \node[scale=0.72] at (10.47,7.4) {Humidity};
+    \node[scale=0.72] at (11.75,7.4) {System};
+
+    % Plot window
+    \draw[fill=blue!5] (7.55,4.8) rectangle (13.2,6.95);
+    \draw[->] (7.8,5.0) -- (7.8,6.6);
+    \draw[->] (7.8,5.0) -- (13.0,5.0);
+    \draw[thick,blue] plot[smooth] coordinates {(8.0,5.4) (8.6,5.6) (9.2,5.35) (9.8,5.9) (10.4,5.75) (11.0,6.15) (11.6,6.0) (12.2,6.35) (12.8,6.1)};
+    \node[scale=0.75] at (10.4,5.2) {Live telemetry plot};
+
+    % Command buttons
+    \node[draw,rounded corners=1pt,fill=gray!15,minimum width=1.7cm,minimum height=0.6cm] at (1.8,3.1) {Start};
+    \node[draw,rounded corners=1pt,fill=gray!15,minimum width=1.7cm,minimum height=0.6cm] at (4.1,3.1) {Stop};
+    \node[draw,rounded corners=1pt,fill=gray!15,minimum width=1.7cm,minimum height=0.6cm] at (1.8,2.2) {Ping};
+    \node[draw,rounded corners=1pt,fill=gray!15,minimum width=1.7cm,minimum height=0.6cm] at (4.1,2.2) {Mode};
+    \node[draw,rounded corners=1pt,fill=gray!15,minimum width=4.1cm,minimum height=0.6cm] at (3.25,1.2) {Custom command entry};
+
+    % Terminal area
+    \draw[fill=black!92] (7.55,0.7) rectangle (13.2,3.35);
+    \node[anchor=west,scale=0.78,text=green!70] at (7.75,3.05) {> connect telemetry};
+    \node[anchor=west,scale=0.78,text=green!70] at (7.75,2.55) {> packet received};
+    \node[anchor=west,scale=0.78,text=green!70] at (7.75,2.05) {> command acknowledged};
+    \node[anchor=west,scale=0.78,text=green!70] at (7.75,1.55) {> manual override};
+    \node[anchor=west,scale=0.78,text=white] at (7.75,0.95) {Built-in terminal};
+\end{tikzpicture}%
+}
+\caption{Conceptual layout of the ground control GUI. The top-right panel contains tabbed live plots, the top-left panel shows logs and updates, the bottom-left panel contains command buttons, and the bottom-right panel provides a built-in terminal.}
+\label{fig:ground_gui_mockup}
+\end{figure}
+
+Additionally the team will require basic electronic equipment, chairs and a table to operate from and troubleshoot any issues before flight.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
