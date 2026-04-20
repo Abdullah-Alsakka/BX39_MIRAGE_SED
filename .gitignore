@@ -27,13 +27,8 @@
 
 # VS Code / TeX tools common output folders
 output/
-!output/**/*.pdf
 diff/output/
-!diff/output/**/*.pdf
 
 # OS generated files
 .DS_Store
 Thumbs.db
-
-# Ensure PDFs are NOT ignored
-!*.pdf

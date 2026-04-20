@@ -31,7 +31,7 @@ A Gantt chart has been made to visualize the work to be done and the duration of
 
 The critical path is Define Scientific Objectives - Define Requirements - Order Materials - Build Pressurized Chamber. This demonstrates the importance of the pressurized chamber on the whole experiment and thus the project planning.
 
-\gls{mirage} team members have declared their availability per week throughout the project duration, so that certain people were assigned different tasks.
+\gls{mirage} team members have declared their availability per week throughout the project duration, so that certain people were assigned different tasks which can be seen from \fref{fig:gantt_res}.
 
 OnlineGantt was used to manage scheduling and assigning the tasks, whereas Discord is used for communications within the team.
 
@@ -448,7 +448,7 @@ The rankings for probability (P) and severity (S) are combined to assess the ove
 \rowcolor{lowyellow} TC150 & Inrush current too high due to underdimensioned charge resistor or wrong timing, causing blown fuse & B & 4 & low & Test the precharge circuit before flight and adapt resistor if necessary \\
 \rowcolor{verylowgreen} TC151 & Inrush current too high due to underdimensioned charge resistor or wrong timing, causing blown fuse & A & 4 & very low & Acceptable risk \\
 \rowcolor{mediumorange} TC160 & Linear regulator overheating due to high power dissipation, causing lower output and thermal shutdown & C & 4 & medium & Add heatsink or cooling \\
-\rowcolor{lowyellow} TC161 & Linear regulator overheating due to high power dissipation, causing lower output and thermal shutdown & B & 4 & medium & Acceptable risk \\
+\rowcolor{lowyellow} TC161 & Linear regulator overheating due to high power dissipation, causing lower output and thermal shutdown & B & 4 & low & Acceptable risk \\
 \rowcolor{lowyellow} TC170 & DC-DC converter switching noise affecting power lines and impairing other experiments & B & 3 & low & Add filters \\
 \rowcolor{verylowgreen} TC171 & DC-DC converter switching noise affecting power lines and impairing other experiments & A & 3 & very low & Add filters \\
 \rowcolor{lowyellow} TC180 & Ground instability between power and signal ground interfering with signals & C & 3 & low & Keep separate sigGND and pwrGND; join close to battery connection \\
@@ -460,7 +460,7 @@ The rankings for probability (P) and severity (S) are combined to assess the ove
 \rowcolor{mediumorange} TC210 & Incorrect power/load estimations causing undersized components to burn out & C & 4 & medium & Calculate worst-case loads \\
 \rowcolor{lowyellow} TC211 & Incorrect power/load estimations causing undersized components to burn out & B & 4 & low & Acceptable risk \\
 \rowcolor{mediumorange} TC220 & Transient behavior not accounted for, creating hidden failure points and unpredictable consequences & C & 4 & medium & Perform experiments and simulations \\
-\rowcolor{mediumorange} TC221 & Transient behavior not accounted for, creating hidden failure points and unpredictable consequences & B & 4 & low & Acceptable risk \\
+\rowcolor{lowyellow} TC221 & Transient behavior not accounted for, creating hidden failure points and unpredictable consequences & B & 4 & low & Acceptable risk \\
 \end{longtable}
 % %
 % %\begin{landscape}
