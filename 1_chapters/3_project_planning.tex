@@ -429,30 +429,38 @@ The rankings for probability (P) and severity (S) are combined to assess the ove
 \rowcolor{lowyellow} TC71 & Delays due to lack of experience in manufacturing & C & 3 & low & Acceptable risk \\
 \rowcolor{lowyellow} TC80 & Failure of pressure sensor outside of pressure chamber & C & 2 & low & Pumps should keep running as before. Manual pump adjustments based on tests to keep the pressure stable as long as possible \\
 \rowcolor{verylowgreen} TC81 & Failure of pressure sensor outside of pressure chamber & C & 1 & very low & Acceptable risk \\
-\rowcolor{mediumorange} TC90 & Failure of pressure sensor inside of pressure chamber & C & 3 & medium & Close shutter and stop pumps, option to restart if sensor comes back \\
+\rowcolor{lowyellow} TC90 & Failure of pressure sensor inside of pressure chamber & C & 3 & low & Close shutter and stop pumps, option to restart if sensor comes back \\
 \rowcolor{lowyellow} TC91 & Failure of pressure sensor inside of pressure chamber & C & 2 & low & Acceptable risk \\
-\rowcolor{mediumorange} TC100 & Failure of temperature sensor & C & 3 & medium & Define fall back strategy for each temperature sensor depending on function and importance \\
+\rowcolor{lowyellow} TC100 & Failure of temperature sensor & C & 3 & low & Define fall back strategy for each temperature sensor depending on function and importance \\
 \rowcolor{lowyellow} TC101 & Failure of temperature sensor & C & 2 & low & Acceptable risk \\
-\rowcolor{mediumorange} TC110 & Leakage in pressure system during ascent & C & 3 & medium & Conduct final leakage test after full assembly before launch to detect \\
+\rowcolor{lowyellow} TC110 & Leakage in pressure system during ascent & C & 3 & low & Conduct final leakage test after full assembly before launch to detect \\
 \rowcolor{verylowgreen} TC111 & Leakage in pressure system during ascent & A & 3 & very low & Acceptable risk \\
-\rowcolor{mediumorange} MS60 & Loss of pressure during ascent & C & 3 & medium & Close shutter (if possible) and stop pumps, build up pressure again with closed shutter if possible \\
+\rowcolor{lowyellow} MS60 & Loss of pressure during ascent & C & 3 & low & Close shutter (if possible) and stop pumps, build up pressure again with closed shutter if possible \\
 \rowcolor{lowyellow} MS61 & Loss of pressure during ascent & C & 2 & low & Acceptable risk \\
-\rowcolor{mediumorange} TC120 & Overheating of SD Card Heater & C & 3 & medium & Include thermal switch at SD Card \\
+\rowcolor{lowyellow} TC120 & Overheating of SD Card Heater & C & 3 & low & Include thermal switch at SD Card \\
 \rowcolor{verylowgreen} TC121 & Overheating of SD Card Heater & A & 3 & very low & Acceptable risk \\
 \rowcolor{lowyellow} TC130 & Overheating of heater inside pressure chamber & C & 2 & low & Include thermal switch and mount heater in a way that it's not directly touching K96 \\
 \rowcolor{verylowgreen} TC131 & Overheating of heater inside pressure chamber & A & 2 & very low & Acceptable risk \\
-\rowcolor{mediumorange} MS70 & Multiple energy intensive components causing too high current/power consumption temporarily & C & 3 & medium & Software should prevent energy intensive components from being on at same time. Can also add something to estimate total power drawn \\
+\rowcolor{lowyellow} MS70 & Multiple energy intensive components causing too high current/power consumption temporarily & C & 3 & low & Software should prevent energy intensive components from being on at same time. Can also add something to estimate total power drawn \\
 \rowcolor{lowyellow} MS71 & Multiple energy intensive components causing too high current/power consumption temporarily & B & 3 & low & Acceptable risk \\
 \rowcolor{lowyellow} TC140 & MOSFET breakdown causing short circuit and heater/cooler on line being constantly on & B & 4 & low & Thermal switch at SD card and pressure chamber heaters \\
 \rowcolor{verylowgreen} TC141 & MOSFET breakdown causing short circuit and heater/cooler on line being constantly on & B & 2 & very low & Acceptable risk \\
-\rowcolor{lowyellow} TC150 & Inrush current too high due to underdimensioned charge resistor or wrong timing, causing blown fuse & B & 4 & low & Test the precharge circuit before flight \\
+\rowcolor{lowyellow} TC150 & Inrush current too high due to underdimensioned charge resistor or wrong timing, causing blown fuse & B & 4 & low & Test the precharge circuit before flight and adapt resistor if necessary \\
+\rowcolor{verylowgreen} TC151 & Inrush current too high due to underdimensioned charge resistor or wrong timing, causing blown fuse & A & 4 & very low & Acceptable risk \\
 \rowcolor{mediumorange} TC160 & Linear regulator overheating due to high power dissipation, causing lower output and thermal shutdown & C & 4 & medium & Add heatsink or cooling \\
+\rowcolor{lowyellow} TC161 & Linear regulator overheating due to high power dissipation, causing lower output and thermal shutdown & B & 4 & medium & Acceptable risk \\
 \rowcolor{lowyellow} TC170 & DC-DC converter switching noise affecting power lines and impairing other experiments & B & 3 & low & Add filters \\
-\rowcolor{mediumorange} TC180 & Ground instability between power and signal ground interfering with signals & C & 3 & medium & Keep separate sigGND and pwrGND; join close to battery connection \\
+\rowcolor{verylowgreen} TC171 & DC-DC converter switching noise affecting power lines and impairing other experiments & A & 3 & very low & Add filters \\
+\rowcolor{lowyellow} TC180 & Ground instability between power and signal ground interfering with signals & C & 3 & low & Keep separate sigGND and pwrGND; join close to battery connection \\
+\rowcolor{lowyellow} TC181 & Ground instability between power and signal ground interfering with signals & B & 3 & low & Acceptable risk \\
 \rowcolor{lowyellow} TC190 & Current sensor inaccuracy causing wrong information to ground station and impacting decisions & B & 3 & low & Calibrate sensor; output can vary with temperature \\
+\rowcolor{verylowgreen} TC191 & Current sensor inaccuracy causing wrong information to ground station and impacting decisions & A & 3 & very low & Acceptable risk \\
 \rowcolor{lowyellow} TC200 & 3.3V rail single point of failure causing system failure & B & 4 & low & Add rail monitoring \\
+\rowcolor{lowyellow} TC201 & 3.3V rail single point of failure causing system failure & B & 4 & low & Not decided \\
 \rowcolor{mediumorange} TC210 & Incorrect power/load estimations causing undersized components to burn out & C & 4 & medium & Calculate worst-case loads \\
+\rowcolor{lowyellow} TC211 & Incorrect power/load estimations causing undersized components to burn out & B & 4 & low & Acceptable risk \\
 \rowcolor{mediumorange} TC220 & Transient behavior not accounted for, creating hidden failure points and unpredictable consequences & C & 4 & medium & Perform experiments and simulations \\
+\rowcolor{mediumorange} TC221 & Transient behavior not accounted for, creating hidden failure points and unpredictable consequences & B & 4 & low & Acceptable risk \\
 \end{longtable}
 % %
 % %\begin{landscape}
